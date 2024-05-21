@@ -6,7 +6,7 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/21 21:12:35 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/05/21 22:11:46 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,24 +16,20 @@ CC      =   c++
 
 FLAGS   =  -Wall -Wextra -Werror -std=c++98
 
-SRC     =   *.cpp
+SRC     =   megaphone.cpp
 
-HEADERS =   *.hpp
-
-OBJS    =   $(SRC:.c=.o)
+OBJS    =   $(SRC:.cpp=.o)
 
 RM      =   rm -rf
-
-INCFLAGS =  -I $(HEADERS)
 
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp $(HEADERS)
-	$(CC) $(FLAGS) $(INCFLAGS) -c $< -o $@
+%.o: %.cpp
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
