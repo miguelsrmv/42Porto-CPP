@@ -6,20 +6,15 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/21 22:11:46 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/05/21 22:16:45 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    =   megaphone
-
 CC      =   c++
-
 FLAGS   =  -Wall -Wextra -Werror -std=c++98
-
 SRC     =   megaphone.cpp
-
 OBJS    =   $(SRC:.cpp=.o)
-
 RM      =   rm -rf
 
 
