@@ -138,7 +138,7 @@ class PhoneBook
 	bool
 	index_is_invalid (std::string index)
 	{
-		if (index.length () != 1 || index[0] < '0' || index[0] > '9')
+		if (index.length () != 1 || index[0] < '0' || index[0] > '7')
 			{
 				std::cout << "Error: invalid index!" << std::endl;
 				return true;
