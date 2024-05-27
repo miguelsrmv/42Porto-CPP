@@ -25,58 +25,17 @@ class PhoneBook
 	void
 	add_contact ()
 	{
+		Contact new_contact;
 		int contact_index;
-		std::string first_name;
-		std::string last_name;
-		std::string nickname;
-		std::string phone_number;
-		std::string darkest_secret;
 
-		std::cout << "First name: " << std::endl;
-		std::getline (std::cin, first_name);
-		if (first_name == "" || !name_is_valid (first_name))
+		new_contact = Contact::create_contact ();
+
+		if (!contact_is_empty (new_contact))
 			{
-				std::cout << "Error: Invalid first name!" << std::endl;
-				return;
+				last_contact_index++;
+				contact_index = (last_contact_index) % 8;
+				contact_list[contact_index] = new_contact;
 			}
-
-		std::cout << "Last name: " << std::endl;
-		std::getline (std::cin, last_name);
-		if (last_name == "" || !name_is_valid (last_name))
-			{
-				std::cout << "Error: Invalid last name!" << std::endl;
-				return;
-			}
-
-		std::cout << "Nickname: " << std::endl;
-		std::getline (std::cin, nickname);
-		if (nickname == "" || !name_is_valid (nickname))
-			{
-				std::cout << "Error: Invalid nickname!" << std::endl;
-				return;
-			}
-
-		std::cout << "Phone number: " << std::endl;
-		std::getline (std::cin, phone_number);
-		if (phone_number == "" || !number_is_valid (phone_number))
-			{
-				std::cout << "Error: Invalid phone number!" << std::endl;
-				return;
-			}
-
-		std::cout << "Darkest Secret: " << std::endl;
-		std::getline (std::cin, darkest_secret);
-		if (darkest_secret == "")
-			{
-				std::cout << "Error: Invalid darkest secret!" << std::endl;
-				return;
-			}
-
-		last_contact_index++;
-		contact_index = (last_contact_index) % 8;
-		contact_list[contact_index] = Contact::set_contact (
-			first_name, last_name, nickname, phone_number, darkest_secret);
-		;
 	}
 
 	// Searches for contact at given index to print
@@ -152,29 +111,5 @@ class PhoneBook
 				return true;
 			}
 		return false;
-	}
-
-	// Checks if name only has a-z and A-Z
-	bool
-	name_is_valid (std::string name)
-	{
-		for (int i = 0; name[i]; i++)
-			{
-				if (!isalpha (name[i]))
-					return false;
-			}
-		return true;
-	}
-
-	// Checks if number only has 0-9
-	bool
-	number_is_valid (std::string number)
-	{
-		for (int i = 0; number[i]; i++)
-			{
-				if (!isdigit (number[i]))
-					return false;
-			}
-		return true;
 	}
 };

@@ -28,5 +28,4 @@ main (void)
 			else
 				std::cout << "Error: Invalid input" << std::endl;
 		}
-	return (0);
 }
