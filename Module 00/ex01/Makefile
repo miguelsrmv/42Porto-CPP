@@ -6,7 +6,7 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/27 16:58:33 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/05/27 17:13:14 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,6 @@ fclean: clean
 re: fclean all
 
 format:
-	clang-format -style="{BasedOnStyle: Mozilla, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i $(SRC)
+	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i $(SRC)
 
 .PHONY: all clean fclean re

@@ -1,8 +1,8 @@
 #include "Contact.cpp"
-#include <string>
+#include <iomanip>
 #include <iostream>
 #include <stdlib.h>
-#include <iomanip>
+#include <string>
 
 class PhoneBook
 {
@@ -18,53 +18,55 @@ class PhoneBook
 			contact_list[i] = Contact ();
 	}
 
+	~PhoneBook () {}
+
 	// Adds contact to list in case all fields are valid
 	// Erases oldest contact in case list is full
 	void
 	add_contact ()
 	{
-		Contact new_contact;
 		int contact_index;
+		std::string first_name;
+		std::string last_name;
+		std::string nickname;
+		std::string phone_number;
+		std::string darkest_secret;
 
 		std::cout << "First name: " << std::endl;
-		std::getline (std::cin, new_contact.first_name);
-		if (new_contact.first_name == ""
-			|| !name_is_valid (new_contact.first_name))
+		std::getline (std::cin, first_name);
+		if (first_name == "" || !name_is_valid (first_name))
 			{
 				std::cout << "Error: Invalid first name!" << std::endl;
 				return;
 			}
 
 		std::cout << "Last name: " << std::endl;
-		std::getline (std::cin, new_contact.last_name);
-		if (new_contact.last_name == ""
-			|| !name_is_valid (new_contact.last_name))
+		std::getline (std::cin, last_name);
+		if (last_name == "" || !name_is_valid (last_name))
 			{
 				std::cout << "Error: Invalid last name!" << std::endl;
 				return;
 			}
 
 		std::cout << "Nickname: " << std::endl;
-		std::getline (std::cin, new_contact.nickname);
-		if (new_contact.nickname == ""
-			|| !name_is_valid (new_contact.nickname))
+		std::getline (std::cin, nickname);
+		if (nickname == "" || !name_is_valid (nickname))
 			{
 				std::cout << "Error: Invalid nickname!" << std::endl;
 				return;
 			}
 
 		std::cout << "Phone number: " << std::endl;
-		std::getline (std::cin, new_contact.phone_number);
-		if (new_contact.phone_number == ""
-			|| !number_is_valid (new_contact.phone_number))
+		std::getline (std::cin, phone_number);
+		if (phone_number == "" || !number_is_valid (phone_number))
 			{
 				std::cout << "Error: Invalid phone number!" << std::endl;
 				return;
 			}
 
 		std::cout << "Darkest Secret: " << std::endl;
-		std::getline (std::cin, new_contact.darkest_secret);
-		if (new_contact.darkest_secret == "")
+		std::getline (std::cin, darkest_secret);
+		if (darkest_secret == "")
 			{
 				std::cout << "Error: Invalid darkest secret!" << std::endl;
 				return;
@@ -72,7 +74,9 @@ class PhoneBook
 
 		last_contact_index++;
 		contact_index = (last_contact_index) % 8;
-		contact_list[contact_index] = new_contact;
+		contact_list[contact_index] = Contact::set_contact (
+			first_name, last_name, nickname, phone_number, darkest_secret);
+		;
 	}
 
 	// Searches for contact at given index to print
@@ -105,13 +109,13 @@ class PhoneBook
 		std::cout << std::setw (10) << std::right << index;
 		std::cout << "|";
 		std::cout << std::setw (10) << std::right
-				  << truncate_string (contact.first_name);
+				  << truncate_string (contact.get_first_name ());
 		std::cout << "|";
 		std::cout << std::setw (10) << std::right
-				  << truncate_string (contact.last_name);
+				  << truncate_string (contact.get_last_name ());
 		std::cout << "|";
 		std::cout << std::setw (10) << std::right
-				  << truncate_string (contact.nickname);
+				  << truncate_string (contact.get_nickname ());
 		std::cout << std::endl;
 	}
 
@@ -129,7 +133,7 @@ class PhoneBook
 	bool
 	contact_is_empty (Contact contact)
 	{
-		if (contact.first_name == "")
+		if (contact.get_first_name () == "")
 			{
 				std::cout << "Error: empty contact at given index!"
 						  << std::endl;
