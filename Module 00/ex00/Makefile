@@ -6,7 +6,7 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/21 22:16:45 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/05/22 14:35:18 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,5 +33,8 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+format:
+	clang-format -style="{BasedOnStyle: Google, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i $(SRC)
 
 .PHONY: all clean fclean re

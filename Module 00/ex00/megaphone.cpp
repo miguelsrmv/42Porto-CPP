@@ -6,23 +6,34 @@
 /*   By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 21:13:13 by mde-sa--          #+#    #+#             */
-/*   Updated: 2024/05/21 22:14:55 by mde-sa--         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:47:20 by mde-sa--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include <cctype>
+#include <iostream>
 
-int		main(int argc, char **argv)
-{
-	if (argc > 1)
-	{
-		for (int word_index = 1; word_index < argc; word_index++)
-			for (int char_index = 0; argv[word_index][char_index]; char_index++)
-				std::cout << (char)toupper(argv[word_index][char_index]) ;
-	}
-	else
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" ;
-	std::cout << std::endl ;
+std::string upper_string(std::string lower_string) {
+	std::string upper_string;
+
+	for (int i = 0; i < lower_string[i]; i++)
+		upper_string += (char)toupper(lower_string[i]);
+
+	return (upper_string);
+}
+
+int main(int argc, char **argv) {
+	std::string output;
+
+	if (argc > 1) {
+		for (int word_index = 1; word_index < argc; word_index++) {
+			output.append(upper_string(argv[word_index]));
+			output.append(" ");
+		}
+	} else
+		output += "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
+
+	std::cout << output << std::endl;
+
 	return (0);
 }
