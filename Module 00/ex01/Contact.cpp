@@ -12,6 +12,7 @@ class Contact
 		phone_number = "";
 		darkest_secret = "";
 	}
+
 	~Contact () {}
 
 	// Getters
@@ -20,21 +21,25 @@ class Contact
 	{
 		return first_name;
 	}
+
 	std::string
 	get_last_name ()
 	{
 		return last_name;
 	}
+
 	std::string
 	get_nickname ()
 	{
 		return nickname;
 	}
+
 	std::string
 	get_phone_number ()
 	{
 		return phone_number;
 	}
+	
 	std::string
 	get_darkest_secret ()
 	{
