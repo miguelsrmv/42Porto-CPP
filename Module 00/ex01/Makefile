@@ -6,14 +6,15 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/27 16:54:23 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/05/27 16:53:19 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    =   megaphone
+NAME    =   MyAwesomePhonebook
 CC      =   c++
 FLAGS   =  -Wall -Wextra -Werror -std=c++98
-SRC     =   megaphone.cpp
+SRC     =   MyAwesomePhonebook.cpp PhoneBook.cpp Contact.cpp
+INC		=	/
 OBJS    =   $(SRC:.cpp=.o)
 RM      =   rm -rf
 
@@ -24,7 +25,7 @@ $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -I $(INC) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
