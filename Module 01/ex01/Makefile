@@ -6,14 +6,14 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/28 22:40:14 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/05/28 23:04:49 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    =   JobOfYourDreams
+NAME    =   MoarBrainz
 CC      =   c++
 FLAGS   =  -Wall -Wextra -Werror -std=c++98
-SRC     =   tests.cpp Account.cpp
+SRC     =   main.cpp Zombie.cpp
 INC		=	/
 OBJS    =   $(SRC:.cpp=.o)
 RM      =   rm -rf
@@ -36,6 +36,6 @@ fclean: clean
 re: fclean all
 
 format:
-	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i Account.cpp
+	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i *.cpp *.hpp
 
 .PHONY: all clean fclean re format
