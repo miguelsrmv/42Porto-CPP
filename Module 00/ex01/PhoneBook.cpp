@@ -8,18 +8,17 @@ PhoneBook::PhoneBook() : last_contact_index(-1)
 
 PhoneBook::~PhoneBook() {}
 
+// Adds contact o list
 void PhoneBook::add_contact()
 {
 	Contact new_contact;
-	int contact_index;
 
 	new_contact = Contact::create_contact();
 
 	if (new_contact.is_valid())
 	{
 		last_contact_index++;
-		contact_index = (last_contact_index) % 8;
-		contact_list[contact_index] = new_contact;
+		contact_list[(last_contact_index) % 8] = new_contact;
 	}
 }
 

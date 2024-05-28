@@ -34,8 +34,7 @@ Contact::get_darkest_secret() const
 	return darkest_secret;
 }
 
-bool
-Contact::is_valid() const
+bool Contact::is_valid() const
 {
 	return valid_contact;
 }
@@ -48,17 +47,14 @@ Contact::create_contact()
 {
 	Contact contact;
 
-	if (!contact.ask_first_name()
-		|| !contact.ask_last_name()
-		|| !contact.ask_nickname()
-		|| !contact.ask_phone_number()
-		|| !contact.ask_darkest_secret())
+	if (!contact.ask_first_name() || !contact.ask_last_name() || !contact.ask_nickname() || !contact.ask_phone_number() || !contact.ask_darkest_secret())
 		return contact;
 
 	contact.valid_contact = true;
 	return contact;
 }
 
+// Helper function, checks validity of a given name
 bool Contact::name_is_valid(const std::string &name)
 {
 	for (int i = 0; name[i]; i++)
@@ -69,7 +65,7 @@ bool Contact::name_is_valid(const std::string &name)
 	return true;
 }
 
-// Checks if number only has 0-9
+// Helper function, checks if number only has digits 0-9
 bool Contact::number_is_valid(const std::string &number)
 {
 	for (int i = 0; number[i]; i++)
