@@ -31,7 +31,7 @@ int	Account::getNbWithdrawals()
 
 void Account::displayAccountsInfos()
 {
-    std::cout << "[19920104_091532] ";
+    _displayTimestamp();
 
 	std::cout	<< "accounts:" << _nbAccounts
 				<< ";total:" << _totalAmount
@@ -48,7 +48,7 @@ Account::Account(int initial_deposit)
 	_nbAccounts++;
 	_totalAmount += _amount;
 
-    std::cout << "[19920104_091532] ";
+    _displayTimestamp();
 
 	std::cout	<< "index:" << _accountIndex
 				<< ";amount:" << initial_deposit
@@ -57,7 +57,7 @@ Account::Account(int initial_deposit)
 
 Account::~Account(void)
 {
-    std::cout << "[19920104_091532] ";
+    _displayTimestamp();
 
 	std::cout	<< "index:" << _accountIndex
 				<< ";amount:" << _amount
@@ -66,7 +66,7 @@ Account::~Account(void)
 
 void Account::makeDeposit(int deposit)
 {
-    std::cout << "[19920104_091532] ";
+    _displayTimestamp();
 
 	std::cout	<< "index:" << _accountIndex
 				<< ";p_amount:" << _amount
@@ -83,7 +83,7 @@ void Account::makeDeposit(int deposit)
 
 bool Account::makeWithdrawal(int withdrawal)
 {
-    std::cout << "[19920104_091532] ";
+    _displayTimestamp();
 
 	if (withdrawal <= _amount)
 	{
@@ -112,7 +112,7 @@ bool Account::makeWithdrawal(int withdrawal)
 
 void Account::displayStatus(void) const
 {
-    std::cout << "[19920104_091532] ";
+    _displayTimestamp();
 
 	std::cout	<< "index:" << _accountIndex
 			<< ";amount:" << _amount
@@ -121,3 +121,19 @@ void Account::displayStatus(void) const
 			<< std::endl;
 }
 
+void Account::_displayTimestamp(void)
+{
+	//std::cout << "[19920104_091532] ";
+
+ 	std::time_t	time_in_sec;
+	std::tm 	*timemark;
+
+	time_in_sec = std::time(NULL);
+	timemark = std::localtime(&time_in_sec);
+	std::cout << "[" << timemark->tm_year + 1900;
+	std::cout << std::setfill('0') << std::setw(2) << timemark->tm_mon;
+	std::cout << std::setfill('0') << std::setw(2) << timemark->tm_mday << "_";
+	std::cout << std::setfill('0') << std::setw(2) << timemark->tm_hour;
+	std::cout << std::setfill('0') << std::setw(2) << timemark->tm_min;
+	std::cout << std::setfill('0') << std::setw(2) << timemark->tm_sec << "] ";
+}
