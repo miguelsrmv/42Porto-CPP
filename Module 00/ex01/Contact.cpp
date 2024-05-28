@@ -5,6 +5,7 @@ Contact::Contact ()
 	  darkest_secret (""), valid_contact (false)
 {
 }
+
 Contact::~Contact () {}
 
 // Getters
@@ -44,9 +45,10 @@ Contact::is_valid () const
 	return valid_contact;
 }
 
-// Creates a new contact given parameters
+// Creates a new contact and asks for parameters
 // Opted for this instead of individual setters since there's no need to edit
-// individual values Switches flag for contact validity
+// individual values
+// Switches flag to true if all parameters are valid
 Contact
 Contact::create_contact ()
 {

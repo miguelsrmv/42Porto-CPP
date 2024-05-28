@@ -1,20 +1,7 @@
-/* **************************************************************************
- */
-/*                                                                            */
-/*                                                        :::      :::::::: */
-/*   megaphone.cpp                                      :+:      :+:    :+: */
-/*                                                    +:+ +:+         +:+ */
-/*   By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+ */
-/*                                                +#+#+#+#+#+   +#+ */
-/*   Created: 2024/05/21 21:13:13 by mde-sa--          #+#    #+# */
-/*   Updated: 2024/05/27 12:47:58 by mde-sa--         ###   ########.fr */
-/*                                                                            */
-/* **************************************************************************
- */
-
 #include <cctype>
 #include <iostream>
 
+// Returns uppercase version of lowercase_string
 std::string
 upper_string (std::string lower_string)
 {

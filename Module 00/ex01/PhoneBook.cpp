@@ -8,7 +8,7 @@ PhoneBook::PhoneBook () : last_contact_index (-1)
 
 PhoneBook::~PhoneBook () {}
 
-// Adds contact o list
+// Adds contact to list
 void
 PhoneBook::add_contact ()
 {
@@ -24,7 +24,7 @@ PhoneBook::add_contact ()
 }
 
 // Searches for contact at given index to print
-// Checks if index is valid and if contact exists
+// Checks if index is valid and, if so, if contact exists (ie: it's valid)
 void
 PhoneBook::search_contact ()
 {
@@ -40,7 +40,7 @@ PhoneBook::search_contact ()
 	contact = contact_list[atoi (index.c_str ())];
 	if (!contact.is_valid ())
 		{
-			std::cout << "Empty slot!" << std::endl;
+			std::cout << "Error: empty slot!" << std::endl;
 			return;
 		}
 
@@ -48,6 +48,7 @@ PhoneBook::search_contact ()
 }
 
 // Prints contact information
+// Format [Index|First name|Last name|Nickname]
 void
 PhoneBook::print_contact (const Contact &contact, const std::string &index)
 {
@@ -64,7 +65,7 @@ PhoneBook::print_contact (const Contact &contact, const std::string &index)
 	std::cout << std::endl;
 }
 
-// Truncates string to maximum of length 10
+// Truncates string to maximum of length 10, puts '.' on 10th element
 std::string
 PhoneBook::truncate_string (const std::string &string)
 {
@@ -74,7 +75,7 @@ PhoneBook::truncate_string (const std::string &string)
 		return string;
 }
 
-// Check if given index is invalid
+// Check if given index is invalid (within 0 and 7)
 bool
 PhoneBook::index_is_invalid (const std::string &index)
 {
