@@ -23,7 +23,6 @@ public:
 
 	typedef Account		t;
 
-	// Done
 	static int	getNbAccounts( void );
 	// Done
 	static int	getTotalAmount( void );
@@ -31,30 +30,37 @@ public:
 	static int	getNbDeposits( void );
 	// Done
 	static int	getNbWithdrawals( void );
+	// Done
 	static void	displayAccountsInfos( void );
+	// Done
 
 	Account( int initial_deposit );
+	// Done
 	~Account( void );
+	// Done
 
 	void	makeDeposit( int deposit );
+	// Done
 	bool	makeWithdrawal( int withdrawal );
+	// Done
 	int		checkAmount( void ) const;
 	void	displayStatus( void ) const;
+	// Done
 
 
 private:
 
-	static int	_nbAccounts;
-	static int	_totalAmount;
-	static int	_totalNbDeposits;
-	static int	_totalNbWithdrawals;
+	static int	_nbAccounts;					// Number of accounts
+	static int	_totalAmount;					// Total amount
+	static int	_totalNbDeposits;				// Total number of deposits
+	static int	_totalNbWithdrawals;			// Total number of withdrawals
 
 	static void	_displayTimestamp( void );
 
-	int				_accountIndex;
-	int				_amount;
-	int				_nbDeposits;
-	int				_nbWithdrawals;
+	int				_accountIndex;				// Account index
+	int				_amount;					// Amount per account
+	int				_nbDeposits;				// Deposit per account
+	int				_nbWithdrawals;				// Withdrawal ammount
 
 	Account( void );
 
