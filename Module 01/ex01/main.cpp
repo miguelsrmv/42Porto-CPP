@@ -1,5 +1,4 @@
 #include "Zombie.hpp"
-#include "zombieHorde.cpp"
 #include <iostream>
 #include <string>
 
@@ -17,8 +16,10 @@ main (void)
 		}
 	delete[] horde;
 
-	std::cout << std::endl;
+	std::cout << std::endl << std::endl;
+
 	// Invalid usage
+	std::cout << "Invalid usages:" << std::endl;
 	/// Invalid number
 	horde = zombieHorde (0, "Mr. Goodheart");
 	horde = zombieHorde (-1, "Mr. Goodheart");

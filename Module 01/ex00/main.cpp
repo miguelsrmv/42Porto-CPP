@@ -1,6 +1,4 @@
 #include "Zombie.hpp"
-#include "newZombie.cpp"
-#include "randomChump.cpp"
 #include <iostream>
 #include <string>
 

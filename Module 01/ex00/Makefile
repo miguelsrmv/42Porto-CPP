@@ -6,14 +6,14 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/28 22:39:34 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/05/30 10:26:03 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    =   Brainz
 CC      =   c++
 FLAGS   =  -Wall -Wextra -Werror -std=c++98
-SRC     =   main.cpp Zombie.cpp
+SRC     =   main.cpp Zombie.cpp randomChump.cpp newZombie.cpp
 INC		=	/
 OBJS    =   $(SRC:.cpp=.o)
 RM      =   rm -rf
