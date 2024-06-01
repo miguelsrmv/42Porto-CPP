@@ -6,14 +6,14 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/01 09:09:26 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/01 10:31:48 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    =   SedIsForLosers
 CC      =   c++
 FLAGS   =  -Wall -Wextra -Werror -pedantic -std=c++98
-SRC     =   main.cpp
+SRC     =   main.cpp check_usage.cpp
 INC		=	/
 OBJS    =   $(SRC:.cpp=.o)
 RM      =   rm -rf
@@ -36,6 +36,6 @@ fclean: clean
 re: fclean all
 
 format:
-	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i *.cpp
+	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i *.cpp *.hpp
 
 .PHONY: all clean fclean re format

@@ -1,44 +1,11 @@
-#include <cstring>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <sys/stat.h>
+#include "SedIsForLosers.hpp"
 
-// Checks if there's a proper number of arguments and if file doesn't have an empty name
-bool
-correct_usage (const int argc, const char **argv)
+void
+write_to_output_file (std::string &target_file, char *string_1, char *string_2)
 {
-	if (argc != 4 || !strlen (argv[1]))
-		{
-			std::cerr << "Incorrect usage! Please use: "
-						 "'./SedIsForLosers Filename String1 String2'"
-					  << std::endl;
-			return (false);
-		}
-	return (true);
-}
-
-// Checks if file is openable and readable
-bool
-valid_input_file (char *input_file_path)
-{
-	char byte;
-	std::ifstream input_file (input_file_path);
-
-	if (!input_file.is_open () || !input_file.read(&byte, 1))
-		{
-			std::cerr << "Invalid input file!" << std::endl;
-			return (false);
-		}
-	return (true);
-}
-
-bool
-valid_output_file (const std::ifstream &input_file, std::ofstream &output_file)
-{
-	(void)input_file;
-	(void)output_file;
-	return (true);
+	(void)target_file;
+	(void)string_1;
+	(void)string_2;
 }
 
 int
@@ -50,4 +17,9 @@ main (int argc, char **argv)
 	if (!valid_input_file (argv[1]))
 		return (2);
 
+	std::string target_file = std::string (argv[1]) + std::string (".replace");
+	if (!valid_output_file (target_file.c_str ()))
+		return (3);
+
+	write_to_output_file (target_file, argv[2], argv[3]);
 }
