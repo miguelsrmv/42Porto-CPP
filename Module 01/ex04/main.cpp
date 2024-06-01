@@ -13,6 +13,8 @@ main (int argc, char **argv)
 	if (!valid_output_file (target_file.c_str ()))
 		return (3);
 
+	std::string string_1 = argv[2];
+	std::string string_2 = argv[3];
 	write_to_output_file ((const char *)argv[1], target_file,
-						  (const char *)argv[2], (const char *)argv[3]);
+						  string_1, string_2);
 }
