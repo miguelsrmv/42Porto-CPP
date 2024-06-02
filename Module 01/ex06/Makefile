@@ -6,14 +6,14 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/02 14:21:18 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/02 16:19:14 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=   UnecessaryViolence
-CXX     	=   c++
-CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98
-SRC			=   main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
+NAME		=   Harl_filter
+CXX			=   c++
+CXXFLAGS	=  -Wall -Wextra -Werror -pedantic -std=c++98 -g
+SRC			=   main.cpp Harl.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)
 RM			=   rm -rf

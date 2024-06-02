@@ -28,39 +28,23 @@ int
 main (int argc, char **argv)
 {
 	if (!correct_usage (argc, (const char **)argv))
-		{
-			std::cerr << "Error: Incorrect usage! Please use: "
-						 "'./SedIsForLosers Filename String1 String2'"
-					  << std::endl;
-			return (1);
-		}
+		return (error_log (1));
 
 	if (!valid_input_file ((const char *)argv[1]))
-		{
-			std::cerr << "Error: Invalid input file!" << std::endl;
-			return (2);
-		}
+		return (error_log (2));
 
 	std::string target_file = std::string (argv[1]) + ".replace";
 	if (!valid_output_file (target_file.c_str ()))
-		{
-			std::cerr << "Error: Invalid output file!" << std::endl;
-			return (3);
-		}
+		return (error_log (3));
 
 	std::ifstream input_stream (argv[1], std::ios::in);
 	if (!input_stream)
-		{
-			std::cerr << "Error: Unable to open input stream" << std::endl;
-			return (4);
-		}
+		return (error_log (4));
 
-	std::ofstream output_stream (target_file.c_str ());
-	if (!output_stream, std::ios::out | std::ios::trunc)
-		{
-			std::cerr << "Error: Unable to open output stream" << std::endl;
-			return (5);
-		}
+	std::ofstream output_stream (target_file.c_str (),
+								 std::ios::out | std::ios::trunc);
+	if (!output_stream)
+		return (error_log (5));
 
 	const std::string string_1 = argv[2];
 	const std::string string_2 = argv[3];

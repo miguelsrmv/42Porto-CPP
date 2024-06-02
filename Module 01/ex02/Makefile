@@ -6,26 +6,26 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/28 23:32:37 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/02 14:22:42 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    =   HiThisIsBrain
-CC      =   c++
-FLAGS   =  -Wall -Wextra -Werror -std=c++98
-SRC     =   main.cpp
-INC		=	/
-OBJS    =   $(SRC:.cpp=.o)
-RM      =   rm -rf
+NAME		=   HiThisIsBrain
+CXX			=   c++
+CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98
+SRC			=   main.cpp
+INC			=	/
+OBJS		=   $(SRC:.cpp=.o)
+RM			=   rm -rf
 
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) $(FLAGS) -I $(INC) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -I $(INC) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)

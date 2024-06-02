@@ -34,3 +34,25 @@ valid_output_file (const char *output_file_path)
 		return (false);
 	return (true);
 }
+
+// Prints error message depending on error code
+int
+error_log (int error_code)
+{
+	std::string error_message;
+
+	if (error_code == 1)
+		error_message = "Incorrect usage! Please use: "
+						"'./SedIsForLosers Filename String1 String2'";
+	else if (error_code == 2)
+		error_message = "Invalid input file!";
+	else if (error_code == 3)
+		error_message = "Invalid output file!";
+	else if (error_code == 4)
+		error_message = "Unable to open input stream";
+	else if (error_code == 5)
+		error_message = "Unable to open output stream";
+
+	std::cerr << "Error: " << error_message << std::endl;
+	return (error_code);
+}

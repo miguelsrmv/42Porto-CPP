@@ -6,14 +6,14 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/02 14:21:49 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/02 14:43:36 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   SedIsForLosers
 CXX			=   c++
 CXXFLAGS	=  -Wall -Wextra -Werror -pedantic -std=c++98 -g
-SRC			=   main.cpp check_usage.cpp
+SRC			=   main.cpp error_check.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)
 RM			=   rm -rf

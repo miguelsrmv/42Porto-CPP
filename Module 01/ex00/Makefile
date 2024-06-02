@@ -6,26 +6,26 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/05/30 10:26:03 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/02 14:26:06 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    =   Brainz
-CC      =   c++
-FLAGS   =  -Wall -Wextra -Werror -std=c++98
-SRC     =   main.cpp Zombie.cpp randomChump.cpp newZombie.cpp
-INC		=	/
-OBJS    =   $(SRC:.cpp=.o)
-RM      =   rm -rf
+NAME		=   Brainz
+CXX			=   c++
+CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98
+SRC			=   main.cpp Zombie.cpp randomChump.cpp newZombie.cpp
+INC			=	/
+OBJS		=   $(SRC:.cpp=.o)
+RM			=   rm -rf
 
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) $(FLAGS) -I $(INC) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -I $(INC) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
