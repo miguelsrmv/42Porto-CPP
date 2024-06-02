@@ -14,7 +14,9 @@ bool valid_input_file (const char *input_file_path);
 bool valid_output_file (const char *output_file_path);
 
 // main.cpp
-void write_to_output_file (const char *input_file, const char *output_file,
-						   std::string &string_1, std::string &string_2);
+void write_to_output_file (std::ifstream &input_stream,
+						   std::ofstream &output_stream,
+						   const std::string &string_1,
+						   const std::string &string_2);
 
 #endif
