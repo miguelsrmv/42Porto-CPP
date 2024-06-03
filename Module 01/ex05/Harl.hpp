@@ -17,13 +17,13 @@ class Harl
   public:
 	Harl ();
 	~Harl ();
-	void complain (std::string level);
+	void complain (const std::string level) const;
 
   private:
-	void debug (void);
-	void info ();
-	void warning ();
-	void error ();
+	void debug () const;
+	void info () const;
+	void warning () const;
+	void error () const;
 };
 
 #endif

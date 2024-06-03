@@ -5,7 +5,7 @@ Harl::Harl () {}
 Harl::~Harl () {}
 
 void
-Harl::complain (std::string level)
+Harl::complain (const std::string &level) const
 {
 	std::string levels[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
 	int index = -1;
@@ -36,7 +36,7 @@ Harl::complain (std::string level)
 }
 
 void
-Harl::debug (void)
+Harl::debug (void) const
 {
 	std::cout << "I love having extra bacon for my "
 				 "7XL-double-cheese-triple-pickle-special-ketchup burger. I "
@@ -45,7 +45,7 @@ Harl::debug (void)
 }
 
 void
-Harl::info ()
+Harl::info () const
 {
 	std::cout << "I cannot believe adding extra bacon costs more money. You "
 				 "didn’t putenough bacon in my burger! If you did, I wouldn’t "
@@ -54,7 +54,7 @@ Harl::info ()
 }
 
 void
-Harl::warning ()
+Harl::warning () const
 {
 	std::cout
 		<< "I think I deserve to have some extra bacon for free. I’ve been "
@@ -64,7 +64,7 @@ Harl::warning ()
 }
 
 void
-Harl::error ()
+Harl::error () const
 {
 	std::cout << "This is unacceptable! I want to speak to the manager now."
 			  << std::endl;

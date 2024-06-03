@@ -37,7 +37,7 @@ valid_output_file (const char *output_file_path)
 
 // Prints error message depending on error code
 int
-error_log (int error_code)
+error_log (const int error_code)
 {
 	std::string error_message;
 

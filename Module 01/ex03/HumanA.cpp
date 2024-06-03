@@ -9,7 +9,7 @@ HumanA::HumanA (std::string human_name, Weapon &type)
 HumanA::~HumanA () {}
 
 void
-HumanA::attack ()
+HumanA::attack () const
 {
 	std::cout << name << " attacks with " << weapon.get_type () << std::endl;
 }

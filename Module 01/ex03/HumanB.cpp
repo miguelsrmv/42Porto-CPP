@@ -12,7 +12,7 @@ HumanB::setWeapon (Weapon &type)
 }
 
 void
-HumanB::attack ()
+HumanB::attack () const
 {
 	std::cout << name << " attacks with his ";
 
