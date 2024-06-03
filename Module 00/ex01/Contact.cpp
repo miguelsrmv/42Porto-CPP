@@ -65,7 +65,7 @@ Contact::create_contact ()
 
 // Helper function, checks validity of a given name
 bool
-Contact::name_is_valid (const std::string &name)
+Contact::name_is_valid (const std::string& name)
 {
 	for (int i = 0; name[i]; i++)
 		{
@@ -77,7 +77,7 @@ Contact::name_is_valid (const std::string &name)
 
 // Helper function, checks if number only has digits 0-9
 bool
-Contact::number_is_valid (const std::string &number)
+Contact::number_is_valid (const std::string& number)
 {
 	for (int i = 0; number[i]; i++)
 		{

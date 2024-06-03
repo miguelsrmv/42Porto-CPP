@@ -50,7 +50,7 @@ PhoneBook::search_contact ()
 // Prints contact information
 // Format [Index|First name|Last name|Nickname]
 void
-PhoneBook::print_contact (const Contact &contact, const std::string &index)
+PhoneBook::print_contact (const Contact& contact, const std::string& index)
 {
 	std::cout << std::setw (10) << std::right << index;
 	std::cout << "|";
@@ -67,7 +67,7 @@ PhoneBook::print_contact (const Contact &contact, const std::string &index)
 
 // Truncates string to maximum of length 10, puts '.' on 10th element
 std::string
-PhoneBook::truncate_string (const std::string &string)
+PhoneBook::truncate_string (const std::string& string)
 {
 	if (string.length () > 10)
 		return string.substr (0, 9) + '.';
@@ -77,7 +77,7 @@ PhoneBook::truncate_string (const std::string &string)
 
 // Check if given index is invalid (within 0 and 7)
 bool
-PhoneBook::index_is_invalid (const std::string &index)
+PhoneBook::index_is_invalid (const std::string& index)
 {
 	if (index.length () != 1 || index[0] < '0' || index[0] > '7')
 		{

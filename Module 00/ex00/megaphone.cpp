@@ -3,7 +3,7 @@
 
 // Returns uppercase version of lowercase_string
 std::string
-upper_string (std::string lower_string)
+upper_string (const std::string& lower_string)
 {
 	std::string upper_string;
 
