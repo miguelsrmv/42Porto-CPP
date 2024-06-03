@@ -1,5 +1,6 @@
 #include <cctype>
 #include <iostream>
+#include <cstring>
 
 // Returns uppercase version of lowercase_string
 std::string
