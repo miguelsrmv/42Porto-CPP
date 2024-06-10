@@ -34,48 +34,48 @@ Fixed::operator= (const Fixed &copy)
 	return (*this);
 }
 
-std::ostream &operator<< (std::ostream &out, const Fixed &copy)
+std::ostream &
+operator<< (std::ostream &out, const Fixed &copy)
 {
-	out << copy.toFloat();
+	out << copy.toFloat ();
 	return (out);
 }
 
 bool
 Fixed::operator> (const Fixed &copy)
 {
-	return (this->toFloat() > copy.toFloat());
+	return (this->toFloat () > copy.toFloat ());
 }
 
 bool
-Fixed::operator< (const Fixed &copy)
+Fixed::operator<(const Fixed &copy)
 {
-	return (this->toFloat() < copy.toFloat());
+	return (this->toFloat () < copy.toFloat ());
 }
 
 bool
 Fixed::operator>= (const Fixed &copy)
 {
-	return (this->toFloat() >= copy.toFloat());
+	return (this->toFloat () >= copy.toFloat ());
 }
 
 bool
 Fixed::operator<= (const Fixed &copy)
 {
-	return (this->toFloat() <= copy.toFloat());
+	return (this->toFloat () <= copy.toFloat ());
 }
 
 bool
 Fixed::operator== (const Fixed &copy)
 {
-	return (this->toFloat() == copy.toFloat());
+	return (this->toFloat () == copy.toFloat ());
 }
 
 bool
-Fixed::operator!= (const Fixed &copy) 
+Fixed::operator!= (const Fixed &copy)
 {
-	return (this->toFloat() != copy.toFloat());
+	return (this->toFloat () != copy.toFloat ());
 }
-
 
 Fixed::~Fixed () { std::cout << "Destructor called" << std::endl; }
 
@@ -94,11 +94,12 @@ Fixed::setRawBits (int const raw)
 float
 Fixed::toFloat (void) const
 {
-	return ((float)(this->fixed_point_number) / (float)(1 << this->fractional_bits));
+	return ((float)(this->fixed_point_number)
+			/ (float)(1 << this->fractional_bits));
 }
 
 int
-Fixed:: toInt (void) const
+Fixed::toInt (void) const
 {
 	return (this->fixed_point_number / (1 << this->fractional_bits));
 }

@@ -1,8 +1,8 @@
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
 class Fixed
 {
@@ -14,7 +14,7 @@ class Fixed
 
 	Fixed &operator= (const Fixed &copy);
 	bool operator> (const Fixed &copy);
-	bool operator< (const Fixed &copy);
+	bool operator<(const Fixed &copy);
 	bool operator>= (const Fixed &copy);
 	bool operator<= (const Fixed &copy);
 	bool operator== (const Fixed &copy);
