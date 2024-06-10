@@ -6,11 +6,11 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/08 20:20:59 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/10 22:29:03 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=   TowardsAMoreUsefulFixedPointNumberClass
+NAME		=   NowWeAreTalking
 CXX			=   c++
 CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98
 SRC			=   main.cpp Fixed.cpp
