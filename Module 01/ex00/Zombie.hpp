@@ -10,10 +10,10 @@ public:
 	Zombie(const std::string &name);
 	~Zombie();
 
-	void announce(void) const;
+	void announce(void);
 
 private:
-	std::string zombie_name;
+	std::string name;
 };
 
 Zombie *newZombie(std::string name);
