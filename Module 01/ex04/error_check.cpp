@@ -1,11 +1,11 @@
 #include "SedIsForLosers.hpp"
 
-// Checks if there's a proper number of arguments and if file doesn't have an
+// Checks if there's a proper number of arguments and if file / string_1 don't have an
 // empty name
 bool
 correct_usage (const int argc, const char **argv)
 {
-	if (argc != 4 || !strlen (argv[1]))
+	if (argc != 4 || !strlen (argv[1]) || !strlen(argv[2]))
 		return (false);
 	return (true);
 }
@@ -43,7 +43,7 @@ error_log (const int error_code)
 
 	if (error_code == 1)
 		error_message = "Incorrect usage! Please use: "
-						"'./SedIsForLosers Filename String1 String2'";
+						"'./SedIsForLosers [Filename (non-null)] [String1 (non-null)] [String2]'";
 	else if (error_code == 2)
 		error_message = "Invalid input file!";
 	else if (error_code == 3)
