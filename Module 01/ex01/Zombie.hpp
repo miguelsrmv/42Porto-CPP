@@ -6,18 +6,18 @@
 
 class Zombie
 {
-  public:
-	Zombie (const std::string &name);
-	Zombie (void);
-	~Zombie ();
+public:
+	Zombie(const std::string &name);
+	Zombie(void);
+	~Zombie();
 
-	void announce (void) const;
-	void set_name (const std::string &name);
+	void announce(void) const;
+	void set_name(const std::string &name);
 
-  private:
+private:
 	std::string zombie_name;
 };
 
-Zombie *zombieHorde (int N, const std::string &name);
+Zombie *zombieHorde(int N, const std::string &name);
 
 #endif

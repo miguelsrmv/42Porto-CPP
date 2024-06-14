@@ -2,34 +2,34 @@
 #include <iostream>
 #include <string>
 
-int
-main (void)
+int main(void)
 {
 	Zombie *horde;
 
 	// Normal usage
-	horde = zombieHorde (5, "Mr. Goodheart");
+	horde = zombieHorde(5, "Mr. Goodheart");
 	for (int i = 0; i < 5; i++)
-		{
-			std::cout << "(" << i + 1 << ") ";
-			horde[i].announce ();
-		}
+	{
+		std::cout << "(" << i + 1 << ") ";
+		horde[i].announce();
+	}
 	delete[] horde;
 
-	std::cout << std::endl << std::endl;
+	std::cout << std::endl
+			  << std::endl;
 
 	// Invalid usage
 	std::cout << "Invalid usages:" << std::endl;
 	/// Invalid number
-	horde = zombieHorde (0, "Mr. Goodheart");
-	horde = zombieHorde (-1, "Mr. Goodheart");
+	horde = zombieHorde(0, "Mr. Goodheart");
+	horde = zombieHorde(-1, "Mr. Goodheart");
 	/// When casting non-ints, these won't even compile
 	///	horde = zombieHorde(NULL, "Mr. Goordheart");
 	//// horde = zombieHorde("a", "Mr. Goodheart");
 	//// horde = zombieHorde('a', "Mr. Goodheart");
 
 	/// No name
-	horde = zombieHorde (5, "");
+	horde = zombieHorde(5, "");
 
 	/// Without enough arguments, it won't even compile
 	//// horde = zombieHorde(5);

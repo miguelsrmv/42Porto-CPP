@@ -16,7 +16,7 @@ void write_to_output_file(std::ifstream &input_stream,
 	{
 		found_pos = content.find(string_1, position);
 		if (found_pos == std::string::npos)
-			break ;
+			break;
 		output_stream << content.substr(position, found_pos - position);
 		output_stream << string_2;
 		position = found_pos + string_1.length();
