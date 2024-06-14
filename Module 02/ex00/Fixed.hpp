@@ -5,17 +5,17 @@
 
 class Fixed
 {
-  public:
-	Fixed ();
-	Fixed (const Fixed &copy);
-	Fixed &operator= (const Fixed &copy);
-	~Fixed ();
-	int getRawBits (void) const;
-	void setRawBits (int const raw);
+public:
+	Fixed();
+	Fixed(const Fixed &copy);
+	Fixed &operator=(const Fixed &copy);
+	~Fixed();
+	int getRawBits(void) const;
+	void setRawBits(int const raw);
 
-  private:
+private:
 	int fixed_point_number;
-	static const int fractional_bits;
+	static const int fractional_bits = 8;
 };
 
 #endif

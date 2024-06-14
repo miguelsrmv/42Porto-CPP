@@ -6,11 +6,11 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/08 20:20:59 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/14 22:22:45 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=   TowardsAMoreUsefulFixedPointNumberClass
+NAME		=   TowardsAMoreUsefulFPNumberClass
 CXX			=   c++
 CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98
 SRC			=   main.cpp Fixed.cpp
@@ -35,7 +35,4 @@ fclean: clean
 
 re: fclean all
 
-format:
-	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i *.cpp *.hpp
-
-.PHONY: all clean fclean re format
+.PHONY: all clean fclean re
