@@ -10,6 +10,12 @@ void write_to_output_file(std::ifstream &input_stream,
 	std::string content;
 	content = buffer.str();
 
+	if (!string_1.size())
+	{
+		output_stream << content ;
+		return ;
+	}
+
 	size_t position = 0;
 	size_t found_pos;
 	while (true)
