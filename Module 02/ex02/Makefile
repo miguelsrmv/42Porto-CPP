@@ -6,13 +6,13 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/14 22:22:52 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/14 23:47:27 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   NowWeAreTalking
 CXX			=   c++
-CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98
+CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98
 SRC			=   main.cpp Fixed.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)
