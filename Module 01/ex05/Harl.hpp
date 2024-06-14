@@ -14,16 +14,16 @@ enum error_code
 
 class Harl
 {
-public:
-	Harl();
-	~Harl();
-	void complain(const std::string level) const;
+  public:
+	Harl ();
+	~Harl ();
+	void complain (std::string level);
 
-private:
-	void debug() const;
-	void info() const;
-	void warning() const;
-	void error() const;
+  private:
+	void debug ();
+	void info ();
+	void warning ();
+	void error ();
 };
 
 #endif

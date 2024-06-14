@@ -5,19 +5,15 @@ Harl::Harl () {}
 Harl::~Harl () {}
 
 void
-Harl::complain (const std::string &level) const
+Harl::complain (std::string &level)
 {
 	std::string levels[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
-	int index = -1;
 
-	for (int i = DEBUG; i <= ERROR; i++)
-		if (levels[i] == level)
-			{
-				index = i;
-				break;
-			}
+	int level_index = DEBUG;
+	while (level_index <= ERROR && levels[level_index] != level)
+		level_index++;
 
-	switch (index)
+	switch (level_index)
 		{
 		default:
 			break;
@@ -36,7 +32,7 @@ Harl::complain (const std::string &level) const
 }
 
 void
-Harl::debug (void) const
+Harl::debug (void)
 {
 	std::cout << "[DEBUG]" << std::endl
 			  << "I love having extra bacon for my "
@@ -46,7 +42,7 @@ Harl::debug (void) const
 }
 
 void
-Harl::info () const
+Harl::info ()
 {
 	std::cout << "[INFO]" << std::endl
 			  << "I cannot believe adding extra bacon costs more money. You "
@@ -56,7 +52,7 @@ Harl::info () const
 }
 
 void
-Harl::warning () const
+Harl::warning ()
 {
 	std::cout
 		<< "[WARNING]" << std::endl
@@ -67,7 +63,7 @@ Harl::warning () const
 }
 
 void
-Harl::error () const
+Harl::error ()
 {
 	std::cout << "[ERROR]" << std::endl
 			  << "This is unacceptable! I want to speak to the manager now."

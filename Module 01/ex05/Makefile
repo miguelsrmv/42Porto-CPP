@@ -6,13 +6,13 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/02 16:05:58 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/14 22:33:43 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   Harl
 CXX			=   c++
-CXXFLAGS	=  -Wall -Wextra -Werror -pedantic -std=c++98 -g
+CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98
 SRC			=   main.cpp Harl.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)
@@ -35,7 +35,4 @@ fclean: clean
 
 re: fclean all
 
-format:
-	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i *.cpp *.hpp
-
-.PHONY: all clean fclean re format
+.PHONY: all clean fclean re

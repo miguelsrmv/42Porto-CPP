@@ -6,13 +6,13 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/14 21:11:17 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/14 22:33:22 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   Brainz
 CXX			=   c++
-CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98
+CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98
 SRC			=   main.cpp Zombie.cpp randomChump.cpp newZombie.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)

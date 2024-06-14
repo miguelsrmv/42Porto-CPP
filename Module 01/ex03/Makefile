@@ -6,13 +6,13 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/14 21:25:14 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/14 22:33:32 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   UnecessaryViolence
 CXX     	=   c++
-CXXFLAGS	=  -Wall -Wextra -Werror -std=c++98 -pedantic
+CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98
 SRC			=   main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)
