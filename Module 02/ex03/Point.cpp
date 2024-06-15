@@ -11,8 +11,19 @@ Point::operator= (const Point &copy)
 {
 	if (this == &copy)
 		return (*this);
-	(Fixed) this->x = copy.get_x ();
-	(Fixed) this->y = copy.get_y ();
+	/*
+		Technically impossible to create this operator because x and y are
+		consts as per the subject.
+		As such, I decided not to change these variables!
+		Possible alternatives:
+			#1 Moving the assignment operator to "private" (against the rules?)
+			#2 Casting away the consts (can lead to undefined behaviour)
+				(Fixed) this->x = copy.get_x ();
+				(Fixed) this->y = copy.get_y ();
+			#3 Pointer shenanigans (can lead to undefined behaviour as well)
+				*(Fixed *)&(this->x) = copy.get_x ();
+				*(Fixed *)&(this->y) = copy.get_y ();
+	*/
 	return (*this);
 }
 
@@ -21,11 +32,11 @@ Point::~Point () {}
 Fixed
 Point::get_x () const
 {
-	return ((Fixed)this->x);
+	return (x);
 }
 
 Fixed
 Point::get_y () const
 {
-	return ((Fixed)this->y);
+	return (y);
 }

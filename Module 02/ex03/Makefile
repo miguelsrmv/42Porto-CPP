@@ -6,13 +6,13 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/15 11:24:17 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/06/15 19:41:06 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   BSP
 CXX			=   c++
-CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98
+CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98 -g
 SRC			=   main.cpp Fixed.cpp Point.cpp bsp.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)
