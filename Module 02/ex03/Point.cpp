@@ -40,3 +40,4 @@ Point::get_y () const
 {
 	return (y);
 }
+

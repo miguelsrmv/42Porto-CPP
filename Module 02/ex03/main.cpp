@@ -50,7 +50,7 @@ test_case_2 ()
 	print_point_location (bsp (a, b, c, point), point);
 }
 
-// Point super position, point is on top of vertex (thus, inside)
+// Point super position, point is on top of vertex (thus, outside)
 void
 test_case_3 ()
 {
@@ -63,7 +63,7 @@ test_case_3 ()
 	print_point_location (bsp (a, b, c, point), point);
 }
 
-// Point is on-line (thus inside)
+// Point is on-line (thus, outside)
 void
 test_case_4 ()
 {
@@ -76,8 +76,7 @@ test_case_4 ()
 	print_point_location (bsp (a, b, c, point), point);
 }
 
-// Degenerated triangle and point is on-line (outside because triangle has no
-// area)
+// Degenerated triangle and point is on-line (thus, outside)
 void
 test_case_5 ()
 {
