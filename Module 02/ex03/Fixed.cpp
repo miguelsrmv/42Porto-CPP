@@ -192,3 +192,4 @@ Fixed::toInt (void) const
 {
 	return (this->fixed_point_number / (1 << this->fractional_bits));
 }
+
