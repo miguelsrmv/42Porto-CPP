@@ -1,10 +1,22 @@
 #include "ClapTrap.hpp"
 
-int main (void)
+int
+main (void)
 {
-	ClapTrap John("John", 10, 10, 10);
+	ClapTrap Charizard ("Charizard");
 
-	John.attack("Jhonata");
-	John.takeDamage(20);
-	John.beRepaired(30);
+	Charizard.attack ("Venusaur");
+	Charizard.takeDamage (0);
+	Charizard.takeDamage (5);
+	Charizard.beRepaired (10);
+
+	ClapTrap Shiny_Charizard (Charizard);
+
+	Shiny_Charizard.takeDamage (14);
+	Shiny_Charizard.attack ("Venusaur");
+	Shiny_Charizard.beRepaired (0);
+	Shiny_Charizard.takeDamage (1);
+	Shiny_Charizard.attack ("Venusaur");
+	Shiny_Charizard.beRepaired (10);
+	Shiny_Charizard.takeDamage (0);
 }
