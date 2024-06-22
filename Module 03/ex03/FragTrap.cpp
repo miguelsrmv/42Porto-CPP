@@ -17,8 +17,7 @@ FragTrap::FragTrap (const std::string &name)
 	energy_points = 100;
 	attack_data = 30;
 
-	std::cout << "FragTrap " << this->name
-			  << " parametrized constructor has been called" << std::endl;
+	std::cout << "FragTrap parametrized constructor has been called" << std::endl;
 }
 
 FragTrap::FragTrap (const FragTrap &copy) : ClapTrap ()

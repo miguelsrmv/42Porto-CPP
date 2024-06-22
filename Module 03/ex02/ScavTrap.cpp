@@ -17,7 +17,7 @@ ScavTrap::ScavTrap (const std::string &name) : ClapTrap ()
 	energy_points = 50;
 	attack_data = 20;
 
-	std::cout << "ScravTrap " << this->name << " parametrized constructor has been called"
+	std::cout << "ScravTrap parametrized constructor has been called"
 			  << std::endl;
 }
 
