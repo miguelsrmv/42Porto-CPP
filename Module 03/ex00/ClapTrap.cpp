@@ -16,8 +16,9 @@ ClapTrap::ClapTrap (const std::string &name)
 
 ClapTrap::ClapTrap (const ClapTrap &copy)
 {
-	*this = copy;
 	std::cout << "ClapTrap copy constructor has been called" << std::endl;
+
+	*this = copy;
 }
 
 ClapTrap &
@@ -25,12 +26,13 @@ ClapTrap::operator= (const ClapTrap &copy)
 {
 	std::cout << "ClapTrap = assignment has been called" << std::endl;
 
-	if (this == &copy)
-		return (*this);
-	this->name = copy.name;
-	this->hit_points = copy.hit_points;
-	this->attack_data = copy.attack_data;
-	this->energy_points = copy.energy_points;
+	if (this != &copy)
+		{
+			this->name = copy.name;
+			this->hit_points = copy.hit_points;
+			this->attack_data = copy.attack_data;
+			this->energy_points = copy.energy_points;
+		}
 	return (*this);
 }
 
@@ -45,14 +47,14 @@ ClapTrap::attack (const std::string &target)
 {
 	if (!energy_points || hit_points <= 0)
 		{
-			std::cout << "ClapTrap " << name
+			std::cout << name
 					  << " can't attack: no energy or hit points left!"
 					  << std::endl;
 			return;
 		}
 	energy_points--;
 
-	std::cout << "ClapTrap " << name << " attacks " << target << " causing "
+	std::cout <<  name << " attacks " << target << " causing "
 			  << attack_data << " points of damage!" << std::endl;
 }
 
@@ -61,13 +63,13 @@ ClapTrap::takeDamage (unsigned int amount)
 {
 	if (hit_points <= 0)
 		{
-			std::cout << "ClapTrap " << name << " is already dead!"
+			std::cout << name << " is already dead!"
 					  << std::endl;
 			return;
 		}
 
 	hit_points -= amount;
-	std::cout << "ClapTrap " << name << " took " << amount
+	std::cout << name << " took " << amount
 			  << " points of damange!" << std::endl;
 }
 
@@ -76,7 +78,7 @@ ClapTrap::beRepaired (unsigned int amount)
 {
 	if (!energy_points || hit_points <= 0)
 		{
-			std::cout << "ClapTrap " << name
+			std::cout << name
 					  << " can't repair: no energy or hit points left!"
 					  << std::endl;
 			return;
@@ -84,6 +86,6 @@ ClapTrap::beRepaired (unsigned int amount)
 	energy_points--;
 
 	hit_points += amount;
-	std::cout << "ClapTrap " << name << " healed for " << amount
+	std::cout << name << " healed for " << amount
 			  << " points of damange!" << std::endl;
 }
