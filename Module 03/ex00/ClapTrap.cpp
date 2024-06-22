@@ -50,7 +50,7 @@ ClapTrap::takeDamage (unsigned int amount)
 {
 	if (hit_points <= 0)
 		{
-			std::cout << "ClapTrap " << name << "is already dead!"
+			std::cout << "ClapTrap " << name << " is already dead!"
 					  << std::endl;
 			return;
 		}

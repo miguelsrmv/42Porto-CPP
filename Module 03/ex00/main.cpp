@@ -3,20 +3,20 @@
 int
 main (void)
 {
-	ClapTrap Charizard ("Charizard");
+	ClapTrap CTrap ("A");
 
-	Charizard.attack ("Venusaur");
-	Charizard.takeDamage (0);
-	Charizard.takeDamage (5);
-	Charizard.beRepaired (10);
+	CTrap.attack ("enemy");
+	CTrap.takeDamage (0);
+	CTrap.takeDamage (5);
+	CTrap.beRepaired (10);
 
-	ClapTrap Shiny_Charizard (Charizard);
+	ClapTrap Copy_CTrap (CTrap);
 
-	Shiny_Charizard.takeDamage (14);
-	Shiny_Charizard.attack ("Venusaur");
-	Shiny_Charizard.beRepaired (0);
-	Shiny_Charizard.takeDamage (1);
-	Shiny_Charizard.attack ("Venusaur");
-	Shiny_Charizard.beRepaired (10);
-	Shiny_Charizard.takeDamage (0);
+	Copy_CTrap.takeDamage (14);
+	Copy_CTrap.attack ("enemy");
+	Copy_CTrap.beRepaired (0);
+	Copy_CTrap.takeDamage (1);
+	Copy_CTrap.attack ("enemy");
+	Copy_CTrap.beRepaired (10);
+	Copy_CTrap.takeDamage (0);
 }

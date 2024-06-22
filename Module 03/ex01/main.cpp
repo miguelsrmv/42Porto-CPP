@@ -21,6 +21,8 @@ main (void)
 	Copy_CTrap.beRepaired (10);
 	Copy_CTrap.takeDamage (0);
 
+	std::cout << std::endl << std::endl << std::endl ;
+
 	ScavTrap Strap ("B");
 
 	Strap.attack ("another enemy");

@@ -1,0 +1,60 @@
+#include "FragTrap.hpp"
+
+FragTrap::FragTrap()
+{
+    name = "Unnamed FragTrap";
+    hit_points = 100;
+    energy_points = 100;
+    attack_data = 30;
+
+    std::cout << "FragTrap default constructor has been called" << std::endl;
+}
+
+FragTrap::FragTrap(const std::string &name)
+{
+    this->name = "FragTrap " + name;
+    hit_points = 100;
+    energy_points = 100;
+    attack_data = 30;
+
+    std::cout << this->name << "parametrized constructor has been called" << std::endl;
+}
+
+FragTrap::FragTrap(const FragTrap &copy) : ClapTrap()
+{
+    *this = copy;
+
+    std::cout << "FragTrap copy constructor has been called" << std::endl;
+}
+
+FragTrap &
+FragTrap::operator=(const FragTrap &copy)
+{
+    std::cout << "FragTrap = assignment has been called" << std::endl;
+
+    if (this != &copy)
+    {
+        name = copy.name;
+        hit_points = copy.hit_points;
+        energy_points = copy.energy_points;
+        attack_data = copy.energy_points;
+    }
+    return (*this);
+}
+
+FragTrap::~FragTrap()
+{
+    std::cout << name << "destructor has been called" << std::endl;
+}
+
+void FragTrap::highFivesGuys()
+{
+    if (!energy_points || hit_points <= 0)
+	{
+		std::cout << name << " can't high five: no energy or hit points left!"
+				  << std::endl;
+		return;
+	}
+
+    std::cout << name << " high fives everyone in the room!" << std::endl;
+}

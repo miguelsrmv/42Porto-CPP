@@ -2,20 +2,22 @@
 
 ScavTrap::ScavTrap() : ClapTrap()
 {
-	std::cout << "ScavTrap default constructor has been called" << std::endl;
     name = "Unnamed ScavTrap";
     hit_points = 100;
     energy_points = 50;
     attack_data = 20;
+
+    std::cout << "ScavTrap default constructor has been called" << std::endl;
 }
 
-ScavTrap::ScavTrap(const std::string& name) : ClapTrap()
+ScavTrap::ScavTrap(const std::string &name) : ClapTrap()
 {
-    std::cout << "ScavTrap parametrized constructor has been called" << std::endl;
     this->name = "ScavTrap " + name;
     hit_points = 100;
     energy_points = 50;
     attack_data = 20;
+
+    std::cout << this->name << " parametrized constructor has been called" << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &copy) : ClapTrap()
@@ -39,9 +41,9 @@ ScavTrap::operator=(const ScavTrap &copy)
     return (*this);
 }
 
-ScavTrap::~ScavTrap() 
+ScavTrap::~ScavTrap()
 {
-    std::cout << "ScavTrap destructor has been called" << std::endl;
+    std::cout << name << " destructor has been called" << std::endl;
 }
 
 void ScavTrap::guardGate()
