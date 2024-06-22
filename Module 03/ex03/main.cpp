@@ -1,31 +1,33 @@
 #include "DiamondTrap.hpp"
 
-void printHeader(std::string str) {
-    std::cout << "\n" << str << "\n" << std::endl;
-}
+int main()
+{
+	DiamondTrap t1;
+	DiamondTrap t2("Charizard");
+	DiamondTrap t3(t2);
 
+	std::cout << "\n-------- Testing t3(t2) --------\n" << std::endl;
+	std::cout << t3;
+	t3.attack("Pikachu");
+	std::cout << t3;
+	t3.takeDamage(9);
+	std::cout << t3;
+	t3.beRepaired(5);
+	std::cout << t3;
+	t3.guardGate();
+	std::cout << t3;
+	t3.highFivesGuys();
+	std::cout << t3;
+	t3.whoAmI();
+	std::cout << t3;
+	t3.takeDamage(100);
+	std::cout << t3;
+	t3.beRepaired(50);
+	std::cout << t3;
 
-int main() {
-    // Create a DiamondTrap object
-    printHeader("Creating a DiamondTrap");
-    DiamondTrap diamond("Diamond");
-
-    // Test inherited FragTrap functionalities
-    printHeader("Printing DiamondTrap attributes");
-
-    // Test DiamondTrap specific functionality
-    printHeader("DiamondTrap requesting a high five");
-    diamond.highFivesGuys();
-
-    // Test ScavTrap specific functionality
-    printHeader("DiamondTrap guarding the gate");
-    diamond.guardGate();
-
-    // Test DiamondTrap specific functionality
-    printHeader("DiamondTrap introspecting");
-    diamond.whoAmI();
-
-    printHeader("End of Program (Destructors will be called automatically)");
-
-    return 0;
+	std::cout << "\n-------- Testing t1 = t3 --------\n" << std::endl;
+	t1 = t3;
+	std::cout << t1;
+	t3.whoAmI();
+	std::cout << t3 << std::endl;
 }

@@ -17,11 +17,18 @@ public:
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 
+	std::string getName (void) const;
+	int getHealth (void) const;
+	int getEnergy (void) const;
+	int getDamage (void) const;
+
 protected:
 	std::string name;
 	int hit_points;
 	int energy_points;
 	unsigned int attack_data;
 };
+
+std::ostream &operator<< (std::ostream &out, const ClapTrap &Claptrap);
 
 #endif

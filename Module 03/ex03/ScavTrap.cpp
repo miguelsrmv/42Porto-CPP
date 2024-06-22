@@ -56,5 +56,7 @@ ScavTrap::guardGate ()
 					  << std::endl;
 			return;
 		}
+
+	energy_points--;
 	std::cout << "ScravTrap " << name << " entering guard gate mode!" << std::endl;
 }

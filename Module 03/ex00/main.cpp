@@ -3,20 +3,24 @@
 int
 main (void)
 {
-	ClapTrap CTrap ("A");
+	ClapTrap t1;
+	ClapTrap t2("Charizard");
+	ClapTrap t3(t2);
 
-	CTrap.attack ("enemy");
-	CTrap.takeDamage (0);
-	CTrap.takeDamage (5);
-	CTrap.beRepaired (10);
+	std::cout << "\n-------- Testing t3(t2) --------\n" << std::endl;
+	std::cout << t3;
+	t3.attack("Pikachu");
+	std::cout << t3;
+	t3.takeDamage(9);
+	std::cout << t3;
+	t3.beRepaired(5);
+	std::cout << t3;
+	t3.takeDamage(7);
+	std::cout << t3;
+	t3.beRepaired(5);
+	std::cout << t3;
 
-	ClapTrap Copy_CTrap (CTrap);
-
-	Copy_CTrap.takeDamage (14);
-	Copy_CTrap.attack ("enemy");
-	Copy_CTrap.beRepaired (0);
-	Copy_CTrap.takeDamage (1);
-	Copy_CTrap.attack ("enemy");
-	Copy_CTrap.beRepaired (10);
-	Copy_CTrap.takeDamage (0);
+	std::cout << "\n-------- Testing t1 = t3 --------\n" << std::endl;
+	t1 = t3;
+	std::cout << t1 << std::endl;
 }

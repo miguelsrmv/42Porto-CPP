@@ -60,6 +60,7 @@ FragTrap::highFivesGuys ()
 			return;
 		}
 
+	energy_points--;
 	std::cout << "FragTrap " << name << " high fives everyone in the room!"
 			  << std::endl;
 }

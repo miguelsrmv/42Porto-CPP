@@ -2,6 +2,9 @@
 
 DiamondTrap::DiamondTrap (void) : ScavTrap (), FragTrap ()
 {
+	std::cout << "DiamondTrap default constructor has been called"
+			  << std::endl;
+
 	name = "Unnamed DiamondTrap";
 	this->ClapTrap::name = name + "_clap_name";
 	this->hit_points = this->FragTrap::hit_points;
@@ -9,9 +12,11 @@ DiamondTrap::DiamondTrap (void) : ScavTrap (), FragTrap ()
 	this->attack_data = this->FragTrap::attack_data;
 }
 
-DiamondTrap::DiamondTrap (const std::string &name)
-	: ScavTrap (), FragTrap ()
+DiamondTrap::DiamondTrap (const std::string &name) : ScavTrap (), FragTrap ()
 {
+	std::cout << "DiamondTrap parametized constructor has been called"
+			  << std::endl;
+
 	this->name = name;
 	this->ClapTrap::name = name + "_clap_name";
 	this->hit_points = this->FragTrap::hit_points;
@@ -20,14 +25,19 @@ DiamondTrap::DiamondTrap (const std::string &name)
 }
 
 DiamondTrap::DiamondTrap (const DiamondTrap &copy)
-	: ClapTrap(), ScavTrap (), FragTrap ()
+	: ClapTrap (), ScavTrap (), FragTrap ()
 {
+
+	std::cout << "DiamondTrap copy constructor has been called" << std::endl;
+
 	*this = copy;
 }
 
 DiamondTrap &
 DiamondTrap::operator= (const DiamondTrap &copy)
 {
+	std::cout << "DiamondTrap = assignment has been called" << std::endl;
+
 	if (this != &copy)
 		{
 			this->name = copy.name;
