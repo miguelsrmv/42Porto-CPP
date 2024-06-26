@@ -1,45 +1,45 @@
 #include "A_Materia.hpp"
 
-AMateria::AMateria()
+AMateria::AMateria ()
 {
-    //std::cout << "AMateria default constructor called" << std::endl ;
+	// std::cout << "AMateria default constructor called" << std::endl ;
 }
 
-AMateria::AMateria(std::string const &type) : materia_type (type)
+AMateria::AMateria (std::string const &type) : _materia_type (type)
 {
-    //std::cout << "AMateria parametrized constructor called" << std::endl ;
+	// std::cout << "AMateria parametrized constructor called" << std::endl ;
 }
 
-AMateria::AMateria(const AMateria& copy)
+AMateria::AMateria (const AMateria &copy)
 {
-    //std::cout << "AMateria copy constructor called" << std::endl ;
+	// std::cout << "AMateria copy constructor called" << std::endl ;
 
-    *this = copy;
+	*this = copy;
 }
 
 AMateria &
-AMateria::operator=(const AMateria& copy)
+AMateria::operator= (const AMateria &copy)
 {
-    //std::cout << "AMateria = operator called" << std::endl ;
+	// std::cout << "AMateria = operator called" << std::endl ;
 
-    if (this != &copy)
-        this->materia_type = copy.materia_type;
-    return (*this);
+	if (this != &copy)
+		this->_materia_type = copy._materia_type;
+	return (*this);
 }
 
-AMateria::~AMateria()
+AMateria::~AMateria ()
 {
-    //std::cout << "AMateria destructor called" << std::endl ;
+	// std::cout << "AMateria destructor called" << std::endl ;
 }
 
-std::string const&
-AMateria::getType() const
+std::string const &
+AMateria::getType () const
 {
-    return materia_type;
+	return _materia_type;
 }
 
 void
-AMateria::use(ICharacter &target)
+AMateria::use (ICharacter &target)
 {
-    std::cout << "Used " << materia_type << " on target XXXX" << std::endl ;
+	(void)target;
 }

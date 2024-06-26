@@ -1,24 +1,27 @@
 #include "Character.hpp"
 
-Character::Character () : character_name ("No name")
+Character::Character () : _character_name ("No name")
 {
 	// std::cout << "Character default constructor called" << std::endl ;
 
 	for (int idx = 0; idx < 4; idx++)
-		equipped_materia[idx] = NULL;
+		_equipped_materia[idx] = NULL;
 }
 
-Character::Character (const std::string &name) : character_name (name)
+Character::Character (const std::string &name) : _character_name (name)
 {
 	// std::cout << "Character parametrized constructor called" << std::endl ;
 
 	for (int idx = 0; idx < 4; idx++)
-		equipped_materia[idx] = NULL;
+		_equipped_materia[idx] = NULL;
 }
 
 Character::Character (const Character &copy)
 {
 	// std::cout << "Character copy constructor called" << std::endl ;
+
+	for (int idx = 0; idx < 4; idx++)
+		_equipped_materia[idx] = NULL;
 
 	*this = copy;
 }
@@ -30,16 +33,16 @@ Character::operator= (const Character &copy)
 
 	if (this != &copy)
 		{
-			this->character_name = copy.character_name;
-			for (int i = 0; i < 4; i++)
+			this->_character_name = copy._character_name;
+			for (int idx = 0; idx < 4; idx++)
 				{
-					if (this->equipped_materia[i])
-						delete (this->equipped_materia[i]);
-					if (copy.equipped_materia[i])
-						this->equipped_materia[i]
-							= (copy.equipped_materia[i])->clone ();
+					if (this->_equipped_materia[idx])
+						delete (this->_equipped_materia[idx]);
+					if (copy._equipped_materia[idx])
+						this->_equipped_materia[idx]
+							= (copy._equipped_materia[idx])->clone ();
 					else
-						this->equipped_materia[i] = NULL;
+						this->_equipped_materia[idx] = NULL;
 				}
 		}
 	return (*this);
@@ -48,12 +51,18 @@ Character::operator= (const Character &copy)
 Character::~Character ()
 {
 	// std::cout << "Character destructor called" << std::endl ;
+
+	for (int idx = 0; idx < 4; idx++)
+	{
+		if (_equipped_materia[idx])
+			delete(_equipped_materia[idx]);
+	}
 }
 
 std::string const &
 Character::getName () const
 {
-	return this->character_name;
+	return this->_character_name;
 }
 
 void
@@ -61,7 +70,7 @@ Character::equip (AMateria *m)
 {
 	int idx = 0;
 
-	while (idx < 4 && this->equipped_materia[idx])
+	while (idx < 4 && this->_equipped_materia[idx])
 		idx++;
 
 	if (idx == 4)
@@ -71,7 +80,7 @@ Character::equip (AMateria *m)
 			return;
 		}
 
-	this->equipped_materia[idx] = m;
+	this->_equipped_materia[idx] = m;
 }
 
 void
@@ -83,18 +92,18 @@ Character::unequip (int idx)
 					  << std::endl;
 			return;
 		}
-    
-	this->equipped_materia[idx] = NULL;
+
+	this->_equipped_materia[idx] = NULL;
 }
 
 void
 Character::use (int idx, ICharacter &target)
 {
-	if (this->equipped_materia[idx] == NULL)
+	if (this->_equipped_materia[idx] == NULL)
 		{
 			std::cout << "Couldn't use Materia: slot is empty!" << std::endl;
 			return;
 		}
 
-	this->equipped_materia[idx]->use (target);
+	this->_equipped_materia[idx]->use (target);
 }

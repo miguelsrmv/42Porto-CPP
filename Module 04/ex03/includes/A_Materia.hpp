@@ -2,20 +2,20 @@
 #define A_MATERIA
 
 #include "I_Character.hpp"
-#include <string>
 #include <iostream>
+#include <string>
 
 class AMateria
 {
   protected:
-	std::string materia_type;
+	std::string _materia_type;
 
   public:
 	AMateria ();
 	AMateria (std::string const &type);
-	AMateria (const AMateria& copy);
-	AMateria &operator=(const AMateria& copy);
-	~AMateria ();
+	AMateria (const AMateria &copy);
+	AMateria &operator= (const AMateria &copy);
+	virtual ~AMateria ();
 
 	std::string const &getType () const; // Returns the materia type
 	virtual AMateria *clone () const = 0;
