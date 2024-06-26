@@ -1,6 +1,9 @@
 #include "A_Materia.hpp"
 #include "I_Character.hpp"
+#include "Character.hpp"
 #include "I_MateriaSource.hpp"
+#include "Ice_Materia.hpp"
+#include "Cure_Materia.hpp"
 
 int
 main (void)
@@ -26,5 +29,5 @@ main (void)
 	delete me;
 	delete src;
 
-	return 0
+	return 0;
 }

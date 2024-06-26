@@ -15,7 +15,7 @@ CXX			=   c++
 CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -Wno-shadow -pedantic -std=c++98
 SRCDIR		=	src
 INCDIR		=   includes
-SRC			=   main.cpp A_Materia.cpp I_Character.cpp I_MateriaSource.cpp
+SRC			=   main.cpp A_Materia.cpp Ice_Materia.cpp Cure_Materia.cpp I_Character.cpp Character.cpp I_MateriaSource.cpp
 OBJS		=   $(addprefix $(SRCDIR)/, $(SRC:.cpp=.o))
 RM			=   rm -rf
 
