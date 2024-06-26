@@ -53,10 +53,10 @@ Character::~Character ()
 	// std::cout << "Character destructor called" << std::endl ;
 
 	for (int idx = 0; idx < 4; idx++)
-	{
-		if (_equipped_materia[idx])
-			delete(_equipped_materia[idx]);
-	}
+		{
+			if (_equipped_materia[idx])
+				delete (_equipped_materia[idx]);
+		}
 }
 
 std::string const &
@@ -75,7 +75,7 @@ Character::equip (AMateria *m)
 
 	if (idx == 4)
 		{
-			std::cout << "Couldn't equip Materia: slots are full!"
+			std::cout << "Couldn't equip Materia : slots are full!"
 					  << std::endl;
 			return;
 		}
@@ -93,6 +93,12 @@ Character::unequip (int idx)
 			return;
 		}
 
+	if (this->_equipped_materia[idx] == NULL)
+		{
+			std::cout << "Couldn't unequip Materia: no materia exists on this slot!"
+					  << std::endl;
+			return;
+		}
 	this->_equipped_materia[idx] = NULL;
 }
 

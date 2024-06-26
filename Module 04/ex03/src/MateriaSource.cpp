@@ -37,15 +37,11 @@ MateriaSource::~MateriaSource ()
 {
 	// std::cout << "MateriaSource default destructor called" << std::endl ;
 
-{
-	// std::cout << "Character destructor called" << std::endl ;
-
 	for (int idx = 0; idx < 4; idx++)
 	{
 		if (_learnt_materias[idx])
 			delete(_learnt_materias[idx]);
 	}
-}
 }
 
 void
@@ -58,7 +54,7 @@ MateriaSource::learnMateria (AMateria *materia)
 
 	if (idx == 4)
 		{
-			std::cout << "Couldn't equip Materia: slots are full!"
+			std::cout << "Couldn't learn Materia: slots are full!"
 					  << std::endl;
 			return;
 		}
@@ -77,7 +73,7 @@ MateriaSource::createMateria (std::string const &type)
 
 	if (idx == 4)
 		{
-			std::cout << "This materia type has not been learned before!"
+			std::cout << "Couldn't create Materia: this materia type has not been learned before!"
 					  << std::endl;
 			return NULL;
 		}

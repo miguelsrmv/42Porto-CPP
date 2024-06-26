@@ -8,27 +8,50 @@
 
 #include <iostream>
 
+void
+deep_copy_tests ()
+{
+	std::cout << "DEEP COPY TESTS" << std::endl << std::endl;
 
-void deep_copy_tests() {
-    std::cout << "DEEP COPY TESTS" << std::endl << std::endl;
+	Character *bob = new Character ("Bob");
+	Character *me = new Character (*bob);
 
-    Character *bob = new Character("Bob");
-    Character *me = new Character(*bob);
+	// Print the addresses of bob and me
+	std::cout << "---------------------------" << std::endl;
+	std::cout << "Address of Bob: " << bob << std::endl;
+	std::cout << "Address of Me: " << me << std::endl;
+	std::cout << "---------------------------" << std::endl;
 
-    // Print the addresses of bob and me
-    std::cout << "---------------------------" << std::endl;
-    std::cout << "Address of Bob: " << bob << std::endl;
-    std::cout << "Address of Me: " << me << std::endl;
-    std::cout << "---------------------------" << std::endl;
+	IMateriaSource *source = new MateriaSource ();
+	source->learnMateria (new Ice ());
+	source->learnMateria (new Cure ());
+	Ice *ice = new Ice ();
+	Ice *iceCopy = new Ice (*ice);
+	Cure *cure = new Cure ();
+	Cure *cureCopy = new Cure (*cure);
 
-    // Delete allocated memory
-    delete bob;
-    delete me;
+	// Print the addresses of Ice / IceCopy and Cure / CureCopy
+	std::cout << "---------------------------" << std::endl;
+	std::cout << "Address of Ice: " << ice << std::endl;
+	std::cout << "Address of Ice copy: " << iceCopy << std::endl;
+	std::cout << "Address of Cure: " << cure << std::endl;
+	std::cout << "Address of Cure copy: " << cureCopy << std::endl;
+	std::cout << "---------------------------" << std::endl;
 
-    std::cout << std::endl;
+	// Delete allocated memory
+	delete bob;
+	delete me;
+	delete source;
+	delete ice;
+	delete iceCopy;
+	delete cure;
+	delete cureCopy;
+
+	std::cout << std::endl;
 }
 
-void subject_tests()
+void
+subject_tests ()
 {
 	std::cout << "MAIN TESTS" << std::endl << std::endl;
 
@@ -53,13 +76,75 @@ void subject_tests()
 	delete me;
 	delete src;
 
-	std::cout << std::endl ;
+	std::cout << std::endl;
+}
+
+void
+materia_usage_tests ()
+{
+	std::cout << "MATERIA USAGE TEST" << std::endl << std::endl;
+
+	IMateriaSource *src = new MateriaSource ();
+	for (int idx = 0; idx < 4; idx++)
+		src->learnMateria (new Cure ());
+
+	AMateria *tmp[6];
+	for (int idx = 0; idx < 6; idx++)
+		tmp[idx] = src->createMateria ("cure");
+
+	Character *me = new Character ("me");
+
+	// Attempt to learn the 5th materia
+	Ice *excess_materia = new Ice ();
+	src->learnMateria (excess_materia);
+
+	// Attempts creating unlearned materia
+	AMateria *invalid_materia = src->createMateria ("fire");
+
+	// Attempts unequipping when there's no materia equipped yet
+	for (int idx = 0; idx < 4; idx++)
+		me->unequip (idx);
+
+	// Tests what happens when you attempt to equip the 5th materia
+	for (int idx = 0; idx < 5; idx++)
+		me->equip (tmp[idx]);
+
+	// Tests unequipping invalid indexes
+	me->unequip (5);
+	me->unequip (-1);
+
+	// Unequips one materia, then attempts to equip another one back
+	// (should work!)
+	me->unequip (0);
+	me->equip (tmp[4]);
+
+	// Re-tests over-adding materia
+	me->equip (tmp[5]);
+
+	// Unequips all materia (for valgrind purposes)
+	me->unequip (0);
+	me->unequip (1);
+	me->unequip (2);
+	me->unequip (3);
+
+	// Delete allocated memory
+	for (int idx = 0; idx < 6; idx++)
+		delete tmp[idx];
+	delete invalid_materia;
+	delete excess_materia;
+	delete src;
+	delete me;
+
+	std::cout << std::endl;
 }
 
 int
 main (void)
 {
-	subject_tests();
-	deep_copy_tests();
+	std::cout << std::endl;
+
+	subject_tests ();
+	deep_copy_tests ();
+	materia_usage_tests ();
 	return 0;
 }
