@@ -2,7 +2,6 @@
 
 ScavTrap::ScavTrap () : ClapTrap ()
 {
-	name = "Unnamed ScavTrap";
 	hit_points = 100;
 	energy_points = 50;
 	attack_data = 20;
@@ -10,18 +9,17 @@ ScavTrap::ScavTrap () : ClapTrap ()
 	std::cout << "ScavTrap default constructor has been called" << std::endl;
 }
 
-ScavTrap::ScavTrap (const std::string &name) : ClapTrap ()
+ScavTrap::ScavTrap (const std::string &name) : ClapTrap (name)
 {
-	this->name = name;
 	hit_points = 100;
 	energy_points = 50;
 	attack_data = 20;
 
-	std::cout << "ScravTrap parametrized constructor has been called"
+	std::cout << "ScravTrap " << this->name << " parametrized constructor has been called"
 			  << std::endl;
 }
 
-ScavTrap::ScavTrap (const ScavTrap &copy) : ClapTrap ()
+ScavTrap::ScavTrap (const ScavTrap &copy) : ClapTrap (copy)
 {
 	std::cout << "ScavTrap copy constructor has been called" << std::endl;
 	*this = copy;
@@ -56,7 +54,22 @@ ScavTrap::guardGate ()
 					  << std::endl;
 			return;
 		}
-
+	
 	energy_points--;
 	std::cout << "ScravTrap " << name << " entering guard gate mode!" << std::endl;
+}
+
+void
+ScavTrap::attack (const std::string &target)
+{
+	if (!energy_points || hit_points <= 0)
+		{
+			std::cout << "ScavTrap " << name << " can't attack: no energy or hit points left!"
+					  << std::endl;
+			return;
+		}
+	energy_points--;
+
+	std::cout << "ScavTrap " << name << " attacks " << target << " causing " << attack_data
+			  << " points of damage!" << std::endl;
 }
