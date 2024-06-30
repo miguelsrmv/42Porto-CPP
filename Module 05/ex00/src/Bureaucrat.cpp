@@ -12,8 +12,7 @@ Bureaucrat::Bureaucrat (std::string name, int grade) : name (name)
 	this->grade = grade;
 }
 
-Bureaucrat::Bureaucrat (const Bureaucrat &copy)
-	: name (copy.name), grade (copy.grade)
+Bureaucrat::Bureaucrat (const Bureaucrat &copy) : name(copy.name), grade(copy.grade)
 {
 	std::cout << "Copy constructor called" << std::endl;
 }
@@ -34,20 +33,14 @@ Bureaucrat::~Bureaucrat ()
 	std::cout << "Default destructor called" << std::endl;
 }
 
-std::string
-Bureaucrat::GradeTooHighException::too_high_message () const
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-	std::string message = "Invalid grade: too high!";
-
-	return message;
+	return "Invalid grade: too high!";
 }
 
-std::string
-Bureaucrat::GradeTooLowException::too_low_message () const
+const char *Bureaucrat::GradeTooLowException::what () const throw()
 {
-	std::string message = "Invalid grade: too low!";
-
-	return message;
+	return "Invalid grade: too low!";
 }
 
 std::string

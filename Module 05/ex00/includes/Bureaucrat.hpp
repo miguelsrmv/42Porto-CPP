@@ -15,12 +15,12 @@ class Bureaucrat
 	class GradeTooHighException : public std::exception
 	{
 	  public:
-		std::string too_high_message () const;
+		const char *what() const throw();
 	};
 	class GradeTooLowException : public std::exception
 	{
 	  public:
-		std::string too_low_message () const;
+		const char *what() const throw();
 	};
 
 	// Constructor / Destructor

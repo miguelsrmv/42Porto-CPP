@@ -33,12 +33,12 @@ attempt_to_create_bureaucrat (const std::string &name, int grade)
 	catch (const Bureaucrat::GradeTooHighException &exception_class)
 		{
 			std::cout << "Exception caught: "
-					  << exception_class.too_high_message () << std::endl;
+					  << exception_class.what () << std::endl;
 		}
 	catch (const Bureaucrat::GradeTooLowException &exception_class)
 		{
 			std::cout << "Exception caught: "
-					  << exception_class.too_low_message () << std::endl;
+					  << exception_class.what () << std::endl;
 		}
 }
 
@@ -60,14 +60,14 @@ attempt_invalid_increment (const std::string &name)
 			catch (const Bureaucrat::GradeTooHighException &exception_class)
 				{
 					std::cout << "Exception caught: "
-							  << exception_class.too_high_message ()
+							  << exception_class.what ()
 							  << std::endl;
 					return;
 				}
 			catch (const Bureaucrat::GradeTooLowException &exception_class)
 				{
 					std::cout << "Exception caught: "
-							  << exception_class.too_low_message ()
+							  << exception_class.what ()
 							  << std::endl;
 					return;
 				}
@@ -91,14 +91,14 @@ attempt_invalid_decrement (const std::string &name)
 			catch (const Bureaucrat::GradeTooHighException &exception_class)
 				{
 					std::cout << "Exception caught: "
-							  << exception_class.too_high_message ()
+							  << exception_class.what ()
 							  << std::endl;
 					return;
 				}
 			catch (const Bureaucrat::GradeTooLowException &exception_class)
 				{
 					std::cout << "Exception caught: "
-							  << exception_class.too_low_message ()
+							  << exception_class.what ()
 							  << std::endl;
 					return;
 				}
