@@ -1,26 +1,6 @@
 #include "Bureaucrat.hpp"
 
 void
-test_constructors ()
-{
-	std::string A = "A";
-
-	Bureaucrat a (A, 1);
-	std::cout << a;
-
-	Bureaucrat b (a);
-	std::cout << b;
-
-	Bureaucrat c = a;
-	std::cout << c;
-
-	// Won't work because = operator is private
-	/* 	Bureaucrat d (A, 0);
-		d = a;
-		std::cout << d; */
-}
-
-void
 attempt_to_create_bureaucrat (const std::string &name, int grade)
 {
 	std::cout << std::endl;
@@ -108,8 +88,6 @@ attempt_invalid_decrement (const std::string &name)
 int
 main (void)
 {
-	test_constructors ();
-
 	attempt_to_create_bureaucrat ("Steven", MAX_GRADE);
 	attempt_to_create_bureaucrat ("Richard", MIN_GRADE);
 	attempt_to_create_bureaucrat ("Anderson", (MAX_GRADE + MIN_GRADE) / 2);

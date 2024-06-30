@@ -12,10 +12,11 @@ Bureaucrat::Bureaucrat (std::string name, int grade) : name (name)
 	this->grade = grade;
 }
 
-Bureaucrat::Bureaucrat (const Bureaucrat &copy)
-	: name (copy.name), grade (copy.grade)
+Bureaucrat::Bureaucrat (const Bureaucrat &copy) : Bureaucrat(copy.name, copy.grade)
 {
 	std::cout << "Copy constructor called" << std::endl;
+
+	*this = copy;
 }
 
 Bureaucrat &
