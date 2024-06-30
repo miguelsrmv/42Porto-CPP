@@ -4,10 +4,10 @@ Cat::Cat ()
 {
 	std::cout << "Default Cat constructor called" << std::endl;
 
-    type = "Cat";
+	type = "Cat";
 }
 
-Cat::Cat (const Cat &copy)
+Cat::Cat (const Cat &copy) : Animal (copy)
 {
 	std::cout << "Copy Cat constructor called" << std::endl;
 
@@ -26,13 +26,10 @@ Cat::operator= (const Cat &copy)
 	return (*this);
 }
 
-Cat::~Cat ()
-{
-	std::cout << "Default Cat destructor called" << std::endl;
-}
+Cat::~Cat () { std::cout << "Default Cat destructor called" << std::endl; }
 
 void
-Cat::makeSound() const
+Cat::makeSound () const
 {
-    std::cout << this->type << " mewoed!" << std::endl ;
+	std::cout << this->type << " mewoed!" << std::endl;
 }

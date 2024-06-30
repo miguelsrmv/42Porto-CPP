@@ -5,13 +5,13 @@
 
 class Cat : public Animal
 {
-    public:
-        Cat();
-        Cat(const Cat& copy);
-        Cat& operator= (const Cat& copy);
-        ~Cat();
+  public:
+	Cat ();
+	Cat (const Cat &copy);
+	Cat &operator= (const Cat &copy);
+	~Cat ();
 
-        void makeSound() const;
+	void makeSound () const;
 };
 
 #endif

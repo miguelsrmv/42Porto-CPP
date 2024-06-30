@@ -5,11 +5,13 @@
 
 class WrongDog : public WrongAnimal
 {
-    public:
-        WrongDog();
-        WrongDog(const WrongDog& copy);
-        WrongDog& operator= (const WrongDog& copy);
-        ~WrongDog();
+  public:
+	WrongDog ();
+	WrongDog (const WrongDog &copy);
+	WrongDog &operator= (const WrongDog &copy);
+	~WrongDog ();
+
+	void makeSound () const;
 };
 
 #endif

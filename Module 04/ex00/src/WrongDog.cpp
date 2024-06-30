@@ -4,10 +4,10 @@ WrongDog::WrongDog ()
 {
 	std::cout << "Default WrongDog constructor called" << std::endl;
 
-    type = "WrongDog";
+	type = "WrongDog";
 }
 
-WrongDog::WrongDog (const WrongDog &copy)
+WrongDog::WrongDog (const WrongDog &copy) : WrongAnimal (copy)
 {
 	std::cout << "Copy WrongDog constructor called" << std::endl;
 
@@ -29,4 +29,10 @@ WrongDog::operator= (const WrongDog &copy)
 WrongDog::~WrongDog ()
 {
 	std::cout << "Default WrongDog destructor called" << std::endl;
+}
+
+void
+WrongDog::makeSound () const
+{
+	std::cout << this->type << " mewoed!" << std::endl;
 }
