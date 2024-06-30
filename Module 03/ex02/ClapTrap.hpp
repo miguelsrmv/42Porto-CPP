@@ -27,7 +27,6 @@ protected:
 	int hit_points;
 	int energy_points;
 	unsigned int attack_data;
-
 };
 
 std::ostream &operator<< (std::ostream &out, const ClapTrap &Claptrap);

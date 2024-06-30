@@ -12,6 +12,7 @@ test_animal_copies ()
 	Dog dog;
 	{
 		Dog tmp_dog = dog;
+		Dog tmp_dog_1(dog);
 	}
 
 	std::cout << std::endl;
@@ -28,6 +29,7 @@ test_animal_copies ()
 	Cat cat;
 	{
 		Cat tmp_cat = cat;
+		Cat tmp_cat_1(cat);
 	}
 
 	std::cout << std::endl;
@@ -51,6 +53,7 @@ test_wrong_animal_copies ()
 	WrongDog dog;
 	{
 		WrongDog tmp_dog = dog;
+		WrongDog tmp_dog_1(dog);
 	}
 
 	std::cout << std::endl;
@@ -67,6 +70,7 @@ test_wrong_animal_copies ()
 	WrongCat cat;
 	{
 		WrongCat tmp_cat = cat;
+		WrongCat tmp_cat_1(cat);
 	}
 
 	std::cout << std::endl;

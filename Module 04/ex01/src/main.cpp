@@ -4,6 +4,9 @@
 void
 test_animal_creation ()
 {
+	std::cout << "TESTING ANIMAL CREATION" << std::endl
+			  << std::endl;
+
 	Animal *animal_array[10];
 
 	for (int i = 0; i < 10; i++)
@@ -32,7 +35,10 @@ void
 test_animal_copies ()
 {
 
-	std::cout << std::endl;
+	std::cout << std::endl
+			  << std::endl
+			  << "TESTING ANIMAL COPYING" << std::endl
+			  << std::endl;
 
 	Dog dog;
 	{
@@ -73,5 +79,5 @@ main (void)
 	test_animal_creation ();
 	test_animal_copies ();
 
-	return (0);
+	return 0;
 }
