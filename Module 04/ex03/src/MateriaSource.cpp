@@ -38,10 +38,10 @@ MateriaSource::~MateriaSource ()
 	// std::cout << "MateriaSource default destructor called" << std::endl ;
 
 	for (int idx = 0; idx < 4; idx++)
-	{
-		if (_learnt_materias[idx])
-			delete(_learnt_materias[idx]);
-	}
+		{
+			if (_learnt_materias[idx])
+				delete (_learnt_materias[idx]);
+		}
 }
 
 void
@@ -73,10 +73,11 @@ MateriaSource::createMateria (std::string const &type)
 
 	if (idx == 4)
 		{
-			std::cout << "Couldn't create Materia: this materia type has not been learned before!"
+			std::cout << "Couldn't create Materia: this materia type has not "
+						 "been learned before!"
 					  << std::endl;
 			return NULL;
 		}
 
-	return (this->_learnt_materias[idx]->clone());
+	return (this->_learnt_materias[idx]->clone ());
 }

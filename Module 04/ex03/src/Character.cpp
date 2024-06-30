@@ -95,8 +95,9 @@ Character::unequip (int idx)
 
 	if (this->_equipped_materia[idx] == NULL)
 		{
-			std::cout << "Couldn't unequip Materia: no materia exists on this slot!"
-					  << std::endl;
+			std::cout
+				<< "Couldn't unequip Materia: no materia exists on this slot!"
+				<< std::endl;
 			return;
 		}
 	this->_equipped_materia[idx] = NULL;

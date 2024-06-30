@@ -9,6 +9,35 @@
 #include <iostream>
 
 void
+subject_tests ()
+{
+	std::cout << "MAIN TESTS" << std::endl << std::endl;
+
+	IMateriaSource *src = new MateriaSource ();
+	src->learnMateria (new Ice ());
+	src->learnMateria (new Cure ());
+
+	ICharacter *me = new Character ("me");
+
+	AMateria *tmp;
+	tmp = src->createMateria ("ice");
+	me->equip (tmp);
+	tmp = src->createMateria ("cure");
+	me->equip (tmp);
+
+	ICharacter *bob = new Character ("bob");
+
+	me->use (0, *bob);
+	me->use (1, *bob);
+
+	delete bob;
+	delete me;
+	delete src;
+
+	std::cout << std::endl;
+}
+
+void
 deep_copy_tests ()
 {
 	std::cout << "DEEP COPY TESTS" << std::endl << std::endl;
@@ -51,35 +80,6 @@ deep_copy_tests ()
 }
 
 void
-subject_tests ()
-{
-	std::cout << "MAIN TESTS" << std::endl << std::endl;
-
-	IMateriaSource *src = new MateriaSource ();
-	src->learnMateria (new Ice ());
-	src->learnMateria (new Cure ());
-
-	ICharacter *me = new Character ("me");
-
-	AMateria *tmp;
-	tmp = src->createMateria ("ice");
-	me->equip (tmp);
-	tmp = src->createMateria ("cure");
-	me->equip (tmp);
-
-	ICharacter *bob = new Character ("bob");
-
-	me->use (0, *bob);
-	me->use (1, *bob);
-
-	delete bob;
-	delete me;
-	delete src;
-
-	std::cout << std::endl;
-}
-
-void
 materia_usage_tests ()
 {
 	std::cout << "MATERIA USAGE TEST" << std::endl << std::endl;
@@ -95,30 +95,38 @@ materia_usage_tests ()
 	Character *me = new Character ("me");
 
 	// Attempt to learn the 5th materia
+	std::cout << "Test #1:" << std::endl;
 	Ice *excess_materia = new Ice ();
 	src->learnMateria (excess_materia);
 
 	// Attempts creating unlearned materia
+	std::cout << std::endl << "Test #2:" << std::endl;
 	AMateria *invalid_materia = src->createMateria ("fire");
 
 	// Attempts unequipping when there's no materia equipped yet
+	std::cout << std::endl << "Test #3:" << std::endl;
 	for (int idx = 0; idx < 4; idx++)
 		me->unequip (idx);
 
 	// Tests what happens when you attempt to equip the 5th materia
+	std::cout << std::endl << "Test #4:" << std::endl;
 	for (int idx = 0; idx < 5; idx++)
 		me->equip (tmp[idx]);
 
 	// Tests unequipping invalid indexes
+	std::cout << std::endl << "Test #5.1:" << std::endl;
 	me->unequip (5);
+	std::cout << std::endl << "Test #5.2:" << std::endl;
 	me->unequip (-1);
 
 	// Unequips one materia, then attempts to equip another one back
 	// (should work!)
+	std::cout << std::endl << "Test #6 (should print nothing): " << std::endl;
 	me->unequip (0);
 	me->equip (tmp[4]);
 
 	// Re-tests over-adding materia
+	std::cout << std::endl << "Test #7:" << std::endl;
 	me->equip (tmp[5]);
 
 	// Unequips all materia (for valgrind purposes)
