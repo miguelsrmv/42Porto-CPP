@@ -2,7 +2,7 @@
 
 Bureaucrat::Bureaucrat (std::string name, int grade) : name (name)
 {
-	std::cout << "Parametrized constructor called" << std::endl;
+	std::cout << "Parametrized Bureaucrat constructor called" << std::endl;
 
 	if (grade < MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException ();
@@ -12,11 +12,10 @@ Bureaucrat::Bureaucrat (std::string name, int grade) : name (name)
 	this->grade = grade;
 }
 
-Bureaucrat::Bureaucrat (const Bureaucrat &copy) : Bureaucrat(copy.name, copy.grade)
+Bureaucrat::Bureaucrat (const Bureaucrat &copy)
+	: name (copy.name), grade (copy.grade)
 {
-	std::cout << "Copy constructor called" << std::endl;
-
-	*this = copy;
+	std::cout << "Copy Bureaucrat constructor called" << std::endl;
 }
 
 Bureaucrat &
@@ -32,23 +31,19 @@ Bureaucrat::operator= (const Bureaucrat &copy)
 
 Bureaucrat::~Bureaucrat ()
 {
-	std::cout << "Default destructor called" << std::endl;
+	std::cout << "Default Bureaucrat destructor called" << std::endl;
 }
 
-std::string
-Bureaucrat::GradeTooHighException::too_high_message () const
+const char *
+Bureaucrat::GradeTooHighException::what () const throw ()
 {
-	std::string message = "Invalid grade: too high!";
-
-	return message;
+	return "Invalid bureaucrat grade: too high!";
 }
 
-std::string
-Bureaucrat::GradeTooLowException::too_low_message () const
+const char *
+Bureaucrat::GradeTooLowException::what () const throw ()
 {
-	std::string message = "Invalid grade: too low!";
-
-	return message;
+	return "Invalid bureaucrat grade: too low!";
 }
 
 std::string
@@ -77,6 +72,31 @@ Bureaucrat::decrementGrade ()
 	if (grade == MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException ();
 	grade++;
+}
+
+void
+Bureaucrat::signForm (Form &form)
+{
+	if (form.get_signed_status ())
+		{
+			std::cout << this->getName () << " couldn't sign "
+					  << form.get_name () << " because it was already signed! "
+					  << std::endl;
+		}
+	else if (this->getGrade () > form.get_grade_required_to_sign ())
+		{
+			std::cout << this->getName () << " couldn't sign form "
+					  << form.get_name () << " because his level was too low ("
+					  << this->getGrade () << ", required "
+					  << form.get_grade_required_to_sign () << ")."
+					  << std::endl;
+		}
+	else
+		{
+			std::cout << this->getName () << " signed " << form.get_name ()
+					  << std::endl;
+		}
+	form.beSigned (*this);
 }
 
 std::ostream &

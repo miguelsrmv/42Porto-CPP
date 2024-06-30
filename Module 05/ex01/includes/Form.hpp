@@ -5,22 +5,11 @@
 #include <exception>
 #include <string>
 
+class Bureaucrat;
+
 class Form
 {
   public:
-	// Exceptions
-	class GradeTooHighException : public std::exception
-	{
-	  public:
-		const std::string &GradeTooHighMessage ();
-	};
-
-	class GradeTooLowException : public std::exception
-	{
-	  public:
-		const std::string &GradeTooLowMessage ();
-	};
-
 	// Constructors and destructors
 	Form (const std::string &name, const int grade_to_sign,
 		  const int grade_to_exec);
@@ -29,13 +18,25 @@ class Form
 
 	// Getters
 	const std::string &get_name ();
-	bool &get_signed_status();
+	bool &get_signed_status ();
 	const int &get_grade_required_to_sign ();
 	const int &get_grade_required_to_exec ();
 
 	// Form actions
-	void beSigned (Bureaucrat &nureaucrat);
-	void signForm (Bureaucrat &nureaucrat);
+	void beSigned (Bureaucrat &bureaucrat);
+
+	// Exceptions
+	class GradeTooHighException : public std::exception
+	{
+	  public:
+		const char *what () const throw ();
+	};
+
+	class GradeTooLowException : public std::exception
+	{
+	  public:
+		const char *what () const throw ();
+	};
 
   private:
 	const std::string form_name;

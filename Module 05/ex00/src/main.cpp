@@ -30,15 +30,10 @@ attempt_to_create_bureaucrat (const std::string &name, int grade)
 			Bureaucrat Guy (name, grade);
 			std::cout << Guy;
 		}
-	catch (const Bureaucrat::GradeTooHighException &exception_class)
+	catch (const std::exception &exception_class)
 		{
-			std::cout << "Exception caught: "
-					  << exception_class.what () << std::endl;
-		}
-	catch (const Bureaucrat::GradeTooLowException &exception_class)
-		{
-			std::cout << "Exception caught: "
-					  << exception_class.what () << std::endl;
+			std::cout << "Exception caught: " << exception_class.what ()
+					  << std::endl;
 		}
 }
 
@@ -57,18 +52,11 @@ attempt_invalid_increment (const std::string &name)
 				{
 					Guy.incrementGrade ();
 				}
-			catch (const Bureaucrat::GradeTooHighException &exception_class)
+			catch (const std::exception &exception_class)
 				{
-					std::cout << "Exception caught: "
-							  << exception_class.what ()
-							  << std::endl;
-					return;
-				}
-			catch (const Bureaucrat::GradeTooLowException &exception_class)
-				{
-					std::cout << "Exception caught: "
-							  << exception_class.what ()
-							  << std::endl;
+					std::cout
+						<< "Exception caught: " << exception_class.what ()
+						<< std::endl;
 					return;
 				}
 		}
@@ -88,18 +76,11 @@ attempt_invalid_decrement (const std::string &name)
 				{
 					Guy.decrementGrade ();
 				}
-			catch (const Bureaucrat::GradeTooHighException &exception_class)
+			catch (const std::exception &exception_class)
 				{
-					std::cout << "Exception caught: "
-							  << exception_class.what ()
-							  << std::endl;
-					return;
-				}
-			catch (const Bureaucrat::GradeTooLowException &exception_class)
-				{
-					std::cout << "Exception caught: "
-							  << exception_class.what ()
-							  << std::endl;
+					std::cout
+						<< "Exception caught: " << exception_class.what ()
+						<< std::endl;
 					return;
 				}
 		}

@@ -1,99 +1,102 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 void
-attempt_to_create_bureaucrat (const std::string &name, int grade)
+test_construction ()
+{
+	int valid_number = ((MIN_GRADE + MAX_GRADE) / 2);
+
+	Form A ("Form", valid_number, valid_number);
+	std::cout << A;
+
+	Form B (A);
+	std::cout << B;
+
+	Form C = A;
+	std::cout << C;
+
+	/* Won't work because = operator is private
+	Form D(A);
+	D = A;
+	std::cout << D; */
+}
+
+void
+test_forms (int grade_1, int grade_2)
 {
 	std::cout << std::endl;
 
 	try
 		{
-			Bureaucrat Guy (name, grade);
-			std::cout << Guy;
+			Form valid_form ("Form", grade_1, grade_2);
+			std::cout << valid_form;
 		}
-	catch (const Bureaucrat::GradeTooHighException &exception_class)
+	catch (const std::exception &e)
 		{
-			std::cout << "Exception caught: "
-					  << exception_class.too_high_message () << std::endl;
-		}
-	catch (const Bureaucrat::GradeTooLowException &exception_class)
-		{
-			std::cout << "Exception caught: "
-					  << exception_class.too_low_message () << std::endl;
+			std::cerr << e.what () << std::endl;
 		}
 }
 
 void
-attempt_invalid_increment (const std::string &name)
+test_signatures ()
 {
 	std::cout << std::endl;
 
-	Bureaucrat Guy (name, MAX_GRADE + 1);
+	Form form ("Form", 10, 10);
+	Bureaucrat John ("John", 5);
 
-	for (int i = MAX_GRADE; i < MIN_GRADE; i++)
+	// Should be able to sign the form
+	try
 		{
-			std::cout << Guy;
-
-			try
-				{
-					Guy.incrementGrade ();
-				}
-			catch (const Bureaucrat::GradeTooHighException &exception_class)
-				{
-					std::cout << "Exception caught: "
-							  << exception_class.too_high_message ()
-							  << std::endl;
-					return;
-				}
-			catch (const Bureaucrat::GradeTooLowException &exception_class)
-				{
-					std::cout << "Exception caught: "
-							  << exception_class.too_low_message ()
-							  << std::endl;
-					return;
-				}
+			John.signForm (form);
 		}
-}
+	catch (const std::exception &e)
+		{
+			std::cerr << e.what () << std::endl;
+		}
 
-void
-attempt_invalid_decrement (const std::string &name)
-{
 	std::cout << std::endl;
 
-	Bureaucrat Guy (name, MIN_GRADE - 1);
-
-	for (int i = MAX_GRADE; i < MIN_GRADE; i++)
+	// Shouldn't be able to sign it the 2nd time around!
+	try
 		{
-			std::cout << Guy;
-			try
-				{
-					Guy.decrementGrade ();
-				}
-			catch (const Bureaucrat::GradeTooHighException &exception_class)
-				{
-					std::cout << "Exception caught: "
-							  << exception_class.too_high_message ()
-							  << std::endl;
-					return;
-				}
-			catch (const Bureaucrat::GradeTooLowException &exception_class)
-				{
-					std::cout << "Exception caught: "
-							  << exception_class.too_low_message ()
-							  << std::endl;
-					return;
-				}
+			John.signForm (form);
+		}
+	catch (const std::exception &e)
+		{
+			std::cerr << e.what () << std::endl;
+		}
+
+	std::cout << std::endl;
+
+	// Shouldn't be able to sign it due to insuficient privilleges
+	Form form_2 ("Form_2", 10, 10);
+	Bureaucrat Steve ("Steve", 30);
+
+	try
+		{
+			Steve.signForm (form_2);
+		}
+	catch (const std::exception &e)
+		{
+			std::cerr << e.what () << std::endl;
 		}
 }
 
 int
 main (void)
 {
-	attempt_to_create_bureaucrat ("Steven", MAX_GRADE);
-	attempt_to_create_bureaucrat ("Richard", MIN_GRADE);
-	attempt_to_create_bureaucrat ("Anderson", (MAX_GRADE + MIN_GRADE) / 2);
-	attempt_to_create_bureaucrat ("Joseph", MAX_GRADE - 1);
-	attempt_to_create_bureaucrat ("Amanda", MIN_GRADE + 1);
+	// Tests correct construction, copy construction and destructor
+	test_construction ();
 
-	attempt_invalid_increment ("Joe");
-	attempt_invalid_decrement ("Donald");
+	// Tests correct throw errors depending on values
+	int valid_value = (MIN_GRADE + MAX_GRADE) / 2;
+	test_forms (valid_value, valid_value);
+	test_forms (MIN_GRADE + 1, valid_value);
+	test_forms (valid_value, MIN_GRADE + 1);
+	test_forms (MAX_GRADE - 1, valid_value);
+	test_forms (valid_value, MAX_GRADE - 1);
+
+	// Tests correct signatures
+	test_signatures ();
 }
