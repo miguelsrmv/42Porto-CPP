@@ -129,6 +129,13 @@ materia_usage_tests ()
 	std::cout << std::endl << "Test #7:" << std::endl;
 	me->equip (tmp[5]);
 
+	// Attempts using materia above/below valid indices
+	std::cout << std::endl << "Test #8.1:" << std::endl;
+	me->use (-1, *me);
+	std::cout << std::endl << "Test #8.2:" << std::endl;
+	me->use (4, *me);
+
+
 	// Unequips all materia (for valgrind purposes)
 	me->unequip (0);
 	me->unequip (1);

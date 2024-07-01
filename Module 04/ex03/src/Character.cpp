@@ -106,6 +106,12 @@ Character::unequip (int idx)
 void
 Character::use (int idx, ICharacter &target)
 {
+	if (idx < 0 || idx > 3)
+		{
+			std::cout << "Couldn't use Materia: invalid index!"
+					  << std::endl;
+			return;
+		}
 	if (this->_equipped_materia[idx] == NULL)
 		{
 			std::cout << "Couldn't use Materia: slot is empty!" << std::endl;
