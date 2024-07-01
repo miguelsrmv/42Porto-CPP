@@ -137,10 +137,8 @@ materia_usage_tests ()
 
 
 	// Unequips all materia (for valgrind purposes)
-	me->unequip (0);
-	me->unequip (1);
-	me->unequip (2);
-	me->unequip (3);
+	for (int idx = 0; idx < 4; idx++)
+		me->unequip (idx);
 
 	// Delete allocated memory
 	for (int idx = 0; idx < 6; idx++)
