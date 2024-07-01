@@ -1,8 +1,8 @@
 #include "AForm.hpp"
 
-AForm::AForm (const std::string &name)
-	: form_name (name), signed_status (false), grade_required_to_sign (-1),
-	  grade_required_to_exec (-1)
+AForm::AForm (const std::string &name, int sign_grade, int exec_grade)
+	: form_name (name), signed_status (false), grade_required_to_sign (sign_grade),
+	  grade_required_to_exec (exec_grade)
 {
 	std::cout << "Parametrized Form constructor called" << std::endl;
 }
