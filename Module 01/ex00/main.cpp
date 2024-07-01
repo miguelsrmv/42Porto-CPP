@@ -17,17 +17,17 @@ main (void)
 
 	std::cout << std::endl
 			  << std::endl
-			  << "Here's an example of a Zombie Stack!" << std::endl;
-
-	randomChump ("Diego");
-	randomChump ("Edward");
-	randomChump ("Fred");
-
-	std::cout << std::endl
-			  << std::endl
 			  << "And now the Heap gets deleted!" << std::endl;
 
 	delete zombie_ptr1;
 	delete zombie_ptr2;
 	delete zombie_ptr3;
+
+	std::cout << std::endl
+			  << std::endl
+			  << "Here's an example of a Zombie Stack!" << std::endl;
+
+	randomChump ("Diego");
+	randomChump ("Edward");
+	randomChump ("Fred");
 }
