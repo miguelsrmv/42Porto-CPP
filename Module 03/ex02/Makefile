@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: miguel <miguel@student.42.fr>              +#+  +:+       +#+         #
+#    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/22 16:40:07 by miguel           ###   ########.fr        #
+#    Updated: 2024/07/01 09:35:39 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   RepetitiveWork
 CXX			=   c++
-CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98
+CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -pedantic -std=c++98
 SRC			=   main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)

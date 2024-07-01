@@ -2,13 +2,13 @@
 
 ClapTrap::ClapTrap ()
 	: name ("Unnamed ClapTrap"), hit_points (10), energy_points (10),
-	  attack_data (0)
+	  attack_damage (0)
 {
 	std::cout << "ClapTrap default constructor has been called" << std::endl;
 }
 
-ClapTrap::ClapTrap (const std::string &name)
-	: name (name), hit_points (10), energy_points (10), attack_data (0)
+ClapTrap::ClapTrap (const std::string &robot_name)
+	: name (robot_name), hit_points (10), energy_points (10), attack_damage (0)
 {
 	std::cout << "ClapTrap parametrized constructor has been called" << std::endl;
 }
@@ -29,7 +29,7 @@ ClapTrap::operator= (const ClapTrap &copy)
 		{
 			this->name = copy.name;
 			this->hit_points = copy.hit_points;
-			this->attack_data = copy.attack_data;
+			this->attack_damage = copy.attack_damage;
 			this->energy_points = copy.energy_points;
 		}
 	return (*this);
@@ -52,7 +52,7 @@ ClapTrap::attack (const std::string &target)
 		}
 	energy_points--;
 
-	std::cout << "ClapTrap " << name << " attacks " << target << " causing " << attack_data
+	std::cout << "ClapTrap " << name << " attacks " << target << " causing " << attack_damage
 			  << " points of damage!" << std::endl;
 }
 
@@ -103,7 +103,7 @@ int ClapTrap::getEnergy(void) const
 
 int ClapTrap::getDamage(void) const
 {
-	return (this->attack_data);
+	return (this->attack_damage);
 }
 
 std::ostream &operator<< (std::ostream &out, const ClapTrap &Trap)

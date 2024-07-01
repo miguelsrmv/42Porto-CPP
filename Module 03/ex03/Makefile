@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: miguel <miguel@student.42.fr>              +#+  +:+       +#+         #
+#    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/22 19:52:16 by miguel           ###   ########.fr        #
+#    Updated: 2024/07/01 09:29:34 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   Nowitsweird
 CXX			=   c++
-CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -Wno-shadow -pedantic -std=c++98
+CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -pedantic -std=c++98
 SRC			=   main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)

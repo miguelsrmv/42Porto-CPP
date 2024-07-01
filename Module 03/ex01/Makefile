@@ -6,13 +6,13 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/20 18:18:22 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/07/01 09:35:05 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=   SerenaMyLove!
 CXX			=   c++
-CXXFLAGS	=   -Wall -Wextra -Werror -pedantic -std=c++98
+CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -pedantic -std=c++98
 SRC			=   main.cpp ClapTrap.cpp ScavTrap.cpp
 INC			=	/
 OBJS		=   $(SRC:.cpp=.o)

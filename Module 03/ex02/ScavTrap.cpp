@@ -4,16 +4,16 @@ ScavTrap::ScavTrap () : ClapTrap ()
 {
 	hit_points = 100;
 	energy_points = 50;
-	attack_data = 20;
+	attack_damage = 20;
 
 	std::cout << "ScavTrap default constructor has been called" << std::endl;
 }
 
-ScavTrap::ScavTrap (const std::string &name) : ClapTrap (name)
+ScavTrap::ScavTrap (const std::string &robot_name) : ClapTrap (robot_name)
 {
 	hit_points = 100;
 	energy_points = 50;
-	attack_data = 20;
+	attack_damage = 20;
 
 	std::cout << "ScravTrap " << this->name << " parametrized constructor has been called"
 			  << std::endl;
@@ -35,7 +35,7 @@ ScavTrap::operator= (const ScavTrap &copy)
 			name = copy.name;
 			hit_points = copy.hit_points;
 			energy_points = copy.energy_points;
-			attack_data = copy.attack_data;
+			attack_damage = copy.attack_damage;
 		}
 	return (*this);
 }
@@ -70,6 +70,6 @@ ScavTrap::attack (const std::string &target)
 		}
 	energy_points--;
 
-	std::cout << "ScavTrap " << name << " attacks " << target << " causing " << attack_data
+	std::cout << "ScavTrap " << name << " attacks " << target << " causing " << attack_damage
 			  << " points of damage!" << std::endl;
 }

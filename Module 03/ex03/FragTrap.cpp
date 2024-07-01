@@ -4,22 +4,22 @@ FragTrap::FragTrap () : ClapTrap ()
 {
 	hit_points = 100;
 	energy_points = 100;
-	attack_data = 30;
+	attack_damage = 30;
 
 	std::cout << "FragTrap default constructor has been called" << std::endl;
 }
 
-FragTrap::FragTrap (const std::string &name) : ClapTrap (name)
+FragTrap::FragTrap (const std::string &robot_name) : ClapTrap (robot_name)
 {
 	hit_points = 100;
 	energy_points = 100;
-	attack_data = 30;
+	attack_damage = 30;
 
 	std::cout << "FragTrap " << this->name
 			  << " parametrized constructor has been called" << std::endl;
 }
 
-FragTrap::FragTrap (const FragTrap &copy) : ClapTrap ()
+FragTrap::FragTrap (const FragTrap &copy) : ClapTrap (copy)
 {
 	*this = copy;
 
@@ -36,7 +36,7 @@ FragTrap::operator= (const FragTrap &copy)
 			name = copy.name;
 			hit_points = copy.hit_points;
 			energy_points = copy.energy_points;
-			attack_data = copy.energy_points;
+			attack_damage = copy.energy_points;
 		}
 	return (*this);
 }

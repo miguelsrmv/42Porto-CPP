@@ -8,7 +8,7 @@ class ClapTrap
 {
   public:
 	ClapTrap ();
-	ClapTrap (const std::string &name);
+	ClapTrap (const std::string &robot_name);
 	ClapTrap (const ClapTrap &copy);
 	ClapTrap &operator= (const ClapTrap &copy);
 	~ClapTrap ();
@@ -26,7 +26,7 @@ class ClapTrap
 	std::string name;
 	int hit_points;
 	int energy_points;
-	unsigned int attack_data;
+	unsigned int attack_damage;
 };
 
 std::ostream &operator<< (std::ostream &out, const ClapTrap &Claptrap);
