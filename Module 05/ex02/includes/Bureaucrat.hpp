@@ -42,6 +42,9 @@ class Bureaucrat
 	// Sign Form
 	void signForm (AForm &form);
 
+	// Execute form
+	void executeForm(AForm const &form);
+
   private:
 	// Private atributes
 	const std::string name;

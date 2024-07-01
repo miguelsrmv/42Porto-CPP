@@ -6,7 +6,7 @@
 #    By: mde-sa-- <mde-sa--@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 21:06:16 by mde-sa--          #+#    #+#              #
-#    Updated: 2024/06/18 15:30:00 by mde-sa--         ###   ########.fr        #
+#    Updated: 2024/07/01 15:54:49 by mde-sa--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CXX			=   c++
 CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -Wno-shadow -pedantic -std=c++98
 SRCDIR		=	src
 INCDIR		=   includes
-SRC			=   main.cpp Bureaucrat.cpp AForm.cpp SchrubberyCreationForm.cpp RobotyRequestForm.cpp PresidentialPardonForm.cpp
+SRC			=   main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJS		=   $(addprefix $(SRCDIR)/, $(SRC:.cpp=.o))
 RM			=   rm -rf
 

@@ -99,6 +99,20 @@ Bureaucrat::signForm (AForm &form)
 	form.beSigned (*this);
 }
 
+void
+Bureaucrat::executeForm(AForm const &form)
+{
+	try
+	{
+		form.execute(*this);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+}
+
+
 std::ostream &
 operator<< (std::ostream &outstream, Bureaucrat &Bureaucrat)
 {

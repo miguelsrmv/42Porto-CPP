@@ -23,25 +23,25 @@ AForm::~AForm ()
 }
 
 const std::string &
-AForm::get_name ()
+AForm::get_name () const
 {
 	return form_name;
 }
 
 bool &
-AForm::get_signed_status ()
+AForm::get_signed_status () const
 {
-	return signed_status;
+	return (bool &)signed_status;
 }
 
 const int &
-AForm::get_grade_required_to_sign ()
+AForm::get_grade_required_to_sign () const
 {
 	return grade_required_to_sign;
 }
 
 const int &
-AForm::get_grade_required_to_exec ()
+AForm::get_grade_required_to_exec () const
 {
 	return grade_required_to_exec;
 }
@@ -65,6 +65,12 @@ const char *
 AForm::GradeTooLowException::what () const throw ()
 {
 	return "Form exception: grade is too low!";
+}
+
+const char *
+AForm::FormNotSignedException::what () const throw ()
+{
+	return "Form exception: form is not signed!";
 }
 
 AForm &

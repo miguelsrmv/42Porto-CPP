@@ -38,8 +38,14 @@ class AForm
 		const char *what () const throw ();
 	};
 
+	class FormNotSignedException : public std::exception
+	{
+	  public:
+		const char *what () const throw ();
+	};
+
   private:
-	const std::string form_name;
+	const std::string &form_name;
 	bool signed_status;
 	const int grade_required_to_sign;
 	const int grade_required_to_exec;
