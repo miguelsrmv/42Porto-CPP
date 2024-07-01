@@ -6,15 +6,18 @@
 int main()
 {
 	Bureaucrat B("David", 150);
-	ShrubberyCreationForm S("David");
-	RobotomyRequestForm R("Joao");
-	PresidentialPardonForm P("Trump");
-	std::cout << B << std::endl <<std::endl;
-	std::cout << R << std::endl<<std::endl;
-	std::cout << S << std::endl<<std::endl;
-	std::cout << P<< std::endl<<std::endl;
+	std::cout << B << std::endl;
 
-// Grade is too low
+	ShrubberyCreationForm S("Form_1");
+	std::cout << S << std::endl;
+
+	RobotomyRequestForm R("Form_2");
+	std::cout << R << std::endl;
+
+	PresidentialPardonForm P("Form_3");
+	std::cout << P << std::endl;
+
+/* // Grade is too low
 	B.signForm(S);
 	std::cout << std::endl;
 
@@ -35,5 +38,5 @@ int main()
 	B.signForm(P);
 	std::cout << std::endl;
 	B.executeForm(P);
-	return 0;
+	return 0; */
 }

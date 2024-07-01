@@ -22,25 +22,25 @@ AForm::~AForm ()
 	std::cout << "Default Form destructor called" << std::endl;
 }
 
-const std::string &
+std::string
 AForm::get_name () const
 {
 	return form_name;
 }
 
-bool &
+bool
 AForm::get_signed_status () const
 {
-	return (bool &)signed_status;
+	return signed_status;
 }
 
-const int &
+int
 AForm::get_grade_required_to_sign () const
 {
 	return grade_required_to_sign;
 }
 
-const int &
+int
 AForm::get_grade_required_to_exec () const
 {
 	return grade_required_to_exec;
@@ -81,9 +81,9 @@ AForm::operator= (const AForm &copy)
 }
 
 std::ostream &
-operator<< (std::ostream &outstream, AForm &copy)
+operator<< (std::ostream &outstream, const AForm &copy)
 {
-	outstream << "Form " << copy.get_name () << ": Signed status ["
+ 	outstream << "Form " << copy.get_name () << ": Signed status ["
 			  << copy.get_signed_status () << "], Grade required to sign ["
 			  << copy.get_grade_required_to_sign ()
 			  << "], Grade required to exec ["

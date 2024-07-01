@@ -11,15 +11,15 @@ class AForm
 {
   public:
 	// Constructors and destructors
-	AForm (const std::string &name, int sign_grae, int exec_grade);
+	AForm (const std::string &name, int sign_grade, int exec_grade);
 	AForm (const AForm &copy);
 	virtual ~AForm ();
 
 	// Getters
-	const std::string &get_name () const;
-	bool &get_signed_status () const;
-	const int &get_grade_required_to_sign () const;
-	const int &get_grade_required_to_exec () const;
+	std::string get_name () const;
+	bool get_signed_status () const;
+	int get_grade_required_to_sign () const;
+	int get_grade_required_to_exec () const;
 
 	// Form actions
 	void beSigned (Bureaucrat &bureaucrat);
@@ -45,7 +45,7 @@ class AForm
 	};
 
   private:
-	const std::string &form_name;
+	const std::string form_name;
 	bool signed_status;
 	const int grade_required_to_sign;
 	const int grade_required_to_exec;
@@ -54,6 +54,6 @@ class AForm
 	AForm &operator= (const AForm &copy);
 };
 
-std::ostream &operator<< (std::ostream &outstream, AForm &form);
+std::ostream &operator<< (std::ostream &outstream, const AForm &form);
 
 #endif
