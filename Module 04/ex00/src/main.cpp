@@ -4,6 +4,49 @@
 #include "WrongDog.hpp"
 
 void
+test_sounds ()
+{
+	const Animal *meta = new Animal ();
+	const Animal *j = new Dog ();
+	const Animal *i = new Cat ();
+
+	std::cout << j->getType () << " " << std::endl;
+	std::cout << i->getType () << " " << std::endl;
+
+	i->makeSound (); // will output the cat sound!
+	j->makeSound ();
+	meta->makeSound ();
+
+	std::cout << std::endl;
+
+	const WrongAnimal *a = new WrongAnimal ();
+	const WrongAnimal *b = new WrongDog ();
+	const WrongAnimal *c = new WrongCat ();
+	const WrongCat *d = new WrongCat ();
+	const WrongDog *e = new WrongDog ();
+
+	std::cout << b->getType () << " " << std::endl;
+	std::cout << c->getType () << " " << std::endl;
+
+	a->makeSound (); // will output the animal sound!
+	b->makeSound ();
+	c->makeSound ();
+	d->makeSound (); // will output cat sound because it's specifically a wrongcat pointer
+	e->makeSound (); // will output dog sound because it's specifically a wrongdog pointer
+
+	std::cout << std::endl;
+
+	delete (meta);
+	delete (i);
+	delete (j);
+	delete (a);
+	delete (b);
+	delete (c);
+	delete (d);
+	delete (e);
+}
+
+void
 test_animal_copies ()
 {
 
@@ -88,45 +131,7 @@ test_wrong_animal_copies ()
 int
 main (void)
 {
-	const Animal *meta = new Animal ();
-	const Animal *j = new Dog ();
-	const Animal *i = new Cat ();
-
-	std::cout << j->getType () << " " << std::endl;
-	std::cout << i->getType () << " " << std::endl;
-
-	i->makeSound (); // will output the cat sound!
-	j->makeSound ();
-	meta->makeSound ();
-
-	std::cout << std::endl;
-
-	const WrongAnimal *a = new WrongAnimal ();
-	const WrongAnimal *b = new WrongDog ();
-	const WrongAnimal *c = new WrongCat ();
-	const WrongCat *d = new WrongCat ();
-	const WrongDog *e = new WrongDog ();
-
-	std::cout << b->getType () << " " << std::endl;
-	std::cout << c->getType () << " " << std::endl;
-
-	a->makeSound (); // will output the animal sound!
-	b->makeSound ();
-	c->makeSound ();
-	d->makeSound (); // will output cat sound because it's a wrongcat pointer
-	e->makeSound (); // will output dog sound because it's a wrongdog pointer
-
-	std::cout << std::endl;
-
-	delete (meta);
-	delete (i);
-	delete (j);
-	delete (a);
-	delete (b);
-	delete (c);
-	delete (d);
-	delete (e);
-
+	test_sounds ();
 	test_animal_copies ();
 	test_wrong_animal_copies ();
 
