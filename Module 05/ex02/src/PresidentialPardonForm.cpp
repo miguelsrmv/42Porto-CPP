@@ -2,12 +2,12 @@
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target) : AForm("PresidentialPardonForm", 72, 45), _target(target)
 {
-	std::cout << "Parametrized constructor called" << std::endl;
+	std::cout << "Parametrized PresidentialPardonForm constructor called" << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& copy) : AForm(copy), _target(copy._target)
 {
-	std::cout << "Copy constructor called" << std::endl ;
+	std::cout << "Copy PresidentialPardonForm constructor called" << std::endl ;
 
 	*this = copy;
 }
@@ -21,7 +21,7 @@ PresidentialPardonForm::operator =(const PresidentialPardonForm& copy)
 
 PresidentialPardonForm::~PresidentialPardonForm()
 {
-	std::cout << "Default destructor called" << std::endl;
+	std::cout << "Default PresidentialPardonForm destructor called" << std::endl;
 }
 
 void

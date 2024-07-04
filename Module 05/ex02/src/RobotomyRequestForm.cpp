@@ -2,12 +2,12 @@
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target) : AForm("RobotomyRequestForm", 25, 5), _target(target)
 {
-	std::cout << "Parametrized constructor called" << std::endl;
+	std::cout << "Parametrized RobotomyRequestForm constructor called" << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& copy) : AForm(copy), _target(copy._target)
 {
-	std::cout << "Copy constructor called" << std::endl ;
+	std::cout << "Copy RobotomyRequestForm constructor called" << std::endl ;
 
 	*this = copy;
 }
@@ -21,7 +21,7 @@ RobotomyRequestForm::operator =(const RobotomyRequestForm& copy)
 
 RobotomyRequestForm::~RobotomyRequestForm()
 {
-	std::cout << "Default destructor called" << std::endl;
+	std::cout << "Default RobotomyRequestForm destructor called" << std::endl;
 }
 
 void

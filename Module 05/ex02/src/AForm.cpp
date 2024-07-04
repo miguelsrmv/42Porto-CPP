@@ -4,7 +4,7 @@ AForm::AForm (const std::string &name, int sign_grade, int exec_grade)
 	: form_name (name), signed_status (false), grade_required_to_sign (sign_grade),
 	  grade_required_to_exec (exec_grade)
 {
-	std::cout << "Parametrized Form constructor called" << std::endl;
+	std::cout << "Parametrized AForm constructor called" << std::endl;
 }
 
 AForm::AForm (const AForm &copy)
@@ -12,14 +12,14 @@ AForm::AForm (const AForm &copy)
 	  grade_required_to_sign (copy.grade_required_to_sign),
 	  grade_required_to_exec (copy.grade_required_to_exec)
 {
-	std::cout << "Copy Form constructor called" << std::endl;
+	std::cout << "Copy AForm constructor called" << std::endl;
 
 	*this = copy;
 }
 
 AForm::~AForm ()
 {
-	std::cout << "Default Form destructor called" << std::endl;
+	std::cout << "Default AForm destructor called" << std::endl;
 }
 
 const std::string&
