@@ -22,7 +22,7 @@ AForm::~AForm ()
 	std::cout << "Default Form destructor called" << std::endl;
 }
 
-std::string
+const std::string&
 AForm::get_name () const
 {
 	return form_name;

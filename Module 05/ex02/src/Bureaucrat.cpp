@@ -46,14 +46,14 @@ Bureaucrat::GradeTooLowException::what () const throw ()
 	return "Invalid bureaucrat grade: too low!";
 }
 
-std::string
-Bureaucrat::getName ()
+const std::string&
+Bureaucrat::getName () const
 {
 	return (name);
 }
 
 int
-Bureaucrat::getGrade ()
+Bureaucrat::getGrade () const
 {
 	return grade;
 }

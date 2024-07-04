@@ -16,7 +16,7 @@ class AForm
 	virtual ~AForm ();
 
 	// Getters
-	std::string get_name () const;
+	const std::string& get_name () const;
 	bool get_signed_status () const;
 	int get_grade_required_to_sign () const;
 	int get_grade_required_to_exec () const;

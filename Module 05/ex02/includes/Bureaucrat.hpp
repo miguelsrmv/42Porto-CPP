@@ -32,8 +32,8 @@ class Bureaucrat
 	~Bureaucrat ();
 
 	// Getters
-	std::string getName ();
-	int getGrade ();
+	const std::string& getName () const;
+	int getGrade () const;
 
 	// Grade changers
 	void incrementGrade ();
