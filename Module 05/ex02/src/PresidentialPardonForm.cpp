@@ -29,7 +29,7 @@ PresidentialPardonForm::execute(Bureaucrat const& executor) const
 {
 	if (((Bureaucrat &)executor).getGrade() > this->get_grade_required_to_exec())
 	{
-		throw AForm::GradeTooHighException ();
+		throw AForm::GradeTooLowException ();
 	}
 	else if (!this->get_signed_status())
 	{
