@@ -88,15 +88,21 @@ Bureaucrat::signForm (AForm &form)
 			std::cout << this->getName () << " couldn't sign form "
 					  << form.get_name () << " because his level was too low ("
 					  << this->getGrade () << ", required "
-					  << form.get_grade_required_to_sign () << ")."
-					  << std::endl;
+					  << form.get_grade_required_to_sign () << "). " ;
 		}
 	else
 		{
 			std::cout << this->getName () << " signed " << form.get_name ()
 					  << std::endl;
 		}
-	form.beSigned (*this);
+	try
+	{
+		form.beSigned (*this);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 void
@@ -105,10 +111,11 @@ Bureaucrat::executeForm(AForm const &form)
 	try
 	{
 		form.execute(*this);
+		std::cout << this->getName() << " executed " << form.get_name() << std::endl ;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
 	}
 }
 
