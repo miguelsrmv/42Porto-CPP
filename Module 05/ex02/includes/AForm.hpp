@@ -23,7 +23,8 @@ class AForm
 
 	// Form actions
 	void beSigned (Bureaucrat &bureaucrat);
-	virtual void execute(Bureaucrat const& executor) const = 0;
+	void execute(Bureaucrat const& executor) const;
+	virtual void execute(void) const = 0;
 
 	// Exceptions
 	class GradeTooHighException : public std::exception

@@ -25,21 +25,11 @@ RobotomyRequestForm::~RobotomyRequestForm()
 }
 
 void
-RobotomyRequestForm::execute(Bureaucrat const& executor) const
+RobotomyRequestForm::execute(void) const
 {
-	if (((Bureaucrat &)executor).getGrade() > this->get_grade_required_to_exec())
-	{
-		throw AForm::GradeTooLowException ();
-	}
-	else if (!this->get_signed_status())
-	{
-		throw AForm::FormNotSignedException ();
-	}
+	std::cout << "* Drilling noises * WHIIRLLL... WHIRLLL... * Drilling noises *"<< std::endl ;
+	if (rand() % 2)
+		std::cout << _target << " has been successfully robotomized!" << std::endl ;
 	else
-	{
-		std::cout << "* Drilling noises * WHIIRLLL... WHIRLLL... * Drilling noises *"<< std::endl ;
-		if (rand() % 2)
-			std::cout << _target << " has been successfully robotomized!" << std::endl ;
-		else
-			std::cout << "Oops..." << std::endl ;	}
+		std::cout << "Robotomy status: Oops..." << std::endl ;
 }

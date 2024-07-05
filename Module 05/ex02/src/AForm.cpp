@@ -80,6 +80,21 @@ AForm::operator= (const AForm &copy)
 	return (*this);
 }
 
+void
+AForm::execute(Bureaucrat const& executor) const
+{
+	if (((Bureaucrat &)executor).getGrade() > this->get_grade_required_to_exec())
+	{
+		throw AForm::GradeTooLowException ();
+	}
+	else if (!this->get_signed_status())
+	{
+		throw AForm::FormNotSignedException ();
+	}
+	else
+		this->execute();
+}
+
 std::ostream &
 operator<< (std::ostream &outstream, const AForm &copy)
 {
