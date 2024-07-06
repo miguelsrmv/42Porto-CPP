@@ -1,6 +1,6 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat (std::string name, int grade) : name (name)
+Bureaucrat::Bureaucrat (std::string name, int grade) : _name (name)
 {
 	std::cout << "Parametrized constructor called" << std::endl;
 
@@ -9,10 +9,11 @@ Bureaucrat::Bureaucrat (std::string name, int grade) : name (name)
 	else if (grade > MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException ();
 
-	this->grade = grade;
+	this->_grade = grade;
 }
 
-Bureaucrat::Bureaucrat (const Bureaucrat &copy) : name(copy.name), grade(copy.grade)
+Bureaucrat::Bureaucrat (const Bureaucrat &copy)
+	: _name (copy._name), _grade (copy._grade)
 {
 	std::cout << "Copy constructor called" << std::endl;
 }
@@ -22,7 +23,7 @@ Bureaucrat::operator= (const Bureaucrat &copy)
 {
 	if (this != &copy)
 		{
-			this->grade = copy.grade;
+			this->_grade = copy._grade;
 			// this->name = copy.name;   // Not possible because name is const
 		}
 	return (*this);
@@ -33,12 +34,14 @@ Bureaucrat::~Bureaucrat ()
 	std::cout << "Default destructor called" << std::endl;
 }
 
-const char *Bureaucrat::GradeTooHighException::what() const throw()
+const char *
+Bureaucrat::GradeTooHighException::what () const throw ()
 {
 	return "Invalid grade: too high!";
 }
 
-const char *Bureaucrat::GradeTooLowException::what () const throw()
+const char *
+Bureaucrat::GradeTooLowException::what () const throw ()
 {
 	return "Invalid grade: too low!";
 }
@@ -46,29 +49,29 @@ const char *Bureaucrat::GradeTooLowException::what () const throw()
 std::string
 Bureaucrat::getName ()
 {
-	return (name);
+	return _name;
 }
 
 int
 Bureaucrat::getGrade ()
 {
-	return grade;
+	return _grade;
 }
 
 void
 Bureaucrat::incrementGrade ()
 {
-	if (grade == MAX_GRADE)
+	if (_grade == MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException ();
-	grade--;
+	_grade--;
 }
 
 void
 Bureaucrat::decrementGrade ()
 {
-	if (grade == MIN_GRADE)
+	if (_grade == MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException ();
-	grade++;
+	_grade++;
 }
 
 std::ostream &

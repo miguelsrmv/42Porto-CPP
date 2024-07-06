@@ -44,8 +44,8 @@ class Bureaucrat
 
   private:
 	// Private atributes
-	const std::string name;
-	int grade;
+	const std::string _name;
+	int _grade;
 
 	// Private = operators
 	Bureaucrat &operator= (const Bureaucrat &copy);

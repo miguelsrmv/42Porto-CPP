@@ -32,7 +32,7 @@ class Bureaucrat
 	~Bureaucrat ();
 
 	// Getters
-	const std::string& getName () const;
+	const std::string &getName () const;
 	int getGrade () const;
 
 	// Grade changers
@@ -43,12 +43,12 @@ class Bureaucrat
 	void signForm (AForm &form);
 
 	// Execute form
-	void executeForm(AForm const &form);
+	void executeForm (AForm const &form);
 
   private:
 	// Private atributes
-	const std::string name;
-	int grade;
+	const std::string _name;
+	int _grade;
 
 	// Private = operators
 	Bureaucrat &operator= (const Bureaucrat &copy);

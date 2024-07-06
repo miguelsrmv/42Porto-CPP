@@ -15,12 +15,12 @@ class Bureaucrat
 	class GradeTooHighException : public std::exception
 	{
 	  public:
-		const char *what() const throw();
+		const char *what () const throw ();
 	};
 	class GradeTooLowException : public std::exception
 	{
 	  public:
-		const char *what() const throw();
+		const char *what () const throw ();
 	};
 
 	// Constructor / Destructor
@@ -38,8 +38,8 @@ class Bureaucrat
 
   private:
 	// Private atributes
-	const std::string name;
-	int grade;
+	const std::string _name;
+	int _grade;
 
 	// Private = operators
 	Bureaucrat &operator= (const Bureaucrat &copy);

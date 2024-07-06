@@ -1,19 +1,18 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat (std::string name, int grade) : name (name)
+Bureaucrat::Bureaucrat (std::string name, int grade) : _name (name)
 {
-	std::cout << "Parametrized Bureaucrat constructor called" << std::endl;
+	std::cout << "Parametrized constructor called" << std::endl;
 
 	if (grade < MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException ();
 	else if (grade > MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException ();
 
-	this->grade = grade;
+	this->_grade = grade;
 }
-
 Bureaucrat::Bureaucrat (const Bureaucrat &copy)
-	: name (copy.name), grade (copy.grade)
+	: _name (copy._name), _grade (copy._grade)
 {
 	std::cout << "Copy Bureaucrat constructor called" << std::endl;
 }
@@ -23,7 +22,7 @@ Bureaucrat::operator= (const Bureaucrat &copy)
 {
 	if (this != &copy)
 		{
-			this->grade = copy.grade;
+			this->_grade = copy._grade;
 			// this->name = copy.name;   // Not possible because name is const
 		}
 	return (*this);
@@ -49,29 +48,29 @@ Bureaucrat::GradeTooLowException::what () const throw ()
 std::string
 Bureaucrat::getName ()
 {
-	return (name);
+	return _name;
 }
 
 int
 Bureaucrat::getGrade ()
 {
-	return grade;
+	return _grade;
 }
 
 void
 Bureaucrat::incrementGrade ()
 {
-	if (grade == MAX_GRADE)
+	if (_grade == MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException ();
-	grade--;
+	_grade--;
 }
 
 void
 Bureaucrat::decrementGrade ()
 {
-	if (grade == MIN_GRADE)
+	if (_grade == MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException ();
-	grade++;
+	_grade++;
 }
 
 void

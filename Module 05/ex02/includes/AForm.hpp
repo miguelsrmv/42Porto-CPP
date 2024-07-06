@@ -16,15 +16,15 @@ class AForm
 	virtual ~AForm ();
 
 	// Getters
-	const std::string& get_name () const;
+	const std::string &get_name () const;
 	bool get_signed_status () const;
 	int get_grade_required_to_sign () const;
 	int get_grade_required_to_exec () const;
 
 	// Form actions
 	void beSigned (Bureaucrat &bureaucrat);
-	void execute(Bureaucrat const& executor) const;
-	virtual void execute(void) const = 0;
+	void execute (Bureaucrat const &executor) const;
+	virtual void execute (void) const = 0;
 
 	// Exceptions
 	class GradeTooHighException : public std::exception
@@ -46,10 +46,10 @@ class AForm
 	};
 
   private:
-	const std::string form_name;
-	bool signed_status;
-	const int grade_required_to_sign;
-	const int grade_required_to_exec;
+	const std::string _form_name;
+	bool _signed_status;
+	const int _grade_required_to_sign;
+	const int _grade_required_to_exec;
 
 	// Copy constructor and = assignment
 	AForm &operator= (const AForm &copy);

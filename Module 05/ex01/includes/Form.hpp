@@ -39,10 +39,10 @@ class Form
 	};
 
   private:
-	const std::string form_name;
-	bool signed_status;
-	const int grade_required_to_sign;
-	const int grade_required_to_exec;
+	const std::string _form_name;
+	bool _signed_status;
+	const int _grade_required_to_sign;
+	const int _grade_required_to_exec;
 
 	// Copy constructor and = assignment
 	Form &operator= (const Form &copy);
