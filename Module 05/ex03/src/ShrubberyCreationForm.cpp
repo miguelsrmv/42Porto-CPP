@@ -19,6 +19,7 @@ ShrubberyCreationForm::ShrubberyCreationForm (
 ShrubberyCreationForm &
 ShrubberyCreationForm::operator= (const ShrubberyCreationForm &copy)
 {
+	// Unable to change parameters because they are private and there are no setters
 	(void)copy;
 	return (*this);
 }
@@ -35,10 +36,22 @@ ShrubberyCreationForm::execute (void) const
 	std::string filename (_target + "_shrubbery");
 	std::ofstream outfile;
 
+	// Tries to open file and see if it's openable
 	outfile.open (filename.c_str (), std::ios::out | std::ios::trunc);
 	if (!outfile.is_open ())
 		std::cout << "Couldn't open up file!" << std::endl;
 
+	// Checks if file happens to be a dir
+	struct stat info;
+    if (stat(filename.c_str(), &info) != 0)
+	{
+        std::cerr << "Cannot access " << filename << std::endl;
+        return ; // Cannot access the file
+    }
+	if (info.st_mode & S_IFDIR)
+		std::cout << "File is a directory!" << std::endl;
+
+	// Prints to outfile stream
 	outfile << "                                              .    "
 			<< std::endl;
 	outfile << "                                   .         ;     "

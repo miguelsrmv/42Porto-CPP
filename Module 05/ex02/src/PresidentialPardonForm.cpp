@@ -1,7 +1,7 @@
 #include "PresidentialPardonForm.hpp"
 
 PresidentialPardonForm::PresidentialPardonForm (const std::string &target)
-	: AForm ("PresidentialPardonForm", 72, 45), _target (target)
+	: AForm ("PresidentialPardonForm", 25, 5), _target (target)
 {
 	std::cout << "Parametrized PresidentialPardonForm constructor called"
 			  << std::endl;
@@ -19,6 +19,7 @@ PresidentialPardonForm::PresidentialPardonForm (
 PresidentialPardonForm &
 PresidentialPardonForm::operator= (const PresidentialPardonForm &copy)
 {
+	// Unable to change parameters because they are private and there are no setters
 	(void)copy;
 	return (*this);
 }

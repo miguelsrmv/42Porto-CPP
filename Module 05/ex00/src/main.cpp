@@ -30,7 +30,7 @@ attempt_to_create_bureaucrat (const std::string &name, int grade)
 			Bureaucrat Guy (name, grade);
 			std::cout << Guy;
 		}
-	catch (const std::exception &exception_class)
+	catch (std::exception &exception_class)
 		{
 			std::cout << "Exception caught: " << exception_class.what ()
 					  << std::endl;
@@ -52,7 +52,7 @@ attempt_invalid_increment (const std::string &name)
 				{
 					Guy.incrementGrade ();
 				}
-			catch (const std::exception &exception_class)
+			catch (std::exception &exception_class)
 				{
 					std::cout
 						<< "Exception caught: " << exception_class.what ()
@@ -76,7 +76,7 @@ attempt_invalid_decrement (const std::string &name)
 				{
 					Guy.decrementGrade ();
 				}
-			catch (const std::exception &exception_class)
+			catch (std::exception &exception_class)
 				{
 					std::cout
 						<< "Exception caught: " << exception_class.what ()

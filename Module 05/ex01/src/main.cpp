@@ -9,16 +9,19 @@ test_construction ()
 	Form A ("Form", valid_number, valid_number);
 	std::cout << A;
 
+	Bureaucrat God("God all mighty", 1);
+	A.beSigned(God);
+
 	Form B (A);
 	std::cout << B;
 
 	Form C = A;
 	std::cout << C;
 
-	/* Won't work because = operator is private
-	Form D(A);
+	// Odd case because grades required to be signed/exec are constant
+	Form D("Form", 100, 100);
 	D = A;
-	std::cout << D; */
+	std::cout << D;
 }
 
 void

@@ -10,6 +10,7 @@ class RobotomyRequestForm : public AForm
 	// Constructors and Destructors
 	RobotomyRequestForm (const std::string &target);
 	RobotomyRequestForm (const RobotomyRequestForm &copy);
+	RobotomyRequestForm &operator= (const RobotomyRequestForm &copy);
 	~RobotomyRequestForm ();
 
 	// Execute function
@@ -17,7 +18,6 @@ class RobotomyRequestForm : public AForm
 
   private:
 	std::string _target;
-	RobotomyRequestForm &operator= (const RobotomyRequestForm &copy);
 };
 
 #endif

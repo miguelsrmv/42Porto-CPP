@@ -24,6 +24,16 @@ Form::Form (const Form &copy)
 	*this = copy;
 }
 
+Form &
+Form::operator= (const Form &copy)
+{
+	if (this != &copy)
+	{
+		this->_signed_status = copy._signed_status;
+	}
+	return (*this);
+}
+
 Form::~Form () { std::cout << "Default Form destructor called" << std::endl; }
 
 const std::string &
@@ -54,7 +64,10 @@ void
 Form::beSigned (Bureaucrat &bureaucrat)
 {
 	if (bureaucrat.getGrade () > _grade_required_to_sign)
+	{
 		throw Form::GradeTooLowException ();
+		return ;
+	}
 
 	_signed_status = true;
 }
@@ -69,13 +82,6 @@ const char *
 Form::GradeTooLowException::what () const throw ()
 {
 	return "Form exception: grade is too low!";
-}
-
-Form &
-Form::operator= (const Form &copy)
-{
-	(void)copy;
-	return (*this);
 }
 
 std::ostream &

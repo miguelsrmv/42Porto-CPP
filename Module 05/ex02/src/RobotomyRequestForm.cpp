@@ -1,7 +1,7 @@
 #include "RobotomyRequestForm.hpp"
 
 RobotomyRequestForm::RobotomyRequestForm (const std::string &target)
-	: AForm ("RobotomyRequestForm", 25, 5), _target (target)
+	: AForm ("RobotomyRequestForm", 72, 45), _target (target)
 {
 	std::cout << "Parametrized RobotomyRequestForm constructor called"
 			  << std::endl;
@@ -18,6 +18,7 @@ RobotomyRequestForm::RobotomyRequestForm (const RobotomyRequestForm &copy)
 RobotomyRequestForm &
 RobotomyRequestForm::operator= (const RobotomyRequestForm &copy)
 {
+	// Unable to change parameters because they are private and there are no setters
 	(void)copy;
 	return (*this);
 }

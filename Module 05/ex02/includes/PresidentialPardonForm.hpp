@@ -9,6 +9,7 @@ class PresidentialPardonForm : public AForm
 	// Constructors and Destructors
 	PresidentialPardonForm (const std::string &target);
 	PresidentialPardonForm (const PresidentialPardonForm &copy);
+	PresidentialPardonForm &operator= (const PresidentialPardonForm &copy);
 	~PresidentialPardonForm ();
 
 	// Execute function
@@ -16,7 +17,6 @@ class PresidentialPardonForm : public AForm
 
   private:
 	std::string _target;
-	PresidentialPardonForm &operator= (const PresidentialPardonForm &copy);
 };
 
 #endif

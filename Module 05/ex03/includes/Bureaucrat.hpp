@@ -43,7 +43,7 @@ class Bureaucrat
 	void signForm (AForm &form);
 
 	// Execute form
-	void executeForm (AForm const &form);
+	void executeForm (AForm const &form) const;
 
   private:
 	// Private atributes

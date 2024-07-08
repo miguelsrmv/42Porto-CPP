@@ -18,6 +18,16 @@ AForm::AForm (const AForm &copy)
 	*this = copy;
 }
 
+AForm &
+AForm::operator= (const AForm &copy)
+{
+	if (this != &copy)
+	{
+		this->_signed_status = copy._signed_status;
+	}
+	return (*this);
+}
+
 AForm::~AForm ()
 {
 	std::cout << "Default AForm destructor called" << std::endl;
@@ -51,7 +61,10 @@ void
 AForm::beSigned (Bureaucrat &bureaucrat)
 {
 	if (bureaucrat.getGrade () > _grade_required_to_sign)
+	{
 		throw AForm::GradeTooLowException ();
+		return ;
+	}
 
 	_signed_status = true;
 }
@@ -72,13 +85,6 @@ const char *
 AForm::FormNotSignedException::what () const throw ()
 {
 	return "Form exception: form is not signed!";
-}
-
-AForm &
-AForm::operator= (const AForm &copy)
-{
-	(void)copy;
-	return (*this);
 }
 
 void

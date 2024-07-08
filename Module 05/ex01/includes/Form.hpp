@@ -14,6 +14,7 @@ class Form
 	Form (const std::string &name, const int grade_to_sign,
 		  const int grade_to_exec);
 	Form (const Form &copy);
+	Form &operator= (const Form &copy);
 	~Form ();
 
 	// Getters
@@ -43,9 +44,6 @@ class Form
 	bool _signed_status;
 	const int _grade_required_to_sign;
 	const int _grade_required_to_exec;
-
-	// Copy constructor and = assignment
-	Form &operator= (const Form &copy);
 };
 
 std::ostream &operator<< (std::ostream &outstream, Form &form);
