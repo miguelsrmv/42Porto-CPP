@@ -191,30 +191,24 @@ bool ScalarConverter::overflow_check(const char *parameter, types parameter_type
 
 void ScalarConverter::convert_char(char c, const std::string &parameter)
 {
-    std::cout << "char: ";
-
     if (overflow_check(parameter.c_str(), CHAR_TYPE))
-        std::cout << "impossible" << std::endl;
+        std::cout << "char: impossible" << std::endl;
     else if (!isprint(c))
-        std::cout << "Non displayable" << std::endl;
+        std::cout << "char: Non displayable" << std::endl;
     else
-        std::cout << "'" << c << "'" << std::endl;
+        std::cout << "char: '" << c << "'" << std::endl;
 }
 
 void ScalarConverter::convert_int(int integer, const std::string &parameter)
 {
-    std::cout << "int: ";
-
     if (overflow_check(parameter.c_str(), INT_TYPE))
-        std::cout << "impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
     else
-        std::cout << integer << std::endl;
+        std::cout << "int: " << integer << std::endl;
 }
 
 void ScalarConverter::convert_float(float floating_point, const std::string &parameter)
 {
-    std::cout << "float: ";
-
     std::string appendix;
     if (floating_point == static_cast<int>(floating_point))
         appendix = ".0f";
@@ -222,15 +216,13 @@ void ScalarConverter::convert_float(float floating_point, const std::string &par
         appendix = "f";
 
     if (overflow_check(parameter.c_str(), FLOAT_TYPE))
-        std::cout << "impossible" << std::endl;
+        std::cout << "float: impossible" << std::endl;
     else
-        std::cout << floating_point << appendix << std::endl;
+        std::cout << "float: " << floating_point << appendix << std::endl;
 }
 
 void ScalarConverter::convert_double(double doubling_point, const std::string &parameter)
 {
-    std::cout << "double: ";
-
     std::string appendix;
     if (doubling_point == static_cast<int>(doubling_point))
         appendix = ".0";
@@ -238,9 +230,9 @@ void ScalarConverter::convert_double(double doubling_point, const std::string &p
         appendix = "";
 
     if (overflow_check(parameter.c_str(), DOUBLE_TYPE))
-        std::cout << "impossible" << std::endl;
+        std::cout << "double: impossible" << std::endl;
     else
-        std::cout << doubling_point << appendix << std::endl;
+        std::cout << "double: " << doubling_point << appendix << std::endl;
 }
 
 void ScalarConverter::print_pseudoliterals(const std::string &parameter)
@@ -262,5 +254,5 @@ void ScalarConverter::print_pseudoliterals(const std::string &parameter)
 
 void ScalarConverter::print_invalid_input(const std::string &parameter)
 {
-    std::cout << "Invalid input: " << parameter << std::endl;
+    std::cout << "Error [invalid input]: " << parameter << std::endl;
 }
