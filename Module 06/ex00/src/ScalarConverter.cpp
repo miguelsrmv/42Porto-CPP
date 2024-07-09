@@ -235,6 +235,7 @@ ScalarConverter::convert_double (double doubling_point,
 								 const std::string &parameter)
 {
 	std::cout << "double: ";
+
 	std::ostringstream double_stream;
 	double_stream << doubling_point;
 
@@ -280,6 +281,8 @@ ScalarConverter::overflow_check (const std::string &parameter,
 								 types parameter_type)
 {
 	long double number = std::strtold (parameter.c_str (), NULL);
+	// Allows for going above overflow data on INT and FLOATs, and becomes INF
+	// for DOUBLEs
 
 	switch (parameter_type)
 		{
