@@ -234,16 +234,18 @@ bool
 ScalarConverter::std_conversion_error (float floating_point,
 									   const std::string &parameter)
 {
-	return (floating_point == -1
-			&& std::strtof (parameter.c_str (), NULL) != -1);
+	return (
+		(floating_point == -1 && std::strtof (parameter.c_str (), NULL) != -1)
+		|| (floating_point == 0 && std::strtof (parameter.c_str (), NULL)));
 }
 
 bool
 ScalarConverter::std_conversion_error (double doubling_point,
 									   const std::string &parameter)
 {
-	return (doubling_point == -1
-			&& std::strtod (parameter.c_str (), NULL) != -1);
+	return (
+		(doubling_point == -1 && std::strtod (parameter.c_str (), NULL) != -1)
+		|| (doubling_point == 0 && std::strtof (parameter.c_str (), NULL)));
 }
 
 void
