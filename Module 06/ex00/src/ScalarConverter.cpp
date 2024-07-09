@@ -150,7 +150,7 @@ void ScalarConverter::convert(std::string &parameter)
     case CHAR_TYPE:
         return convert_data(parameter, parameter[0]);
     case INT_TYPE:
-        return convert_data(parameter, std::atoi(parameter.c_str()));
+        return convert_data(parameter, std::strtod(parameter.c_str(), NULL));
     case FLOAT_TYPE:
         return convert_data(parameter, std::strtof(parameter.c_str(), NULL));
     case DOUBLE_TYPE:
