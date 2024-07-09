@@ -11,7 +11,9 @@ typedef enum types {
     CHAR_TYPE,
     INT_TYPE,
     FLOAT_TYPE,
-    DOUBLE_TYPE
+    DOUBLE_TYPE,
+    PSEUDO_LITERAL_TYPE,
+    INVALID_TYPE
 } types;
 
 class ScalarConverter
@@ -27,17 +29,23 @@ class ScalarConverter
         ~ScalarConverter();
         
         // Gets type that was inputed
+        static types get_type(const std::string& parameter);
         static bool is_char(const std::string& parameter);
         static bool is_int(const std::string& parameter);
         static bool is_float(const std::string& parameter);
         static bool is_double(const std::string& parameter);
-        static types get_type(const std::string& parameter);
+        static bool is_pseudo_literal(const std::string& parameter);
 
-        // Converts type 
-        static void print_char(const std::string& parameter);
-        static void print_int(const std::string& parameter);
-        static void print_float(const std::string& parameter);
-        static void print_double(const std::string& parameter);
+        // Converts type
+        static std::string convert_invalid_input(const std::string& parameter);
+        static std::string convert_char(const std::string& parameter);
+        static std::string convert_int(const std::string& parameter);
+        static std::string convert_float(const std::string& parameter);
+        static std::string convert_double(const std::string& parameter);
+        static std::string convert_pseudo_literal(const std::string& parameter);
+
+        // Prints data 
+        static void print_data(const std::string *parameter_list);
 };
 
 #endif
