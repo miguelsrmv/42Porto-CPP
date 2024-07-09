@@ -6,6 +6,7 @@
 #include <cctype>
 #include <limits>
 #include <sstream>
+#include <cstdlib>
 
 typedef enum types {
     CHAR_TYPE,
@@ -36,16 +37,21 @@ class ScalarConverter
         static bool is_double(const std::string& parameter);
         static bool is_pseudo_literal(const std::string& parameter);
 
-        // Converts type
-        static std::string convert_invalid_input(const std::string& parameter);
-        static std::string convert_char(const std::string& parameter);
-        static std::string convert_int(const std::string& parameter);
-        static std::string convert_float(const std::string& parameter);
-        static std::string convert_double(const std::string& parameter);
-        static std::string convert_pseudo_literal(const std::string& parameter);
+        // Cverflow checker
+        static bool overflow_check(const char *parameter, types parameter_type);
 
-        // Prints data 
-        static void print_data(const std::string *parameter_list);
+        // Converts type
+        static void convert_data(const std::string& parameter, long double number);
+        static void convert_char(char c, const std::string& parameter);
+        static void convert_int(int integer, const std::string& parameter);
+        static void convert_float(float floating_point, const std::string& parameter);
+        static void convert_double(double doubling_point, const std::string &parameter);
+
+        // Print pseudoliterals
+        static void print_pseudoliterals(const std::string& parameter);
+
+        // Print invalid input message
+        static void print_invalid_input(const std::string& parameter);
 };
 
 #endif
