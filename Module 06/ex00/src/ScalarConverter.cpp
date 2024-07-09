@@ -160,14 +160,13 @@ ScalarConverter::convert (std::string &parameter)
 		{
 		case CHAR_TYPE:
 			return convert_data (parameter, parameter[0]);
-		case INT_TYPE:
-			return convert_data (parameter, std::atoi (parameter.c_str ()));
-		case FLOAT_TYPE:
-			return convert_data (parameter,
-								 std::strtof (parameter.c_str (), NULL));
+		case INT_TYPE:	 /* return convert_data (parameter, std::atoi
+							(parameter.c_str (), NULL));*/
+		case FLOAT_TYPE: /* return convert_data (parameter, std::strtof
+							(parameter.c_str (), NULL));*/
 		case DOUBLE_TYPE:
 			return convert_data (parameter,
-								 std::strtod (parameter.c_str (), NULL));
+								 std::strtold (parameter.c_str (), NULL));
 		case PSEUDO_LITERAL_TYPE:
 			return print_pseudoliterals (parameter);
 		case INVALID_TYPE:
@@ -185,87 +184,49 @@ ScalarConverter::convert_data (const std::string &parameter,
 	convert_double (static_cast<double> (number), parameter);
 }
 
-bool
-ScalarConverter::overflow_check (const std::string &parameter,
-								 types parameter_type)
-{
-	long double number = std::strtold (parameter.c_str (), NULL);
-
-	switch (parameter_type)
-		{
-		case CHAR_TYPE:
-			return (number < std::numeric_limits<char>::min ()
-					|| number > std::numeric_limits<char>::max ());
-		case INT_TYPE:
-			return (number < std::numeric_limits<int>::min ()
-					|| number > std::numeric_limits<int>::max ());
-		case FLOAT_TYPE:
-			return (number < -std::numeric_limits<float>::max ()
-					|| number > std::numeric_limits<float>::max ());
-		case DOUBLE_TYPE:
-			return (number < -std::numeric_limits<double>::max ()
-					|| number > std::numeric_limits<double>::max ());
-		default:
-			return false;
-		}
-}
-
 void
 ScalarConverter::convert_char (char c, const std::string &parameter)
 {
+	std::cout << "char: ";
+
 	if (overflow_check (parameter, CHAR_TYPE))
-		std::cout << "char: overflow" << std::endl;
+		std::cout << "overflow" << std::endl;
 	else if (!isprint (c))
-		std::cout << "char: Non displayable" << std::endl;
+		std::cout << "Non displayable" << std::endl;
 	else
-		std::cout << "char: '" << c << "'" << std::endl;
+		std::cout << "'" << c << "'" << std::endl;
 }
 
 void
 ScalarConverter::convert_int (int integer, const std::string &parameter)
 {
+	std::cout << "int: ";
+
 	if (overflow_check (parameter, INT_TYPE))
-		std::cout << "int: overflow" << std::endl;
+		std::cout << "overflow" << std::endl;
 	else
-		std::cout << "int: " << integer << std::endl;
-}
-
-bool
-ScalarConverter::std_conversion_error (float floating_point,
-									   const std::string &parameter)
-{
-	return (
-		(floating_point == -1 && std::strtof (parameter.c_str (), NULL) != -1)
-		|| (floating_point == 0 && std::strtof (parameter.c_str (), NULL)));
-}
-
-bool
-ScalarConverter::std_conversion_error (double doubling_point,
-									   const std::string &parameter)
-{
-	return (
-		(doubling_point == -1 && std::strtod (parameter.c_str (), NULL) != -1)
-		|| (doubling_point == 0 && std::strtof (parameter.c_str (), NULL)));
+		std::cout << integer << std::endl;
 }
 
 void
 ScalarConverter::convert_float (float floating_point,
 								const std::string &parameter)
 {
+	std::cout << "float: ";
+
 	std::ostringstream float_stream;
 	float_stream << floating_point;
 
-	if (overflow_check (parameter, FLOAT_TYPE)
-		|| std_conversion_error (floating_point, parameter))
-		std::cout << "float: overflow" << std::endl;
+	if (overflow_check (parameter, FLOAT_TYPE))
+		std::cout << "overflow" << std::endl;
 	else if (float_stream.str ().find ('e') != std::string::npos)
-		std::cout << "float: Non displayable" << std::endl;
+		std::cout << float_stream.str () << std::endl;
 	else
 		{
 			(floating_point == static_cast<int> (floating_point))
 				? float_stream << ".0f"
 				: float_stream << "f";
-			std::cout << "float: " << float_stream.str () << std::endl;
+			std::cout << float_stream.str () << std::endl;
 		}
 }
 
@@ -273,20 +234,20 @@ void
 ScalarConverter::convert_double (double doubling_point,
 								 const std::string &parameter)
 {
+	std::cout << "double: ";
 	std::ostringstream double_stream;
 	double_stream << doubling_point;
 
-	if (overflow_check (parameter, DOUBLE_TYPE)
-		|| std_conversion_error (doubling_point, parameter))
-		std::cout << "double: overflow" << std::endl;
+	if (overflow_check (parameter, DOUBLE_TYPE))
+		std::cout << "overflow" << std::endl;
 	else if (double_stream.str ().find ('e') != std::string::npos)
-		std::cout << "double: Non displayable" << std::endl;
+		std::cout << double_stream.str () << std::endl;
 	else
 		{
 			(doubling_point == static_cast<int> (doubling_point))
 				? double_stream << ".0"
 				: double_stream << "";
-			std::cout << "double: " << double_stream.str () << std::endl;
+			std::cout << double_stream.str () << std::endl;
 		}
 }
 
@@ -312,4 +273,29 @@ void
 ScalarConverter::print_invalid_input (const std::string &parameter)
 {
 	std::cout << "Error [invalid input]: " << parameter << std::endl;
+}
+
+bool
+ScalarConverter::overflow_check (const std::string &parameter,
+								 types parameter_type)
+{
+	long double number = std::strtold (parameter.c_str (), NULL);
+
+	switch (parameter_type)
+		{
+		case CHAR_TYPE:
+			return (number < std::numeric_limits<char>::min ()
+					|| number > std::numeric_limits<char>::max ());
+		case INT_TYPE:
+			return (number < std::numeric_limits<int>::min ()
+					|| number > std::numeric_limits<int>::max ());
+		case FLOAT_TYPE:
+			return (number < -std::numeric_limits<float>::max ()
+					|| number > std::numeric_limits<float>::max ());
+		case DOUBLE_TYPE:
+			return (number < -std::numeric_limits<double>::max ()
+					|| number > std::numeric_limits<double>::max ());
+		default:
+			return false;
+		}
 }

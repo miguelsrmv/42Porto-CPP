@@ -2,6 +2,7 @@
 #define SCALAR_CONVERTER_HPP
 
 #include <cctype>
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <limits>
@@ -38,11 +39,6 @@ class ScalarConverter
 	static bool is_double (const std::string &parameter);
 	static bool is_pseudo_literal (const std::string &parameter);
 
-	// Cverflow checker
-	static bool overflow_check (const std::string &parameter, types parameter_type);
-    static bool std_conversion_error(float floating_point, const std::string &parameter);
-    static bool std_conversion_error(double doubling_point, const std::string &parameter);
-
 	// Converts type
 	static void convert_data (const std::string &parameter,
 							  long double number);
@@ -58,6 +54,10 @@ class ScalarConverter
 
 	// Print invalid input message
 	static void print_invalid_input (const std::string &parameter);
+
+	// Overflow checker
+	static bool overflow_check (const std::string &parameter,
+								types parameter_type);
 };
 
 #endif
