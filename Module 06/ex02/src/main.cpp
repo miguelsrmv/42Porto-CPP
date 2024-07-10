@@ -4,34 +4,66 @@
 #include "C.hpp"
 
 #include <cstdlib>
+#include <iostream>
+#include <time.h>
+#include <unistd.h>
 
-Base * generate(void)
+Base *generate(void)
 {
-	switch(rand() % 3)
+	usleep(100);
+	switch (rand() % 3)
 	{
-		case 1:
-			return new class_A;
-		case 2:
-			return new class_B;
-		case 3:
-			return new class_C;
+	case 1:
+		return new A;
+	case 2:
+		return new B;
+	default:
+		return new C;
 	}
 }
 
-void identify(Base* p);
+void identify(Base *p)
+{
+	std::cout << "Base *p is of class ";
 
-void identify(Base& p);
+	if (dynamic_cast<A *>(p))
+		std::cout << "A" << std::endl;
+	else if (dynamic_cast<B *>(p))
+		std::cout << "B" << std::endl;
+	else if (dynamic_cast<C *>(p))
+		std::cout << "C" << std::endl;
+	else
+		std::cout << "unknown" << std::endl;
+}
+
+void identify(Base &p)
+{
+	std::cout << "Base_reference &p is of class ";
+
+	if (dynamic_cast<A *>(&p))
+		std::cout << "A" << std::endl;
+	else if (dynamic_cast<B *>(&p))
+		std::cout << "B" << std::endl;
+	else if (dynamic_cast<C *>(&p))
+		std::cout << "C" << std::endl;
+	else
+		std::cout << "unknown" << std::endl;
+}
 
 int main(void)
 {
-	A class_A;
-	B class_B;
-	C class_C;
-	Base class_Base;
+	srand(time(NULL));
 
-	(void)class_A;
-	(void)class_B;
-	(void)class_C;
-	(void)class_Base;
+	for (int i = 0; i < 50; i++)
+	{
+		Base *ptr = generate();
+		Base &ref = *ptr;
+
+		identify(ptr);
+		identify(ref);
+
+		delete ptr;
+		std::cout << std::endl;
+	}
+	return (0);
 }
-
