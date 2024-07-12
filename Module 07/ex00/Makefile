@@ -36,4 +36,7 @@ fclean: clean
 
 re: fclean all
 
+format:
+	clang-format -style="{BasedOnStyle: GNU, UseTab: Always, IndentWidth: 4, TabWidth: 4}" -i $(SRCDIR)/*
+
 .PHONY: all clean fclean re
