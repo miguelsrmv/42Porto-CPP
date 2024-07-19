@@ -1,5 +1,5 @@
 #ifndef INTERN_HPP
-#define INTERN_hpp
+#define INTERN_HPP
 
 #include "AForm.hpp"
 #include "PresidentialPardonForm.hpp"
@@ -14,7 +14,8 @@ class Intern
 	const Intern &operator= (const Intern &copy);
 	~Intern ();
 
-	AForm *makeForm (const std::string &form_name, const std::string &form_target) const;
+	AForm *makeForm (const std::string &form_name,
+					 const std::string &form_target) const;
 
   private:
 	AForm *createPresidentialPardornForm (const std::string &target) const;
@@ -23,3 +24,4 @@ class Intern
 };
 
 #endif
+

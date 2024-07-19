@@ -18,7 +18,8 @@ RobotomyRequestForm::RobotomyRequestForm (const RobotomyRequestForm &copy)
 RobotomyRequestForm &
 RobotomyRequestForm::operator= (const RobotomyRequestForm &copy)
 {
-	// Unable to change parameters because they are private and there are no setters
+	// Unable to change parameters because they are private and there are no
+	// setters
 	(void)copy;
 	return (*this);
 }
@@ -31,10 +32,12 @@ RobotomyRequestForm::~RobotomyRequestForm ()
 void
 RobotomyRequestForm::execute (void) const
 {
+	std::srand (std::time (NULL));
+
 	std::cout
 		<< "* Drilling noises * WHIIRLLL... WHIRLLL... * Drilling noises *"
 		<< std::endl;
-	if (rand () % 2)
+	if (std::rand () % 2)
 		std::cout << _target << " has been successfully robotomized!"
 				  << std::endl;
 	else

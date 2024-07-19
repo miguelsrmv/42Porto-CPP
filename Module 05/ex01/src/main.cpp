@@ -9,8 +9,8 @@ test_construction ()
 	Form A ("Form", valid_number, valid_number);
 	std::cout << A;
 
-	Bureaucrat God("God all mighty", 1);
-	A.beSigned(God);
+	Bureaucrat God ("God all mighty", 1);
+	A.beSigned (God);
 
 	Form B (A);
 	std::cout << B;
@@ -19,7 +19,7 @@ test_construction ()
 	std::cout << C;
 
 	// Odd case because grades required to be signed/exec are constant
-	Form D("Form", 100, 100);
+	Form D ("Form", 100, 100);
 	D = A;
 	std::cout << D;
 }
@@ -75,6 +75,19 @@ test_signatures ()
 	// Shouldn't be able to sign it due to insuficient privilleges
 	Form form_2 ("Form_2", 10, 10);
 	Bureaucrat Steve ("Steve", 30);
+
+	try
+		{
+			Steve.signForm (form_2);
+		}
+	catch (const std::exception &e)
+		{
+			std::cerr << e.what () << std::endl;
+		}
+
+	// Should be able to sign them after enough increments
+	for (int i = 30; i > 10; i--)
+		Steve.incrementGrade ();
 
 	try
 		{
