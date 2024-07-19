@@ -1,8 +1,5 @@
 #include "Bureaucrat.hpp"
 #include "Intern.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
 
 void
 test_form_creation (const std::string &form_name,
