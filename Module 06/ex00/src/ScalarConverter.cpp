@@ -219,15 +219,17 @@ ScalarConverter::convert_float (float floating_point,
 
 	if (overflow_check (parameter, FLOAT_TYPE))
 		std::cout << "overflow" << std::endl;
-	else if (float_stream.str ().find ('e') != std::string::npos)
-		std::cout << float_stream.str () << std::endl;
-	else
-		{
-			(floating_point == static_cast<int> (floating_point))
-				? float_stream << ".0f"
-				: float_stream << "f";
+	/*	else if (float_stream.str ().find ('e') != std::string::npos)
 			std::cout << float_stream.str () << std::endl;
-		}
+		else
+			{
+				(floating_point == static_cast<int> (floating_point))
+					? float_stream << ".0f"
+					: float_stream << "f";
+				std::cout << float_stream.str () << std::endl;
+			}*/
+	else
+		std::cout << std::fixed << floating_point << std::endl;
 }
 
 void
