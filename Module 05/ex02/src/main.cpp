@@ -17,7 +17,7 @@ test_form (Bureaucrat &B, AForm &F)
 	// Increment Grade until one can sign form
 	for (int i = B.getGrade (); i >= F.get_grade_required_to_sign (); i--)
 		B.incrementGrade ();
-	std::cout << "(... incrementing grade ...)" << std::endl ;
+	std::cout << "(... incrementing grade ...)" << std::endl;
 	B.signForm (F);
 
 	// Attempt to sign: already signed
@@ -29,7 +29,7 @@ test_form (Bureaucrat &B, AForm &F)
 	// Increment grade until one can execute form
 	for (int i = B.getGrade (); i >= F.get_grade_required_to_exec (); i--)
 		B.incrementGrade ();
-	std::cout << "(... incrementing grade ...)" << std::endl ;
+	std::cout << "(... incrementing grade ...)" << std::endl;
 	B.executeForm (F);
 
 	std::cout << std::endl << std::endl;

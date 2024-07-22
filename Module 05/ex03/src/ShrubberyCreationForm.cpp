@@ -12,8 +12,6 @@ ShrubberyCreationForm::ShrubberyCreationForm (
 	: AForm (copy), _target (copy._target)
 {
 	std::cout << "Copy ShrubberyCreationForm constructor called" << std::endl;
-
-	*this = copy;
 }
 
 ShrubberyCreationForm &

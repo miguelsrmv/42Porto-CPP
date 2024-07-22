@@ -14,17 +14,15 @@ AForm::AForm (const AForm &copy)
 	  _grade_required_to_exec (copy._grade_required_to_exec)
 {
 	std::cout << "Copy AForm constructor called" << std::endl;
-
-	*this = copy;
 }
 
 AForm &
 AForm::operator= (const AForm &copy)
 {
 	if (this != &copy)
-	{
-		this->_signed_status = copy._signed_status;
-	}
+		{
+			this->_signed_status = copy._signed_status;
+		}
 	return (*this);
 }
 
@@ -61,10 +59,10 @@ void
 AForm::beSigned (Bureaucrat &bureaucrat)
 {
 	if (bureaucrat.getGrade () > _grade_required_to_sign)
-	{
-		throw AForm::GradeTooLowException ();
-		return ;
-	}
+		{
+			throw AForm::GradeTooLowException ();
+			return;
+		}
 
 	_signed_status = true;
 }

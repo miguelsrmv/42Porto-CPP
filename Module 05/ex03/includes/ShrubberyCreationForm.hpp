@@ -12,7 +12,6 @@ class ShrubberyCreationForm : public AForm
 	// Constructors and Destructors
 	ShrubberyCreationForm (const std::string &target);
 	ShrubberyCreationForm (const ShrubberyCreationForm &copy);
-	ShrubberyCreationForm &operator= (const ShrubberyCreationForm &copy);
 	~ShrubberyCreationForm ();
 
 	// Execute function
@@ -20,6 +19,8 @@ class ShrubberyCreationForm : public AForm
 
   private:
 	std::string _target;
+
+	ShrubberyCreationForm &operator= (const ShrubberyCreationForm &copy);
 };
 
 #endif

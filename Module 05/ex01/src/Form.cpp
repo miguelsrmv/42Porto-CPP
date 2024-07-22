@@ -20,17 +20,15 @@ Form::Form (const Form &copy)
 	  _grade_required_to_exec (copy._grade_required_to_exec)
 {
 	std::cout << "Copy Form constructor called" << std::endl;
-
-	*this = copy;
 }
 
 Form &
 Form::operator= (const Form &copy)
 {
 	if (this != &copy)
-	{
-		this->_signed_status = copy._signed_status;
-	}
+		{
+			this->_signed_status = copy._signed_status;
+		}
 	return (*this);
 }
 
@@ -64,10 +62,10 @@ void
 Form::beSigned (Bureaucrat &bureaucrat)
 {
 	if (bureaucrat.getGrade () > _grade_required_to_sign)
-	{
-		throw Form::GradeTooLowException ();
-		return ;
-	}
+		{
+			throw Form::GradeTooLowException ();
+			return;
+		}
 
 	_signed_status = true;
 }

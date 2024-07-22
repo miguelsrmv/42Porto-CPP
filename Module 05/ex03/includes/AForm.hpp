@@ -13,7 +13,6 @@ class AForm
 	// Constructors and destructors
 	AForm (const std::string &name, int sign_grade, int exec_grade);
 	AForm (const AForm &copy);
-	AForm &operator= (const AForm &copy);
 	virtual ~AForm ();
 
 	// Getters
@@ -51,6 +50,8 @@ class AForm
 	bool _signed_status;
 	const int _grade_required_to_sign;
 	const int _grade_required_to_exec;
+
+	AForm &operator= (const AForm &copy);
 };
 
 std::ostream &operator<< (std::ostream &outstream, const AForm &form);
