@@ -3,9 +3,12 @@
 
 #include <cstddef>
 
-template <class T>
-void iter (T *array_address, std::size_t length, void (*f) (T));
-
-template <class T> void f (T value);
+template <typename T, typename function_type>
+void
+iter (T *array, size_t array_length, function_type function)
+{
+	for (size_t i = 0; i < array_length; i++)
+		function (array[i]);
+}
 
 #endif

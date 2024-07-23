@@ -1,33 +1,25 @@
 #include "iter.hpp"
 #include <iostream>
 
-template <class T>
-void
-iter (T *array_address, std::size_t length, void (*f) (T))
+template <typename T>
+static void
+print_doubled_value (T value)
 {
-	for (size_t index = 0; index < length; index++)
-		f (array_address[index]);
-
-	std::cout << std::endl;
-}
-
-template <class T>
-void
-test_function (T value)
-{
-	std::cout << value << std::endl;
+	std::cout << value * 2 << std::endl;
 }
 
 int
 main (void)
 {
-	int int_array[5] = { 1, 2, 3 };
-	float float_array[5] = { 6.1f, 7.2f, 8.3f, 9.4f };
-	char char_array[7] = "Miguel";
+	int i_array[5] = { 1, 2, 3, 4, 5 };
+	iter (i_array, 5, print_doubled_value<int>);
+	std::cout << std::endl;
 
-	iter (int_array, 3, test_function);
+	char c_array[7] = "Miguel";
+	iter (c_array, 7, print_doubled_value<char>);
+	std::cout << std::endl;
 
-	iter (float_array, 4, test_function);
-
-	iter (char_array, 7, test_function);
+	float f_array[3] = { 1.0f, 2.0f, 3.0f };
+	iter (f_array, 3, print_doubled_value<float>);
+	std::cout << std::endl;
 }

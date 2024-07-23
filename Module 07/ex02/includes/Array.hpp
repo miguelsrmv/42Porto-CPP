@@ -1,21 +1,32 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
-template <class T> class Array
+#include <exception>
+
+template <typename T> class Array
 {
   public:
 	Array ();
 	Array (unsigned int n);
 	Array (const Array &copy);
-	Array &operator= (const Array &copy);
+	const Array &operator= (const Array &copy);
+	T &operator[] (unsigned int position);
 	~Array ();
 
-	T &operator[] (unsigned int n);
-	unsigned int size () const;
+	unsigned int size ();
+
+	class OutOfBoundsException : public std::exception
+	{
+	  public:
+		const char *what () const throw ();
+	};
 
   private:
-	T *element_array;
-	unsigned int array_length;
+	unsigned int _array_length;
+
+	T *_array;
 };
+
+#include "Array.tpp"
 
 #endif

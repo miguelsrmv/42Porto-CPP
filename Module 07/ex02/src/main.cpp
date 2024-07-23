@@ -1,148 +1,100 @@
-#include "Array.tpp"
+#include "Array.hpp"
 #include <iostream>
+#include <sstream>
 
 void
-test_int_array ()
+testDefaultConstructor (void)
 {
-	std::cout << "INT TESTING" << std::endl;
-
-	// Default constructor
-	std::cout << "Default constructor testing (shouldn't print anything)"
+	std::cout << std::endl
+			  << "======= Testing Array Default Constructor ======="
 			  << std::endl;
-	Array<int> no_number;
-	for (size_t i = 0; i < no_number.size (); i++)
-		std::cout << "numbers[" << i << "] = " << no_number[i] << std::endl;
-	std::cout << std::endl;
 
-	// Parametrized constructor
-	std::cout << "Parametrized constructor testing (should print 0s)"
-			  << std::endl;
 	Array<int> numbers (10);
+
 	for (size_t i = 0; i < numbers.size (); i++)
 		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl;
+}
 
-	// [] operator
-	std::cout << "[] operator (should print squares)" << std::endl;
-	for (size_t i = 0; i < numbers.size (); i++)
-		numbers[i] = i * i;
-	for (size_t i = 0; i < numbers.size (); i++)
-		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl;
-
-	// Copy operator
-	std::cout << "Copy constructor testing (should print the same)"
+void
+testAssignmentOperator (void)
+{
+	std::cout << std::endl
+			  << "======= Testing Array Assisgnment Operator ======= "
 			  << std::endl;
+
+	Array<int> numbers (10);
+
+	for (size_t i = 0; i < numbers.size (); i++)
+		numbers[i] = 42 + i;
+
 	Array<int> copy (numbers);
-	for (size_t i = 0; i < copy.size (); i++)
-		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl;
-
-	// = Operator
-	std::cout << "= operator testing (should print the same)" << std::endl;
-	Array<int> equal_array = numbers;
 
 	for (size_t i = 0; i < copy.size (); i++)
-		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl << std::endl;
+		numbers[i] = 42 - i;
+
+	for (size_t i = 0; i < copy.size (); i++)
+		{
+			std::cout << "Numbers[" << i << "] = " << numbers[i] << " vs Copy["
+					  << i << "] = " << copy[i] << std::endl;
+		}
 }
 
 void
-test_float_array ()
+testCopyConstructor (void)
 {
-	std::cout << "FLOAT TESTING" << std::endl;
+	std::cout << std::endl
+			  << "======= Testing Copy Constructor ======= " << std::endl;
 
-	// Default constructor
-	std::cout << "Default constructor testing (shouldn't print anything)"
-			  << std::endl;
-	Array<float> no_number;
-	for (size_t i = 0; i < no_number.size (); i++)
-		std::cout << "numbers[" << i << "] = " << no_number[i] << std::endl;
-	std::cout << std::endl;
+	Array<int> numbers (10);
+	Array<int> copy (5);
 
-	// Parametrized constructor
-	std::cout << "Parametrized constructor testing (should print 0s)"
-			  << std::endl;
-	Array<float> numbers (10);
 	for (size_t i = 0; i < numbers.size (); i++)
-		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl;
+		numbers[i] = 42 + i;
 
-	// [] operator
-	std::cout << "[] operator (should print weird numbers)" << std::endl;
-	for (size_t i = 0; i < numbers.size (); i++)
-		numbers[i] = i * (i * 0.5);
-	for (size_t i = 0; i < numbers.size (); i++)
-		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl;
-
-	// Copy operator
-	std::cout << "Copy constructor testing (should print the same)"
-			  << std::endl;
-	Array<float> copy (numbers);
-	for (size_t i = 0; i < copy.size (); i++)
-		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl;
-
-	// = Operator
-	std::cout << "= operator testing (should print the same)" << std::endl;
-	Array<float> equal_array = numbers;
+	copy = numbers;
 
 	for (size_t i = 0; i < copy.size (); i++)
-		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
-	std::cout << std::endl << std::endl;
+		numbers[i] = 42 - i;
+
+	for (size_t i = 0; i < copy.size (); i++)
+		{
+			std::cout << "Numbers[" << i << "] = " << numbers[i] << " vs Copy["
+					  << i << "] = " << copy[i] << std::endl;
+		}
 }
 
 void
-test_string_array ()
+testOutOfBoundsIndexes (void)
 {
-	std::cout << "STRING TESTING" << std::endl;
+	std::cout << std::endl
+			  << "======= Testing Array Invalid Index =======" << std::endl;
+	Array<int> numbers (10);
 
-	// Default constructor
-	std::cout << "Default constructor testing (shouldn't print anything)"
-			  << std::endl;
-	Array<std::string> no_string;
-	for (size_t i = 0; i < no_string.size (); i++)
-		std::cout << "string[" << i << "] = " << no_string[i] << std::endl;
-	std::cout << std::endl;
+	try
+		{
+			numbers[-1] = 0;
+		}
+	catch (const std::exception &e)
+		{
+			std::cout << e.what () << std::endl;
+		}
 
-	// Parametrized constructor
-	std::cout << "Parametrized constructor testing (should print nothing)"
-			  << std::endl;
-	Array<std::string> strings (3);
-	for (size_t i = 0; i < strings.size (); i++)
-		std::cout << "strings[" << i << "] = " << strings[i] << std::endl;
-	std::cout << std::endl;
-
-	// [] operator
-	std::cout << "[] operator (should print new Names)" << std::endl;
-	strings[0] = std::string ("Miguel");
-	strings[1] = std::string ("João");
-	strings[2] = std::string ("Zé");
-	for (size_t i = 0; i < strings.size (); i++)
-		std::cout << "string[" << i << "] = " << strings[i] << std::endl;
-	std::cout << std::endl;
-
-	// Copy operator
-	std::cout << "Copy constructor testing (should print the same)"
-			  << std::endl;
-	Array<std::string> copy (strings);
-	for (size_t i = 0; i < copy.size (); i++)
-		std::cout << "string[" << i << "] = " << strings[i] << std::endl;
-	std::cout << std::endl;
-
-	// = operator
-	std::cout << "= operator testing (should print the same)" << std::endl;
-	Array<std::string> equal_array = strings;
-	for (size_t i = 0; i < copy.size (); i++)
-		std::cout << "string[" << i << "] = " << strings[i] << std::endl;
-	std::cout << std::endl << std::endl;
+	try
+		{
+			numbers[10] = 0;
+		}
+	catch (const std::exception &e)
+		{
+			std::cout << e.what () << std::endl;
+		}
 }
 
 int
 main (void)
 {
-	test_int_array ();
-	test_float_array ();
-	test_string_array ();
+	testDefaultConstructor ();
+	testAssignmentOperator ();
+	testCopyConstructor ();
+	testOutOfBoundsIndexes ();
+	return 0;
 }

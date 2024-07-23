@@ -10,12 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=   Startswithafewfunction
+NAME		=   Startwithafewfunctions
 CXX			=   c++
-CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -pedantic -std=c++98 -g
+CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -pedantic -std=c++98
 SRCDIR		=	src
 INCDIR		=   includes
-SRC			=   main.cpp
+SRC			=   main.cpp 
 OBJS		=   $(addprefix $(SRCDIR)/, $(SRC:.cpp=.o))
 RM			=   rm -rf
 

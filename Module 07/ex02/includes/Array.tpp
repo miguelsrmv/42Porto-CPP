@@ -1,53 +1,61 @@
 // vim: set filetype=cpp :
 
 #include "Array.hpp"
-#include <cstddef>
 
-template <class T> Array<T>::Array () : array_length (0)
+template <typename T> Array<T>::Array () : _array_length (0)
 {
-	element_array = new T[array_length];
+	_array = new T[0];
 }
 
-template <class T> Array<T>::Array (unsigned int n) : array_length (n)
+template <typename T> Array<T>::Array (unsigned int n) : _array_length (n)
 {
-	element_array = new T[array_length];
-	for (unsigned int i = 0; i < n; i++)
-		element_array[i] = T ();
+	_array = new T[_array_length];
 }
 
-template <class T> Array<T>::Array (const Array &copy)
+template <typename T>
+Array<T>::Array (const Array &copy) : _array_length (copy._array_length)
 {
-	element_array = NULL;
-	*this = copy;
+	_array = new T[_array_length];
+	for (unsigned int i = 0; i < _array_length; i++)
+		_array[i] = copy._array[i];
 }
 
-template <class T>
-Array<T> &
-Array<T>::operator= (const Array<T> &copy)
+template <typename T>
+const Array<T> &
+Array<T>::operator= (const Array &copy)
 {
 	if (this != &copy)
 		{
-			this->array_length = copy.size ();
-			delete[] this->element_array;
-			this->element_array = new T[this->array_length];
-			for (unsigned int i = 0; i < this->array_length; i++)
-				this->element_array[i] = copy.element_array[i];
+			delete[] _array;
+			_array_length = copy._array_length;
+			_array = new T[_array_length];
+			for (unsigned int i = 0; i < _array_length; i++)
+				_array[i] = copy._array[i];
 		}
 	return (*this);
 }
 
-template <class T> Array<T>::~Array () { delete[] element_array; }
-
-template <class T>
+template <typename T>
 T &
-Array<T>::operator[] (unsigned int n)
+Array<T>::operator[] (unsigned int position)
 {
-	return element_array[n];
+	if (position >= _array_length)
+		throw OutOfBoundsException ();
+	return (_array[position]);
 }
 
-template <class T>
+template <typename T> Array<T>::~Array () { delete[] _array; }
+
+template <typename T>
 unsigned int
-Array<T>::size () const
+Array<T>::size ()
 {
-	return array_length;
+	return _array_length;
+}
+
+template <typename T>
+const char *
+Array<T>::OutOfBoundsException::what () const throw ()
+{
+	return "Error: Out of bounds!";
 }
