@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=   Startswithafewfunction
+NAME		=   Mutatedabomination
 CXX			=   c++
 CXXFLAGS	=   -Wall -Wextra -Werror -Wshadow -pedantic -std=c++98 -g
 SRCDIR		=	src
