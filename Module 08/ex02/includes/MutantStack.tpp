@@ -18,9 +18,7 @@ const MutantStack<T, C> &
 MutantStack<T, C>::operator= (const MutantStack &copy)
 {
 	if (this != &copy)
-		{
-			;
-		}
+		std::stack<T, C>::operator= (copy);
 	return *this;
 }
 
