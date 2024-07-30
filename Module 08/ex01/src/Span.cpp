@@ -42,6 +42,7 @@ rand_int ()
 void
 Span::fill_in_span ()
 {
+	srand(static_cast<unsigned int>(time(NULL)));
 	_storage.resize (_maximum_length);
 	std::generate (_storage.begin () + _current_length, _storage.end (),
 				   rand_int);
@@ -63,7 +64,7 @@ Span::shortestSpan ()
 		 it < sorted_storage.end () - 1; it++)
 		{
 			unsigned int temp_distance
-				= static_cast<unsigned int> (*(it + 1) - *it);
+				= *(it + 1) - *it;
 			if (temp_distance < distance)
 				distance = temp_distance;
 		}
