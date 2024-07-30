@@ -26,7 +26,7 @@ BitcoinExchange::get_values_to_database ()
 	std::getline (input, buffer);
 	while (std::getline (input, buffer))
 		{
-			_database.add
+			;
 		}
 
 	return (true);
@@ -37,4 +37,5 @@ BitcoinExchange::calculate_values (const char *input_file)
 {
 	if (!get_values_to_database ())
 		return;
+	(void)input_file;
 }

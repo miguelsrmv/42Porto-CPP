@@ -15,6 +15,9 @@ test_container (T &container, const char *container_type)
 	for (int i = -2; i < 2; i++)
 		container.push_back (i);
 
+	container.push_back (0);
+
+	
 	easyfind (container, -1);
 	easyfind (container, 0);
 	easyfind (container, 1);
