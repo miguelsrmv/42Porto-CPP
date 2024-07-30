@@ -96,5 +96,6 @@ main (void)
 	testAssignmentOperator ();
 	testCopyConstructor ();
 	testOutOfBoundsIndexes ();
+
 	return 0;
 }
