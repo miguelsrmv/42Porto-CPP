@@ -196,4 +196,6 @@ main (int argc, char **argv)
 		default:
 			return (1);
 		}
+	
+	return (0);
 }
