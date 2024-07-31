@@ -54,18 +54,19 @@ BitcoinExchange::input_is_valid (const char *input_file)
 bool
 BitcoinExchange::date_format_is_valid (const std::string &date)
 {
-	int i = 0;
-	while (date[i])
-		{
-			if (!isdigit (date[i]) && (i != 4 && i != 7))
-				return false;
-			else if ((i == 4 || i == 7) && date[i] != '-')
-				return false;
-			i++;
-		}
-
-	if (i != 10)
+	if (date.size () != 10)
 		return false;
+
+	if (date[4] != '-' || date[7] != '-')
+		return false;
+
+	for (int i = 0; i < 10; i++)
+		{
+			if (i == 4 || i == 7)
+				continue;
+			if (!isdigit (date[i]))
+				return false;
+		}
 
 	return true;
 }
@@ -74,10 +75,17 @@ std::tm
 BitcoinExchange::get_time_struct (const std::string &date)
 {
 	std::tm tm;
+	std::stringstream ss;
 
-	tm.tm_year = std::atoi (date.substr (0, 4).c_str ());
-	tm.tm_mon = std::atoi (date.substr (5, 2).c_str ());
-	tm.tm_mday = std::atoi (date.substr (8, 2).c_str ());
+	ss.str (date.substr (0, 4));
+	ss >> tm.tm_year;
+
+	ss.str (date.substr (5, 2));
+	ss >> tm.tm_mon;
+
+	ss.str (date.substr (8, 2));
+	ss >> tm.tm_mday;
+
 	tm.tm_hour = 0;
 	tm.tm_min = 0;
 	tm.tm_sec = 0;
@@ -101,10 +109,7 @@ bool
 BitcoinExchange::date_is_valid (const std::string &date)
 {
 	if (!date_format_is_valid (date) || !date_value_is_valid (date))
-		{
-			std::cout << ERROR_BAD_INPUT << date << std::endl;
-			return false;
-		}
+		return error_log (ERROR_BAD_INPUT);
 
 	return true;
 }
@@ -112,27 +117,26 @@ BitcoinExchange::date_is_valid (const std::string &date)
 bool
 BitcoinExchange::value_is_valid (const std::string &value)
 {
-	int i = 0;
+	// Excludes empty numbers
+	if (value.empty ())
+		return error_log (ERROR_BAD_INPUT);
 
 	// Excludes negative numbers
-	if (value[i] == '-')
-		{
-			std::cout << ERROR_NEGATIVE_NUMBER << std::endl;
-			return false;
-		}
+	if (value[0] == '-')
+		return error_log (ERROR_NEGATIVE_NUMBER);
+
+	size_t i = 0;
 
 	// Tolerates one +
 	if (value[i] == '+')
 		i++;
 
 	// Checks if all characters are digits, dots or 'f'
-	while (value[i])
+	while (i < value.size ())
 		{
-			if (!isdigit (value[i]) && (value[i] != '.') && value[i] != 'f')
-				{
-					std::cout << ERROR_BAD_INPUT << value << std::endl;
-					return false;
-				}
+			char c = value[i];
+			if (!isdigit (c) && (c != '.') && c != 'f')
+				return error_log (ERROR_BAD_INPUT);
 			i++;
 		}
 
@@ -142,10 +146,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 	int f_count = std::count (value.begin (), value.end (), 'f');
 
 	if (dot_count > 1 || f_count > 1 || (f_count == 1 && dot_count == 0))
-		{
-			std::cout << ERROR_BAD_INPUT << value << std::endl;
-			return false;
-		}
+		return error_log (ERROR_BAD_INPUT);
 
 	// If there is an f and a dot, there must be a character in between
 	if (dot_count && f_count)
@@ -153,10 +154,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 			int dot_position = value.find ('.');
 			int f_position = value.find ('f');
 			if (f_position - dot_position < 2)
-				{
-					std::cout << ERROR_BAD_INPUT << value << std::endl;
-					return false;
-				}
+				return error_log (ERROR_BAD_INPUT);
 		}
 
 	return true;
@@ -216,4 +214,11 @@ BitcoinExchange::calculate_values (const char *input_file)
 						  << calculate_total (date, value) << std::endl;
 		}
 	return 0;
+}
+
+bool
+BitcoinExchange::error_log (const std::string &message)
+{
+	std::cout << message << std::endl;
+	return false;
 }

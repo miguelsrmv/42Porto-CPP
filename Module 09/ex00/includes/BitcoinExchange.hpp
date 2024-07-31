@@ -42,6 +42,7 @@ class BitcoinExchange
 
 	// General purpose functions
 	std::string trim_whitespaces (const std::string &string);
+	bool error_log (const char *message);
 };
 
 #endif
