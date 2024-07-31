@@ -1,6 +1,20 @@
 #include "BitcoinExchange.hpp"
+#include <ctime>
 
-BitcoinExchange::BitcoinExchange () {}
+BitcoinExchange::BitcoinExchange ()
+{
+	std::ifstream data_csv ("data.csv");
+
+	std::string buffer;
+	std::getline (data_csv, buffer);
+	while (std::getline (data_csv, buffer))
+		{
+			size_t divider = buffer.find (",");
+			std::string date = buffer.substr (0, divider);
+			float value = atof (buffer.substr (divider + 1).c_str ());
+			_database[date] = value;
+		}
+}
 
 BitcoinExchange::BitcoinExchange (const BitcoinExchange &copy)
 {
@@ -18,24 +32,188 @@ BitcoinExchange::operator= (const BitcoinExchange &copy)
 BitcoinExchange::~BitcoinExchange () {}
 
 bool
-BitcoinExchange::get_values_to_database ()
+BitcoinExchange::input_is_valid (const char *input_file)
 {
-	std::ifstream input ("data.csv");
+	// Check if input was given
+	if (!input_file)
+		return false;
 
-	std::string buffer;
-	std::getline (input, buffer);
-	while (std::getline (input, buffer))
-		{
-			;
-		}
+	// Check if file has read permissions
+	std::ifstream input (input_file);
+	if (!input.is_open ())
+		return false;
 
-	return (true);
+	// Check if file is a dir
+	struct stat statbuf;
+	if (stat (input_file, &statbuf) != 0 || S_ISDIR (statbuf.st_mode))
+		return false;
+
+	return true;
 }
 
-void
+bool
+BitcoinExchange::date_format_is_valid (const std::string &date)
+{
+	int i = 0;
+	while (date[i])
+		{
+			if (!isdigit (date[i]) && (i != 4 && i != 7))
+				return false;
+			else if ((i == 4 || i == 7) && date[i] != '-')
+				return false;
+			i++;
+		}
+
+	if (i != 10)
+		return false;
+
+	return true;
+}
+
+std::tm
+BitcoinExchange::get_time_struct (const std::string &date)
+{
+	std::tm tm;
+
+	tm.tm_year = std::atoi (date.substr (0, 4).c_str ());
+	tm.tm_mon = std::atoi (date.substr (5, 2).c_str ());
+	tm.tm_mday = std::atoi (date.substr (8, 2).c_str ());
+	tm.tm_hour = 0;
+	tm.tm_min = 0;
+	tm.tm_sec = 0;
+	tm.tm_isdst = -1;
+
+	return tm;
+}
+
+bool
+BitcoinExchange::date_value_is_valid (const std::string &date)
+{
+	std::tm tm = get_time_struct (date);
+
+	if (std::mktime (&tm) == -1)
+		return false;
+
+	return true;
+}
+
+bool
+BitcoinExchange::date_is_valid (const std::string &date)
+{
+	if (!date_format_is_valid (date) || !date_value_is_valid (date))
+		{
+			std::cout << ERROR_BAD_INPUT << date << std::endl;
+			return false;
+		}
+
+	return true;
+}
+
+bool
+BitcoinExchange::value_is_valid (const std::string &value)
+{
+	int i = 0;
+
+	// Excludes negative numbers
+	if (value[i] == '-')
+		{
+			std::cout << ERROR_NEGATIVE_NUMBER << std::endl;
+			return false;
+		}
+
+	// Tolerates one +
+	if (value[i] == '+')
+		i++;
+
+	// Checks if all characters are digits, dots or 'f'
+	while (value[i])
+		{
+			if (!isdigit (value[i]) && (value[i] != '.') && value[i] != 'f')
+				{
+					std::cout << ERROR_BAD_INPUT << value << std::endl;
+					return false;
+				}
+			i++;
+		}
+
+	// Makes sure there is only one dot and one f.
+	// The existance of is also dependant on the existance of the dot.
+	int dot_count = std::count (value.begin (), value.end (), '.');
+	int f_count = std::count (value.begin (), value.end (), 'f');
+
+	if (dot_count > 1 || f_count > 1 || (f_count == 1 && dot_count == 0))
+		{
+			std::cout << ERROR_BAD_INPUT << value << std::endl;
+			return false;
+		}
+
+	// If there is an f and a dot, there must be a character in between
+	if (dot_count && f_count)
+		{
+			int dot_position = value.find ('.');
+			int f_position = value.find ('f');
+			if (f_position - dot_position < 2)
+				{
+					std::cout << ERROR_BAD_INPUT << value << std::endl;
+					return false;
+				}
+		}
+
+	return true;
+}
+
+float
+BitcoinExchange::calculate_total (const std::string &date,
+								  const std::string &value)
+{
+	(void)date;
+	(void)value;
+	return 1.0f;
+}
+
+std::string
+BitcoinExchange::trim_whitespaces (const std::string &string)
+{
+	int iterator_begin = 0;
+	int iterator_end = string.length () - 1;
+
+	while (string[iterator_begin] == ' ')
+		iterator_begin++;
+
+	while (string[iterator_end] == ' ')
+		iterator_end--;
+
+	std::string trimmed_string
+		= string.substr (iterator_begin, iterator_end + 1);
+
+	return trimmed_string;
+}
+
+int
 BitcoinExchange::calculate_values (const char *input_file)
 {
-	if (!get_values_to_database ())
-		return;
-	(void)input_file;
+	std::ifstream input (input_file);
+	std::string buffer;
+
+	if (!std::getline (input, buffer))
+		{
+			std::cout << ERROR_EMPTY_FILE << std::endl;
+			return 1;
+		}
+
+	while (std::getline (input, buffer))
+		{
+			if (std::count (buffer.begin (), buffer.end (), '|') != 1)
+				{
+					std::cout << ERROR_BAD_INPUT << buffer << std::endl;
+					continue;
+				}
+			size_t divider = buffer.find ('|');
+			std::string date = trim_whitespaces (buffer.substr (0, divider));
+			std::string value = trim_whitespaces (buffer.substr (divider + 1));
+			if (date_is_valid (date) && value_is_valid (value))
+				std::cout << date << " => " << value << " => "
+						  << calculate_total (date, value) << std::endl;
+		}
+	return 0;
 }
