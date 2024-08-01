@@ -109,7 +109,7 @@ bool
 BitcoinExchange::date_is_valid (const std::string &date)
 {
 	if (!date_format_is_valid (date) || !date_value_is_valid (date))
-		return error_log (ERROR_BAD_INPUT);
+		return error_log (std::string(ERROR_BAD_INPUT) + date);
 
 	return true;
 }
@@ -119,7 +119,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 {
 	// Excludes empty numbers
 	if (value.empty ())
-		return error_log (ERROR_BAD_INPUT);
+		return error_log (std::string(ERROR_BAD_INPUT) + value);
 
 	// Excludes negative numbers
 	if (value[0] == '-')
@@ -136,7 +136,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 		{
 			char c = value[i];
 			if (!isdigit (c) && (c != '.') && c != 'f')
-				return error_log (ERROR_BAD_INPUT);
+				return error_log (std::string(ERROR_BAD_INPUT) + value);
 			i++;
 		}
 
@@ -146,7 +146,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 	int f_count = std::count (value.begin (), value.end (), 'f');
 
 	if (dot_count > 1 || f_count > 1 || (f_count == 1 && dot_count == 0))
-		return error_log (ERROR_BAD_INPUT);
+		return error_log (std::string(ERROR_BAD_INPUT) + value);
 
 	// If there is an f and a dot, there must be a character in between
 	if (dot_count && f_count)
@@ -154,7 +154,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 			int dot_position = value.find ('.');
 			int f_position = value.find ('f');
 			if (f_position - dot_position < 2)
-				return error_log (ERROR_BAD_INPUT);
+				return error_log (std::string(ERROR_BAD_INPUT) + value);
 		}
 
 	return true;
