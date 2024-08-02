@@ -183,6 +183,11 @@ BitcoinExchange::get_closest_date (const std::string &date)
 	std::tm target_time = get_time_struct (date);
 	std::map<std::string, float>::iterator date_it = _database.begin ();
 
+	// If target time is before very first input, return very first input
+	std::tm first_time = get_time_struct (date_it->first);
+	if (std::mktime (&target_time) < std::mktime (&first_time))
+		return (date_it);
+
 	while (date_it != _database.end ())
 		{
 			std::tm current_time = get_time_struct (date_it->first);
