@@ -15,6 +15,7 @@
 #define ERROR_EMPTY_FILE "Error: empty file!"
 #define ERROR_BAD_INPUT "Error: bad input => "
 #define ERROR_NEGATIVE_NUMBER "Error: not a positive number"
+#define ERROR_LARGE_NUMBER "Error: too large a number"
 
 class BitcoinExchange
 {
@@ -29,6 +30,9 @@ class BitcoinExchange
 
   private:
 	std::map<std::string, float> _database;
+
+	std::map<std::string, float>::iterator
+	get_closest_date (const std::string &date);
 	float calculate_total (const std::string &date, const std::string &value);
 
 	// Functions related to date parsing

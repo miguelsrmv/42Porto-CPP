@@ -1,5 +1,6 @@
 #include "BitcoinExchange.hpp"
 #include <ctime>
+#include <sstream>
 
 BitcoinExchange::BitcoinExchange ()
 {
@@ -79,12 +80,15 @@ BitcoinExchange::get_time_struct (const std::string &date)
 
 	ss.str (date.substr (0, 4));
 	ss >> tm.tm_year;
+	ss.clear ();
 
 	ss.str (date.substr (5, 2));
 	ss >> tm.tm_mon;
+	ss.clear ();
 
 	ss.str (date.substr (8, 2));
 	ss >> tm.tm_mday;
+	ss.clear ();
 
 	tm.tm_hour = 0;
 	tm.tm_min = 0;
@@ -109,7 +113,7 @@ bool
 BitcoinExchange::date_is_valid (const std::string &date)
 {
 	if (!date_format_is_valid (date) || !date_value_is_valid (date))
-		return error_log (std::string(ERROR_BAD_INPUT) + date);
+		return error_log (std::string (ERROR_BAD_INPUT) + date);
 
 	return true;
 }
@@ -119,7 +123,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 {
 	// Excludes empty numbers
 	if (value.empty ())
-		return error_log (std::string(ERROR_BAD_INPUT) + value);
+		return error_log (std::string (ERROR_BAD_INPUT) + value);
 
 	// Excludes negative numbers
 	if (value[0] == '-')
@@ -136,7 +140,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 		{
 			char c = value[i];
 			if (!isdigit (c) && (c != '.') && c != 'f')
-				return error_log (std::string(ERROR_BAD_INPUT) + value);
+				return error_log (std::string (ERROR_BAD_INPUT) + value);
 			i++;
 		}
 
@@ -146,7 +150,14 @@ BitcoinExchange::value_is_valid (const std::string &value)
 	int f_count = std::count (value.begin (), value.end (), 'f');
 
 	if (dot_count > 1 || f_count > 1 || (f_count == 1 && dot_count == 0))
-		return error_log (std::string(ERROR_BAD_INPUT) + value);
+		return error_log (std::string (ERROR_BAD_INPUT) + value);
+
+	// If there is a dot, there must be a character before it
+	if (dot_count)
+		{
+			if (value.find ('.') == 0)
+				return error_log (std::string (ERROR_BAD_INPUT) + value);
+		}
 
 	// If there is an f and a dot, there must be a character in between
 	if (dot_count && f_count)
@@ -154,19 +165,47 @@ BitcoinExchange::value_is_valid (const std::string &value)
 			int dot_position = value.find ('.');
 			int f_position = value.find ('f');
 			if (f_position - dot_position < 2)
-				return error_log (std::string(ERROR_BAD_INPUT) + value);
+				return error_log (std::string (ERROR_BAD_INPUT) + value);
 		}
 
+	// Checks that the number is, at most, 1000
+	std::string unit_part = value.substr (0, value.find ('.'));
+	if (unit_part != "1000" && unit_part.length () > 3)
+		return error_log (ERROR_LARGE_NUMBER);
+
 	return true;
+}
+
+std::map<std::string, float>::iterator
+BitcoinExchange::get_closest_date (const std::string &date)
+{
+	std::tm target_time = get_time_struct (date);
+	std::map<std::string, float>::iterator date_it = _database.begin ();
+
+	while (date_it != _database.end ())
+		{
+			std::tm current_time = get_time_struct (date_it->first);
+			if (std::mktime (&current_time) > std::mktime (&target_time))
+				return (--date_it);
+			date_it++;
+		}
+
+	return date_it;
 }
 
 float
 BitcoinExchange::calculate_total (const std::string &date,
 								  const std::string &value)
 {
-	(void)date;
-	(void)value;
-	return 1.0f;
+	std::istringstream ss (value);
+	float fvalue;
+	ss >> fvalue;
+
+	std::map<std::string, float>::iterator it = _database.find (date);
+	if (it == _database.end ())
+		it = get_closest_date (date);
+
+	return (it->second * fvalue);
 }
 
 std::string
