@@ -176,6 +176,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 	return true;
 }
 
+// TODO Review this function!
 std::map<std::string, float>::iterator
 BitcoinExchange::get_closest_date (const std::string &date)
 {
