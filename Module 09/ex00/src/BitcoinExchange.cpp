@@ -2,6 +2,7 @@
 #include <ctime>
 #include <sstream>
 
+// Orthodox Canonical Form
 BitcoinExchange::BitcoinExchange ()
 {
 	std::ifstream data_csv ("data.csv");
@@ -32,22 +33,23 @@ BitcoinExchange::operator= (const BitcoinExchange &copy)
 
 BitcoinExchange::~BitcoinExchange () {}
 
+// Checks if input file is valid
 bool
 BitcoinExchange::input_is_valid (const char *input_file)
 {
 	// Check if input was given
 	if (!input_file)
-		return false;
+		return error_log (ERROR_INVALID_FILE);
 
 	// Check if file has read permissions
 	std::ifstream input (input_file);
 	if (!input.is_open ())
-		return false;
+		return error_log (ERROR_INVALID_FILE);
 
 	// Check if file is a dir
 	struct stat statbuf;
 	if (stat (input_file, &statbuf) != 0 || S_ISDIR (statbuf.st_mode))
-		return false;
+		return error_log (ERROR_DIR_FILE);
 
 	return true;
 }
@@ -103,7 +105,13 @@ BitcoinExchange::date_value_is_valid (const std::string &date)
 {
 	std::tm tm = get_time_struct (date);
 
+	// Returns false if it's not a date
 	if (std::mktime (&tm) == -1)
+		return false;
+
+	// Returns false if the date is earlier than the first database value
+	std::tm first_tm = get_time_struct (_database.begin ()->first);
+	if (std::mktime (&tm) < std::mktime (&first_tm))
 		return false;
 
 	return true;
@@ -177,26 +185,23 @@ BitcoinExchange::value_is_valid (const std::string &value)
 }
 
 // TODO Review this function!
-std::map<std::string, float>::iterator
+map::iterator
 BitcoinExchange::get_closest_date (const std::string &date)
 {
 	std::tm target_time = get_time_struct (date);
-	std::map<std::string, float>::iterator date_it = _database.begin ();
+	map::iterator date_it = _database.begin ();
 
-	// If target time is before very first input, return very first input
-	std::tm first_time = get_time_struct (date_it->first);
-	if (std::mktime (&target_time) < std::mktime (&first_time))
-		return (date_it);
-
+	// Iterate until date goes just above the target_time
 	while (date_it != _database.end ())
 		{
-			std::tm current_time = get_time_struct (date_it->first);
-			if (std::mktime (&current_time) > std::mktime (&target_time))
+			std::tm it_time = get_time_struct (date_it->first);
+			if (std::mktime (&it_time) > std::mktime (&target_time))
 				return (--date_it);
 			date_it++;
 		}
 
-	return date_it;
+	// If nothing was found, return latest value in database
+	return _database.end ();
 }
 
 float
@@ -207,7 +212,7 @@ BitcoinExchange::calculate_total (const std::string &date,
 	float fvalue;
 	ss >> fvalue;
 
-	std::map<std::string, float>::iterator it = _database.find (date);
+	map::iterator it = _database.find (date);
 	if (it == _database.end ())
 		it = get_closest_date (date);
 
@@ -232,23 +237,25 @@ BitcoinExchange::trim_whitespaces (const std::string &string)
 	return trimmed_string;
 }
 
-int
+bool
 BitcoinExchange::calculate_values (const char *input_file)
 {
 	std::ifstream input (input_file);
 	std::string buffer;
 
+	// Checks if file is empty
 	if (!std::getline (input, buffer))
-		{
-			std::cout << ERROR_EMPTY_FILE << std::endl;
-			return 1;
-		}
+		return error_log (ERROR_EMPTY_FILE);
+
+	// Checks if header is correct
+	if (buffer != "date | value")
+		return error_log (ERROR_INVALID_HEADER);
 
 	while (std::getline (input, buffer))
 		{
 			if (std::count (buffer.begin (), buffer.end (), '|') != 1)
 				{
-					std::cout << ERROR_BAD_INPUT << buffer << std::endl;
+					error_log (std::string (ERROR_BAD_INPUT) + buffer);
 					continue;
 				}
 			size_t divider = buffer.find ('|');
@@ -258,7 +265,8 @@ BitcoinExchange::calculate_values (const char *input_file)
 				std::cout << date << " => " << value << " => "
 						  << calculate_total (date, value) << std::endl;
 		}
-	return 0;
+
+	return true;
 }
 
 bool

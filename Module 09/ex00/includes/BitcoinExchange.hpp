@@ -10,12 +10,16 @@
 #include <sstream>
 #include <sys/stat.h>
 
-#define ERROR_USAGE "Error: Usage is './btc [input_file]'"
-#define ERROR_INVALID_FILE "Error: could not open file"
-#define ERROR_EMPTY_FILE "Error: empty file!"
+#define ERROR_USAGE "Error: Usage is './btc [input_file]'."
+#define ERROR_INVALID_FILE "Error: could not open file."
+#define ERROR_DIR_FILE "Error: file is a directory."
+#define ERROR_EMPTY_FILE "Error: empty file."
+#define ERROR_INVALID_HEADER "Error: invalid input header."
 #define ERROR_BAD_INPUT "Error: bad input => "
-#define ERROR_NEGATIVE_NUMBER "Error: not a positive number"
-#define ERROR_LARGE_NUMBER "Error: too large a number"
+#define ERROR_NEGATIVE_NUMBER "Error: not a positive number."
+#define ERROR_LARGE_NUMBER "Error: too large a number."
+
+typedef std::map<std::string, float> map;
 
 class BitcoinExchange
 {
@@ -26,13 +30,11 @@ class BitcoinExchange
 	~BitcoinExchange ();
 
 	bool input_is_valid (const char *input_file);
-	int calculate_values (const char *input_file);
+	bool calculate_values (const char *input_file);
 
   private:
-	std::map<std::string, float> _database;
-
-	std::map<std::string, float>::iterator
-	get_closest_date (const std::string &date);
+	map _database;
+	map::iterator get_closest_date (const std::string &date);
 	float calculate_total (const std::string &date, const std::string &value);
 
 	// Functions related to date parsing
