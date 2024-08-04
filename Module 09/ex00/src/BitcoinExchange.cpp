@@ -1,8 +1,10 @@
 #include "BitcoinExchange.hpp"
-#include <ctime>
+#include <algorithm>
+#include <fstream>
+#include <iostream>
 #include <sstream>
 
-// Orthodox Canonical Form
+/// Orthodox Canonical Form
 BitcoinExchange::BitcoinExchange ()
 {
 	std::ifstream data_csv ("data.csv");
@@ -33,6 +35,7 @@ BitcoinExchange::operator= (const BitcoinExchange &copy)
 
 BitcoinExchange::~BitcoinExchange () {}
 
+/// Public functions
 // Checks if input file is valid
 bool
 BitcoinExchange::input_is_valid (const char *input_file)
@@ -54,15 +57,101 @@ BitcoinExchange::input_is_valid (const char *input_file)
 	return true;
 }
 
+// Iterates through map to print each value
+bool
+BitcoinExchange::print_values (const char *input_file)
+{
+	std::ifstream input (input_file);
+	std::string buffer;
+
+	// Checks if file is empty
+	if (!std::getline (input, buffer))
+		return error_log (ERROR_EMPTY_FILE);
+
+	// Checks if header is correct
+	if (buffer != "date | value")
+		return error_log (ERROR_INVALID_HEADER);
+
+	while (std::getline (input, buffer))
+		{
+			if (std::count (buffer.begin (), buffer.end (), '|') != 1)
+				{
+					error_log (std::string (ERROR_BAD_INPUT) + buffer);
+					continue;
+				}
+			size_t divider = buffer.find ('|');
+			std::string date = trim_whitespaces (buffer.substr (0, divider));
+			std::string value = trim_whitespaces (buffer.substr (divider + 1));
+			if (date_is_valid (date, buffer) && value_is_valid (value, buffer))
+				std::cout << date << " => " << value << " => "
+						  << calculate_total (date, value) << std::endl;
+		}
+
+	return true;
+}
+
+/// Functions related to processing of _database
+// Gets closest date
+map::iterator
+BitcoinExchange::get_closest_date (const std::string &date)
+{
+	std::tm target_time = get_time_struct (date);
+	map::iterator date_it = _database.begin ();
+
+	// Iterate until date goes just above the target_time
+	while (date_it != _database.end ())
+		{
+			std::tm it_time = get_time_struct (date_it->first);
+			if (std::mktime (&it_time) > std::mktime (&target_time))
+				return (--date_it);
+			date_it++;
+		}
+
+	// If nothing was found, return latest value in database
+	return --date_it;
+}
+
+// Returns total value
+float
+BitcoinExchange::calculate_total (const std::string &date,
+								  const std::string &value)
+{
+	std::istringstream ss (value);
+	float fvalue;
+	ss >> fvalue;
+
+	map::iterator it = _database.find (date);
+	if (it == _database.end ())
+		it = get_closest_date (date);
+
+	return (it->second * fvalue);
+}
+
+/// Functions related to date parsing
+// Checks for valid date format and valid date value
+bool
+BitcoinExchange::date_is_valid (const std::string &date,
+								const std::string &buffer)
+{
+	if (!date_format_is_valid (date) || !date_value_is_valid (date))
+		return error_log (std::string (ERROR_BAD_INPUT) + buffer);
+
+	return true;
+}
+
+// Checks if date format is valid
 bool
 BitcoinExchange::date_format_is_valid (const std::string &date)
 {
+	// Checks that date format is of length 10
 	if (date.size () != 10)
 		return false;
 
+	// Checks that date format is of format XXXX-XX-XX
 	if (date[4] != '-' || date[7] != '-')
 		return false;
 
+	// Checks that each 'X' is a digit
 	for (int i = 0; i < 10; i++)
 		{
 			if (i == 4 || i == 7)
@@ -74,6 +163,25 @@ BitcoinExchange::date_format_is_valid (const std::string &date)
 	return true;
 }
 
+// Checks if date is valid
+bool
+BitcoinExchange::date_value_is_valid (const std::string &date)
+{
+	std::tm tm = get_time_struct (date);
+
+	// Returns false if it's not a date
+	if (std::mktime (&tm) == -1)
+		return false;
+
+	// Returns false if the date is earlier than the first database value
+	std::tm first_tm = get_time_struct (_database.begin ()->first);
+	if (std::mktime (&tm) < std::mktime (&first_tm))
+		return false;
+
+	return true;
+}
+
+// Returns std::tm struct from given date
 std::tm
 BitcoinExchange::get_time_struct (const std::string &date)
 {
@@ -100,38 +208,14 @@ BitcoinExchange::get_time_struct (const std::string &date)
 	return tm;
 }
 
+// Checks for valid amount values (int or float from 0 to 1000)
 bool
-BitcoinExchange::date_value_is_valid (const std::string &date)
-{
-	std::tm tm = get_time_struct (date);
-
-	// Returns false if it's not a date
-	if (std::mktime (&tm) == -1)
-		return false;
-
-	// Returns false if the date is earlier than the first database value
-	std::tm first_tm = get_time_struct (_database.begin ()->first);
-	if (std::mktime (&tm) < std::mktime (&first_tm))
-		return false;
-
-	return true;
-}
-
-bool
-BitcoinExchange::date_is_valid (const std::string &date)
-{
-	if (!date_format_is_valid (date) || !date_value_is_valid (date))
-		return error_log (std::string (ERROR_BAD_INPUT) + date);
-
-	return true;
-}
-
-bool
-BitcoinExchange::value_is_valid (const std::string &value)
+BitcoinExchange::value_is_valid (const std::string &value,
+								 const std::string &buffer)
 {
 	// Excludes empty numbers
 	if (value.empty ())
-		return error_log (std::string (ERROR_BAD_INPUT) + value);
+		return error_log (std::string (ERROR_BAD_INPUT) + buffer);
 
 	// Excludes negative numbers
 	if (value[0] == '-')
@@ -148,7 +232,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 		{
 			char c = value[i];
 			if (!isdigit (c) && (c != '.') && c != 'f')
-				return error_log (std::string (ERROR_BAD_INPUT) + value);
+				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
 			i++;
 		}
 
@@ -158,13 +242,13 @@ BitcoinExchange::value_is_valid (const std::string &value)
 	int f_count = std::count (value.begin (), value.end (), 'f');
 
 	if (dot_count > 1 || f_count > 1 || (f_count == 1 && dot_count == 0))
-		return error_log (std::string (ERROR_BAD_INPUT) + value);
+		return error_log (std::string (ERROR_BAD_INPUT) + buffer);
 
 	// If there is a dot, there must be a character before it
 	if (dot_count)
 		{
 			if (value.find ('.') == 0)
-				return error_log (std::string (ERROR_BAD_INPUT) + value);
+				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
 		}
 
 	// If there is an f and a dot, there must be a character in between
@@ -173,7 +257,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 			int dot_position = value.find ('.');
 			int f_position = value.find ('f');
 			if (f_position - dot_position < 2)
-				return error_log (std::string (ERROR_BAD_INPUT) + value);
+				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
 		}
 
 	// Checks that the number is, at most, 1000
@@ -184,41 +268,7 @@ BitcoinExchange::value_is_valid (const std::string &value)
 	return true;
 }
 
-// TODO Review this function!
-map::iterator
-BitcoinExchange::get_closest_date (const std::string &date)
-{
-	std::tm target_time = get_time_struct (date);
-	map::iterator date_it = _database.begin ();
-
-	// Iterate until date goes just above the target_time
-	while (date_it != _database.end ())
-		{
-			std::tm it_time = get_time_struct (date_it->first);
-			if (std::mktime (&it_time) > std::mktime (&target_time))
-				return (--date_it);
-			date_it++;
-		}
-
-	// If nothing was found, return latest value in database
-	return _database.end ();
-}
-
-float
-BitcoinExchange::calculate_total (const std::string &date,
-								  const std::string &value)
-{
-	std::istringstream ss (value);
-	float fvalue;
-	ss >> fvalue;
-
-	map::iterator it = _database.find (date);
-	if (it == _database.end ())
-		it = get_closest_date (date);
-
-	return (it->second * fvalue);
-}
-
+// Trims whitespace from string
 std::string
 BitcoinExchange::trim_whitespaces (const std::string &string)
 {
@@ -237,41 +287,11 @@ BitcoinExchange::trim_whitespaces (const std::string &string)
 	return trimmed_string;
 }
 
-bool
-BitcoinExchange::calculate_values (const char *input_file)
-{
-	std::ifstream input (input_file);
-	std::string buffer;
-
-	// Checks if file is empty
-	if (!std::getline (input, buffer))
-		return error_log (ERROR_EMPTY_FILE);
-
-	// Checks if header is correct
-	if (buffer != "date | value")
-		return error_log (ERROR_INVALID_HEADER);
-
-	while (std::getline (input, buffer))
-		{
-			if (std::count (buffer.begin (), buffer.end (), '|') != 1)
-				{
-					error_log (std::string (ERROR_BAD_INPUT) + buffer);
-					continue;
-				}
-			size_t divider = buffer.find ('|');
-			std::string date = trim_whitespaces (buffer.substr (0, divider));
-			std::string value = trim_whitespaces (buffer.substr (divider + 1));
-			if (date_is_valid (date) && value_is_valid (value))
-				std::cout << date << " => " << value << " => "
-						  << calculate_total (date, value) << std::endl;
-		}
-
-	return true;
-}
-
+// Logs errors
 bool
 BitcoinExchange::error_log (const std::string &message)
 {
 	std::cout << message << std::endl;
+
 	return false;
 }

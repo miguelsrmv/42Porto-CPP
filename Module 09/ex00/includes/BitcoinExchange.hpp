@@ -1,13 +1,10 @@
 #ifndef BITCOIN_EXCHANGE_HPP
 #define BITCOIN_EXCHANGE_HPP
 
-#include <algorithm>
 #include <cstdlib>
 #include <ctime>
-#include <fstream>
-#include <iostream>
 #include <map>
-#include <sstream>
+#include <string>
 #include <sys/stat.h>
 
 #define ERROR_USAGE "Error: Usage is './btc [input_file]'."
@@ -30,21 +27,23 @@ class BitcoinExchange
 	~BitcoinExchange ();
 
 	bool input_is_valid (const char *input_file);
-	bool calculate_values (const char *input_file);
+	bool print_values (const char *input_file);
 
   private:
 	map _database;
+
+	// Functions related to processing of _database
 	map::iterator get_closest_date (const std::string &date);
 	float calculate_total (const std::string &date, const std::string &value);
 
 	// Functions related to date parsing
-	bool date_is_valid (const std::string &date);
+	bool date_is_valid (const std::string &date, const std::string &buffer);
 	bool date_format_is_valid (const std::string &date);
 	bool date_value_is_valid (const std::string &date);
 	std::tm get_time_struct (const std::string &date);
 
 	// Functions related to value parsing
-	bool value_is_valid (const std::string &value);
+	bool value_is_valid (const std::string &value, const std::string &buffer);
 
 	// General purpose functions
 	std::string trim_whitespaces (const std::string &string);

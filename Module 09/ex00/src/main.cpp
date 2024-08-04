@@ -1,4 +1,5 @@
 #include "BitcoinExchange.hpp"
+#include <iostream>
 
 int
 main (int argc, char **argv)
@@ -14,6 +15,6 @@ main (int argc, char **argv)
 	if (!Exchange.input_is_valid (argv[1]))
 		return 2;
 
-	Exchange.calculate_values (argv[1]);
-	return (0);
+	Exchange.print_values (argv[1]);
+	return 0;
 }
