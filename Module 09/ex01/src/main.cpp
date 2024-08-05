@@ -10,5 +10,5 @@ main (int argc, char **argv)
 			return (1);
 		}
 
-	RPN::calculate (argv[1]);
+	return (RPN::calculate (argv[1]));
 }
