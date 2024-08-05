@@ -1,7 +1,14 @@
 #include "RPN.hpp"
+#include <iostream>
 
 int
-main (void)
+main (int argc, char **argv)
 {
-	return (0);
+	if (argc != 2)
+		{
+			std::cout << "Usage error: 'RPN [sequence]'" << std::endl;
+			return (1);
+		}
+
+	RPN::calculate (argv[1]);
 }
