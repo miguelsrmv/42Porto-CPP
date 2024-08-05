@@ -14,20 +14,23 @@ class Pmerge
 	const Pmerge &operator= (const Pmerge &copy);
 	~Pmerge ();
 
-	//	static double merge (std::vector<int> container);
-	//	static double merge (std::deque<int> container);
-	template <typename container> static double merge (container cont);
+	template <typename container> static double merge (container &cont);
 
   private:
 	static double get_time_diff (timeval start_time, timeval end_time);
 
-	static void merge_container (std::vector<int> container);
-	static void merge_container (std::deque<int> container);
+	static void merge_container (std::vector<int> &container);
+	static void merge_container (std::deque<int> &container);
+
+	static void merge (std::vector<int> &container, std::vector<int> &left,
+					   std::vector<int> &right);
+	static void merge (std::deque<int> &container, std::deque<int> &left,
+					   std::deque<int> &right);
 };
 
 template <typename container>
 double
-Pmerge::merge (container cont)
+Pmerge::merge (container &cont)
 {
 	timeval start_time;
 	gettimeofday (&start_time, NULL);
