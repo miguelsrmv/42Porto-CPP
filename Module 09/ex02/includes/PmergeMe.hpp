@@ -1,6 +1,7 @@
 #ifndef PMERGE_HPP
 #define PMERGE_HPP
 
+#include <cstddef>
 #include <deque>
 #include <sys/time.h>
 #include <vector>
@@ -13,8 +14,9 @@ class Pmerge
 	const Pmerge &operator= (const Pmerge &copy);
 	~Pmerge ();
 
-	static double merge (std::vector<int> container);
-	static double merge (std::deque<int> container);
+	//	static double merge (std::vector<int> container);
+	//	static double merge (std::deque<int> container);
+	template <typename container> static double merge (container cont);
 
   private:
 	static double get_time_diff (timeval start_time, timeval end_time);
@@ -22,5 +24,20 @@ class Pmerge
 	static void merge_container (std::vector<int> container);
 	static void merge_container (std::deque<int> container);
 };
+
+template <typename container>
+double
+Pmerge::merge (container cont)
+{
+	timeval start_time;
+	gettimeofday (&start_time, NULL);
+
+	merge_container (cont);
+
+	timeval end_time;
+	gettimeofday (&end_time, NULL);
+
+	return (get_time_diff (start_time, end_time));
+}
 
 #endif

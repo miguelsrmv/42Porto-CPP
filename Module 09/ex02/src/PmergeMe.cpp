@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 #include <cstddef>
+#include <sys/time.h>
 
 Pmerge::Pmerge () {}
 
@@ -24,34 +25,6 @@ Pmerge::get_time_diff (struct timeval start_time, struct timeval end_time)
 	double elapsed = seconds * 1000000 + microseconds;
 
 	return (elapsed);
-}
-
-double
-Pmerge::merge (std::vector<int> container)
-{
-	timeval start_time;
-	gettimeofday (&start_time, NULL);
-
-	merge_container (container);
-
-	timeval end_time;
-	gettimeofday (&end_time, NULL);
-
-	return (get_time_diff (start_time, end_time));
-}
-
-double
-Pmerge::merge (std::deque<int> container)
-{
-	timeval start_time;
-	gettimeofday (&start_time, NULL);
-
-	merge_container (container);
-
-	timeval end_time;
-	gettimeofday (&end_time, NULL);
-
-	return (get_time_diff (start_time, end_time));
 }
 
 void
