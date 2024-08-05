@@ -73,7 +73,7 @@ RPN::calculate (const char *input)
 
 	std::cout << stack.top () << std::endl;
 
-	return (0);
+	return 0;
 }
 
 bool
