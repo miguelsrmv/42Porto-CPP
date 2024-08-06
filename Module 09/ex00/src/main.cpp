@@ -12,9 +12,13 @@ main (int argc, char **argv)
 
 	BitcoinExchange Exchange;
 
-	if (!Exchange.input_is_valid (argv[1]))
+	if (!Exchange.load_data ())
 		return 2;
 
+	if (!Exchange.input_is_valid (argv[1]))
+		return 3;
+
 	Exchange.print_values (argv[1]);
+
 	return 0;
 }

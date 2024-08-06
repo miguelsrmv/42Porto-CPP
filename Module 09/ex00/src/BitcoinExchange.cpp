@@ -5,20 +5,7 @@
 #include <sstream>
 
 /// Orthodox Canonical Form
-BitcoinExchange::BitcoinExchange ()
-{
-	std::ifstream data_csv ("data.csv");
-
-	std::string buffer;
-	std::getline (data_csv, buffer);
-	while (std::getline (data_csv, buffer))
-		{
-			size_t divider = buffer.find (",");
-			std::string date = buffer.substr (0, divider);
-			float value = atof (buffer.substr (divider + 1).c_str ());
-			_database[date] = value;
-		}
-}
+BitcoinExchange::BitcoinExchange () {}
 
 BitcoinExchange::BitcoinExchange (const BitcoinExchange &copy)
 {
@@ -36,6 +23,45 @@ BitcoinExchange::operator= (const BitcoinExchange &copy)
 BitcoinExchange::~BitcoinExchange () {}
 
 /// Public functions
+// Checks if data.csv is a valid file
+bool
+BitcoinExchange::load_data ()
+{
+	if (!input_is_valid ("data.csv"))
+		return false;
+
+	std::ifstream data_csv ("data.csv");
+	std::string buffer;
+	std::getline (data_csv, buffer);
+
+	// Checks if the header is correct
+	if (buffer != "date,exchange_rate")
+		return error_log (ERROR_DATA_CSV);
+
+	while (std::getline (data_csv, buffer))
+		{
+			size_t divider = buffer.find (",");
+			std::string date = trim_whitespaces (buffer.substr (0, divider));
+			std::string floatstring
+				= trim_whitespaces (buffer.substr (divider + 1));
+			if (date_format_is_valid (date) && value_is_valid (floatstring))
+				{
+					float value;
+					std::stringstream ss (floatstring);
+					ss >> value;
+					_database[date] = value;
+				}
+			else
+				return error_log (ERROR_DATA_CSV);
+		}
+
+	// Makes sure there was at least one data got put onto _database
+	if (_database.size () == 0)
+		return error_log (ERROR_DATA_CSV);
+
+	return true;
+}
+
 // Checks if input file is valid
 bool
 BitcoinExchange::input_is_valid (const char *input_file)
@@ -217,9 +243,53 @@ BitcoinExchange::value_is_valid (const std::string &value,
 	if (value.empty ())
 		return error_log (std::string (ERROR_BAD_INPUT) + buffer);
 
-	// Excludes negative numbers
-	if (value[0] == '-')
-		return error_log (ERROR_NEGATIVE_NUMBER);
+	size_t i = 0;
+
+	// Tolerates one +
+	if (value[i] == '+')
+		i++;
+
+	// Checks if all characters are digits or dots
+	while (i < value.size ())
+		{
+			char c = value[i];
+			if (!isdigit (c) && (c != '.'))
+				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
+			i++;
+		}
+
+	// Makes sure there is only one dot.
+	int dot_count = std::count (value.begin (), value.end (), '.');
+
+	if (dot_count > 1)
+		return error_log (std::string (ERROR_BAD_INPUT) + buffer);
+
+	// If there is a dot, there must be at least 1 character before it and 1
+	// character after
+	if (dot_count)
+		{
+			if (value.find ('.') == 0
+				|| value.find ('.') == value.length () - 1)
+				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
+		}
+
+	std::cout << "Value find:" << value.find ('.');
+
+	// Checks that the number is, at most, 1000
+	std::string unit_part = value.substr (0, value.find ('.'));
+	if (unit_part != "1000" && unit_part.length () > 3)
+		return error_log (ERROR_LARGE_NUMBER);
+
+	return true;
+}
+
+// Checks for valid amount values (int or float from 0 to 1000)
+bool
+BitcoinExchange::value_is_valid (const std::string &value)
+{
+	// Excludes empty numbers
+	if (value.empty ())
+		return false;
 
 	size_t i = 0;
 
@@ -227,43 +297,29 @@ BitcoinExchange::value_is_valid (const std::string &value,
 	if (value[i] == '+')
 		i++;
 
-	// Checks if all characters are digits, dots or 'f'
+	// Checks if all characters are digits or dots
 	while (i < value.size ())
 		{
 			char c = value[i];
-			if (!isdigit (c) && (c != '.') && c != 'f')
-				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
+			if (!isdigit (c) && (c != '.'))
+				return false;
 			i++;
 		}
 
-	// Makes sure there is only one dot and one f.
-	// The existance of is also dependant on the existance of the dot.
+	// Makes sure there is only one dot
 	int dot_count = std::count (value.begin (), value.end (), '.');
-	int f_count = std::count (value.begin (), value.end (), 'f');
 
-	if (dot_count > 1 || f_count > 1 || (f_count == 1 && dot_count == 0))
-		return error_log (std::string (ERROR_BAD_INPUT) + buffer);
+	if (dot_count > 1)
+		return false;
 
-	// If there is a dot, there must be a character before it
+	// If there is a dot, there must be at least 1 character before it and 1
+	// character after
 	if (dot_count)
 		{
-			if (value.find ('.') == 0)
-				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
+			if (value.find ('.') == 0
+				|| value.find ('.') == value.length () - 1)
+				return false;
 		}
-
-	// If there is an f and a dot, there must be a character in between
-	if (dot_count && f_count)
-		{
-			int dot_position = value.find ('.');
-			int f_position = value.find ('f');
-			if (f_position - dot_position < 2)
-				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
-		}
-
-	// Checks that the number is, at most, 1000
-	std::string unit_part = value.substr (0, value.find ('.'));
-	if (unit_part != "1000" && unit_part.length () > 3)
-		return error_log (ERROR_LARGE_NUMBER);
 
 	return true;
 }

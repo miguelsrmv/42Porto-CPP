@@ -15,6 +15,7 @@
 #define ERROR_BAD_INPUT "Error: bad input => "
 #define ERROR_NEGATIVE_NUMBER "Error: not a positive number."
 #define ERROR_LARGE_NUMBER "Error: too large a number."
+#define ERROR_DATA_CSV "Error: problem with data.csv"
 
 typedef std::map<std::string, float> map;
 
@@ -26,6 +27,7 @@ class BitcoinExchange
 	const BitcoinExchange &operator= (const BitcoinExchange &copy);
 	~BitcoinExchange ();
 
+	bool load_data ();
 	bool input_is_valid (const char *input_file);
 	bool print_values (const char *input_file);
 
@@ -44,6 +46,7 @@ class BitcoinExchange
 
 	// Functions related to value parsing
 	bool value_is_valid (const std::string &value, const std::string &buffer);
+	bool value_is_valid (const std::string &value);
 
 	// General purpose functions
 	std::string trim_whitespaces (const std::string &string);
