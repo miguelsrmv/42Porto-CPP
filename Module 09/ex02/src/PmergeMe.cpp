@@ -28,17 +28,82 @@ Pmerge::get_time_diff (struct timeval start_time, struct timeval end_time)
 	return (elapsed);
 }
 
-void
-Pmerge::merge (std::vector<int> &container, std::vector<int> &left,
-			   std::vector<int> &right)
+int
+Pmerge::get_max (int a, int b)
 {
-	std::vector<int>::iterator temp_it = container.begin ();
-	std::vector<int>::iterator left_it = left.begin ();
-	std::vector<int>::iterator right_it = right.begin ();
+	return (a > b ? a : b);
+}
+
+int
+Pmerge::get_min (int a, int b)
+{
+	return (a < b ? a : b);
+}
+
+void
+Pmerge::Ford_Johnson (std::vector<int> &container)
+{
+	std::vector<pair> pairs;
+	create_pairs (container, pairs);
+	merge_sort_pairs (pairs);
+
+	int struggler;
+	create_struggler (container, struggler);
+
+	std::vector<int> temp_container;
+	create_main_chain (pairs, temp_container);
+
+	insertion_sort_pairs (pairs, temp_container, container.size ());
+
+	container = temp_container;
+}
+
+void
+Pmerge::create_pairs (std::vector<int> &container, std::vector<pair> &pairs)
+{
+	int pairs_size = container.size () / 2;
+
+	pairs.resize (pairs_size);
+	pairs.assign (pairs_size, std::vector<int> (2));
+
+	std::vector<int>::iterator big_it = container.begin ();
+
+	for (std::vector<pair>::iterator small_it = pairs.begin ();
+		 small_it != pairs.end (); small_it++)
+		{
+			(*small_it)[MAIN] = get_max (*big_it, *(big_it + 1));
+			(*small_it)[PEND] = get_min (*big_it, *(big_it + 1));
+			big_it += 2;
+		}
+}
+
+void
+Pmerge::merge_sort_pairs (std::vector<pair> &pairs)
+{
+	if (pairs.size () == 1)
+		return;
+
+	std::vector<pair> left (pairs.begin (),
+							pairs.begin () + pairs.size () / 2);
+	std::vector<pair> right (pairs.begin () + pairs.size () / 2, pairs.end ());
+
+	merge_sort_pairs (left);
+	merge_sort_pairs (right);
+
+	merge (pairs, left, right);
+}
+
+void
+Pmerge::merge (std::vector<pair> &pairs, std::vector<pair> &left,
+			   std::vector<pair> &right)
+{
+	std::vector<pair>::iterator temp_it = pairs.begin ();
+	std::vector<pair>::iterator left_it = left.begin ();
+	std::vector<pair>::iterator right_it = right.begin ();
 
 	while (left_it != left.end () && right_it != right.end ())
 		{
-			if (*left_it < *right_it)
+			if ((*left_it)[MAIN] < (*right_it)[MAIN])
 				*temp_it++ = *left_it++;
 			else
 				*temp_it++ = *right_it++;
@@ -50,22 +115,63 @@ Pmerge::merge (std::vector<int> &container, std::vector<int> &left,
 }
 
 void
-Pmerge::merge_container (std::vector<int> &container)
+Pmerge::create_struggler (std::vector<int> &container, int &struggler)
 {
-	if (container.size () == 1)
-		return;
-
-	std::vector<int> left (container.begin (),
-						   container.begin () + container.size () / 2);
-	std::vector<int> right (container.begin () + container.size () / 2,
-							container.end ());
-
-	merge_container (left);
-	merge_container (right);
-
-	merge (container, left, right);
+	if (container.size () % 2)
+		struggler = *(container.end () - 1);
+	else
+		struggler = 0;
 }
 
+void
+Pmerge::create_main_chain (std::vector<pair> &pairs,
+						   std::vector<int> &temp_container)
+{
+	for (std::vector<pair>::iterator it = pairs.begin (); it != pairs.end ();
+		 it++)
+		temp_container.push_back ((*it)[MAIN]);
+}
+
+void
+Pmerge::insertion_sort_pairs (std::vector<pair> &pairs,
+							  std::vector<int> &temp_container,
+							  int container_size)
+{
+	std::vector<int> Jacobsthal (pairs.size ());
+	JacobsthalSequence (Jacobsthal);
+
+	for (std::vector<pair>::iterator pair_it = pairs.begin ();
+		 pair_it != pairs.end (); pair_it++)
+		{
+			int start_index = std::distance (pairs.begin (), pair_it);
+			int start_range = Jacobsthal[start_index];
+			int end_range = Jacobsthal[start_index + 1];
+			while (end_range >= start_range)
+				{
+					int middle_range = (start_range + end_range) / 2;
+					if (temp_container[middle_range] > (*pair_it)[PEND])
+						start_range = middle_range + 1;
+					else if (temp_container[middle_range] < (*pair_it)[PEND])
+						end_range = middle_range - 1;
+					else
+						break;
+				}
+			temp_container.insert (temp_container.begin () + start_index,
+								   (*pair_it)[PEND]);
+		}
+	(void)container_size;
+}
+
+void
+Pmerge::JacobsthalSequence (std::vector<int> &Jacobsthal)
+{
+	Jacobsthal[0] = 0;
+
+	for (size_t i = 0; i < Jacobsthal.size (); i++)
+		Jacobsthal[i + 1] = (pow (2, i + 2) - pow (-1, i + 2)) / 3;
+}
+
+/*
 void
 Pmerge::merge (std::deque<int> &container, std::deque<int> &left,
 			   std::deque<int> &right)
@@ -103,3 +209,43 @@ Pmerge::merge_container (std::deque<int> &container)
 
 	merge (container, left, right);
 }
+
+void
+Pmerge::merge (std::list<int> &container, std::list<int> &left,
+			   std::list<int> &right)
+{
+	std::list<int>::iterator temp_it = container.begin ();
+	std::list<int>::iterator left_it = left.begin ();
+	std::list<int>::iterator right_it = right.begin ();
+
+	while (left_it != left.end () && right_it != right.end ())
+		{
+			if (*left_it < *right_it)
+				*temp_it++ = *left_it++;
+			else
+				*temp_it++ = *right_it++;
+		}
+	while (left_it != left.end ())
+		*temp_it++ = *left_it++;
+	while (right_it != right.end ())
+		*temp_it++ = *right_it++;
+}
+
+void
+Pmerge::merge_container (std::list<int> &container)
+{
+	if (container.size () == 1)
+		return;
+
+	std::list<int>::iterator midpoint = container.begin ();
+	std::advance (midpoint, container.size () / 2);
+
+	std::list<int> left (container.begin (), midpoint);
+	std::list<int> right (midpoint, container.end ());
+
+	merge_container (left);
+	merge_container (right);
+
+	merge (container, left, right);
+}
+*/

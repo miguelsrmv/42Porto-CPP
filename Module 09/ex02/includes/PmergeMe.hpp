@@ -1,10 +1,17 @@
 #ifndef PMERGE_HPP
 #define PMERGE_HPP
 
+#include <cmath>
 #include <cstddef>
 #include <deque>
+#include <list>
 #include <sys/time.h>
 #include <vector>
+
+#define MAIN 0
+#define PEND 1
+
+typedef std::vector<int> pair;
 
 class Pmerge
 {
@@ -14,28 +21,38 @@ class Pmerge
 	const Pmerge &operator= (const Pmerge &copy);
 	~Pmerge ();
 
-	template <typename container> static double merge (container &cont);
+	template <typename container> static double sort (container &cont);
 
   private:
 	static double get_time_diff (timeval start_time, timeval end_time);
+	static int get_max (int a, int b);
+	static int get_min (int a, int b);
 
-	static void merge_container (std::vector<int> &container);
-	static void merge_container (std::deque<int> &container);
+	// For std::vector<int>
+	static void Ford_Johnson (std::vector<int> &container);
+	static void create_pairs (std::vector<int> &container,
+							  std::vector<pair> &pairs);
+	static void merge_sort_pairs (std::vector<pair> &pairs);
+	static void create_struggler (std::vector<int> &container, int &struggler);
+	static void merge (std::vector<pair> &pairs, std::vector<pair> &left,
+					   std::vector<pair> &right);
+	static void create_main_chain (std::vector<pair> &pairs,
+								   std::vector<int> &temp_container);
 
-	static void merge (std::vector<int> &container, std::vector<int> &left,
-					   std::vector<int> &right);
-	static void merge (std::deque<int> &container, std::deque<int> &left,
-					   std::deque<int> &right);
+	static void insertion_sort_pairs (std::vector<pair> &pairs,
+									  std::vector<int> &temp_container,
+									  int container_size);
+	static void JacobsthalSequence (std::vector<int> &Jacobsthal);
 };
 
 template <typename container>
 double
-Pmerge::merge (container &cont)
+Pmerge::sort (container &cont)
 {
 	timeval start_time;
 	gettimeofday (&start_time, NULL);
 
-	merge_container (cont);
+	Ford_Johnson (cont);
 
 	timeval end_time;
 	gettimeofday (&end_time, NULL);

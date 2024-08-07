@@ -71,9 +71,10 @@ main (int argc, char **argv)
 
 	std::vector<int> vector = fill_in_container (std::vector<int> (), argv[1]);
 	std::deque<int> deque = fill_in_container (std::deque<int> (), argv[1]);
+	std::list<int> list = fill_in_container (std::list<int> (), argv[1]);
 
-	double time_1 = Pmerge::merge (vector);
-	double time_2 = Pmerge::merge (deque);
+	double time_1 = Pmerge::sort (vector);
+	double time_2 = Pmerge::sort (vector);
 
 	print_results (argv[1], vector, time_1, time_2);
 
