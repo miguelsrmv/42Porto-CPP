@@ -40,9 +40,11 @@ class Pmerge
 								   std::vector<int> &temp_container);
 
 	static void insertion_sort_pairs (std::vector<pair> &pairs,
-									  std::vector<int> &temp_container,
-									  int container_size);
+									  std::vector<int> &temp_container);
 	static void JacobsthalSequence (std::vector<int> &Jacobsthal);
+	static std::vector<int>::iterator
+	binary_search (int item_to_insert, int search_range,
+				   std::vector<int> &temp_container);
 };
 
 template <typename container>

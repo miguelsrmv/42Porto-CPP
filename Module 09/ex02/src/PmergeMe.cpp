@@ -1,6 +1,7 @@
 #include "PmergeMe.hpp"
 #include <algorithm>
 #include <cstddef>
+#include <iostream>
 #include <sys/time.h>
 
 Pmerge::Pmerge () {}
@@ -53,7 +54,7 @@ Pmerge::Ford_Johnson (std::vector<int> &container)
 	std::vector<int> temp_container;
 	create_main_chain (pairs, temp_container);
 
-	insertion_sort_pairs (pairs, temp_container, container.size ());
+	insertion_sort_pairs (pairs, temp_container);
 
 	container = temp_container;
 }
@@ -134,41 +135,49 @@ Pmerge::create_main_chain (std::vector<pair> &pairs,
 
 void
 Pmerge::insertion_sort_pairs (std::vector<pair> &pairs,
-							  std::vector<int> &temp_container,
-							  int container_size)
+							  std::vector<int> &temp_container)
 {
 	std::vector<int> Jacobsthal (pairs.size ());
 	JacobsthalSequence (Jacobsthal);
 
-	for (std::vector<pair>::iterator pair_it = pairs.begin ();
-		 pair_it != pairs.end (); pair_it++)
+	for (size_t i = 0; i < Jacobsthal.size (); i++)
 		{
-			int start_index = std::distance (pairs.begin (), pair_it);
-			int start_range = Jacobsthal[start_index];
-			int end_range = Jacobsthal[start_index + 1];
-			while (end_range >= start_range)
+			int search_range = Jacobsthal[i] - 1;
+			for (int j = search_range; j > Jacobsthal[i - 1] - 1; j--)
 				{
-					int middle_range = (start_range + end_range) / 2;
-					if (temp_container[middle_range] > (*pair_it)[PEND])
-						start_range = middle_range + 1;
-					else if (temp_container[middle_range] < (*pair_it)[PEND])
-						end_range = middle_range - 1;
-					else
-						break;
+					int item_to_insert = pairs[j][PEND];
+					std::vector<int>::iterator insert_position
+						= binary_search (item_to_insert, search_range,
+										 temp_container);
+					temp_container.insert (insert_position, item_to_insert);
 				}
-			temp_container.insert (temp_container.begin () + start_index,
-								   (*pair_it)[PEND]);
 		}
-	(void)container_size;
+}
+
+std::vector<int>::iterator
+Pmerge::binary_search (int item_to_insert, int search_range,
+					   std::vector<int> &temp_container)
+{
+	int starting_index = 0;
+
+	while (starting_index <= search_range)
+		{
+			int middle_index = (starting_index + search_range) / 2;
+
+			if (temp_container[middle_index] < item_to_insert)
+				search_range = middle_index + 1;
+			else
+				starting_index = middle_index - 1;
+		}
+
+	return (temp_container.begin () + starting_index);
 }
 
 void
 Pmerge::JacobsthalSequence (std::vector<int> &Jacobsthal)
 {
-	Jacobsthal[0] = 0;
-
 	for (size_t i = 0; i < Jacobsthal.size (); i++)
-		Jacobsthal[i + 1] = (pow (2, i + 2) - pow (-1, i + 2)) / 3;
+		Jacobsthal[i] = (pow (2, i + 2) - pow (-1, i + 2)) / 3;
 }
 
 /*
