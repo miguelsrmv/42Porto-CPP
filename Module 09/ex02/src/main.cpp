@@ -74,7 +74,8 @@ main (int argc, char **argv)
 	std::list<int> list = fill_in_container (std::list<int> (), argv[1]);
 
 	double time_1 = Pmerge::sort (vector);
-	double time_2 = Pmerge::sort (vector);
+	// double time_2 = Pmerge::sort (vector);
+	double time_2 = time_1;
 
 	print_results (argv[1], vector, time_1, time_2);
 

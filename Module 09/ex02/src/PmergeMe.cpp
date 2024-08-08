@@ -44,6 +44,10 @@ Pmerge::get_min (int a, int b)
 void
 Pmerge::Ford_Johnson (std::vector<int> &container)
 {
+
+	if (container.size () == 1)
+		return;
+
 	std::vector<pair> pairs;
 	create_pairs (container, pairs);
 	merge_sort_pairs (pairs);
