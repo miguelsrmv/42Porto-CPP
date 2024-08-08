@@ -59,7 +59,7 @@ Pmerge::Ford_Johnson (std::vector<int> &container)
 	if (struggler)
 		{
 			std::vector<int>::iterator final_insertion = binary_search (
-				struggler, temp_container.size (), temp_container);
+				struggler, temp_container.size () - 1, temp_container);
 			temp_container.insert (final_insertion, struggler);
 		}
 
@@ -147,18 +147,22 @@ Pmerge::insertion_sort_pairs (std::vector<pair> &pairs,
 	std::vector<int> Jacobsthal (pairs.size ());
 	JacobsthalSequence (Jacobsthal);
 
+	int insertion_count = 0;
+
 	for (size_t i = 0; i < Jacobsthal.size (); i++)
 		{
 			int search_range = Jacobsthal[i] - 1;
-			for (int j = search_range; j > Jacobsthal[i - 1] - 1; j--)
+			for (int j = Jacobsthal[i] - 1; j > Jacobsthal[i - 1] - 1; j--)
 				{
 					if (j >= static_cast<int> (pairs.size ()))
 						continue;
 					int item_to_insert = pairs[j][PEND];
 					std::vector<int>::iterator insert_position
-						= binary_search (item_to_insert, search_range,
+						= binary_search (item_to_insert,
+										 search_range + insertion_count,
 										 temp_container);
 					temp_container.insert (insert_position, item_to_insert);
+					insertion_count++;
 				}
 		}
 }
