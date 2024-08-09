@@ -1,7 +1,0 @@
-#!/bin/bash
-
-ARG=$(shuf -i 1-1000 -n 3000)
-echo "$ARG" | sort -n > output_gnu
-./PmergeMe "$ARG" > output_vector
-
-diff output_gnu output_vector
