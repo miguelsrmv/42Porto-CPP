@@ -22,6 +22,8 @@ class Pmerge
 	const Pmerge &operator= (const Pmerge &copy);
 	~Pmerge ();
 
+	static bool there_are_duplicates (std::vector<int> &container);
+	static bool there_are_duplicates (std::list<int> &container);
 	template <typename container> static double sort (container &cont);
 
   private:

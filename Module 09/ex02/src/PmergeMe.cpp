@@ -15,6 +15,40 @@ Pmerge::operator= (const Pmerge &copy)
 	return *this;
 }
 
+bool
+Pmerge::there_are_duplicates (std::vector<int> &container)
+{
+	size_t size = container.size ();
+
+	for (size_t i = 0; i < size; ++i)
+		{
+			for (size_t j = i + 1; j < size; ++j)
+				{
+					if (container[i] == container[j])
+						return true;
+				}
+		}
+	return false;
+}
+
+bool
+Pmerge::there_are_duplicates (std::list<int> &container)
+{
+	for (std::list<int>::iterator i = container.begin ();
+		 i != container.end (); ++i)
+		{
+			std::list<int>::iterator j = i;
+			++j;
+			while (j != container.end ())
+				{
+					if (*i == *j)
+						return true;
+					++j;
+				}
+		}
+	return false;
+}
+
 Pmerge::~Pmerge () {}
 
 double
@@ -158,11 +192,8 @@ Pmerge::insertion_sort_pairs (std::vector<pair_vector> &pairs,
 
 	for (size_t i = 0; i < Jacobsthal.size (); i++)
 		{
-			int search_range = Jacobsthal[i] - 1;
+			int search_range = Jacobsthal[i] + insertion_count;
 			int prev_range = (i > 0) ? Jacobsthal[i - 1] - 1 : -1;
-
-			if (search_range >= static_cast<int> (pairs.size ()))
-				search_range = pairs.size () - 1;
 
 			for (int j = Jacobsthal[i] - 1; j > prev_range; j--)
 				{
@@ -170,11 +201,12 @@ Pmerge::insertion_sort_pairs (std::vector<pair_vector> &pairs,
 						j = pairs.size () - 1;
 					int item_to_insert = pairs[j][PEND];
 					std::vector<int>::iterator insert_position
-						= binary_search (item_to_insert,
-										 search_range + insertion_count,
+						= binary_search (item_to_insert, search_range,
 										 temp_container);
 					temp_container.insert (insert_position, item_to_insert);
 					insertion_count++;
+					if (temp_container.size () == pairs.size () * 2)
+						return;
 				}
 		}
 }
@@ -332,29 +364,26 @@ Pmerge::insertion_sort_pairs (std::list<pair_list> &pairs,
 			std::advance (Jacobsthal_iterator, i);
 
 			std::list<int>::iterator Prev_Jacobsthal_iterator
-				= Jacobsthal_iterator;
-			std::advance (Prev_Jacobsthal_iterator, -1);
+				= Jacobsthal.begin ();
+			std::advance (Prev_Jacobsthal_iterator, i - 1);
 
-			int search_range = *Jacobsthal_iterator - 1;
+			int search_range = *Jacobsthal_iterator + insertion_count;
 			int prev_range = (i > 0) ? (*Prev_Jacobsthal_iterator) - 1 : -1;
-
-			if (search_range >= static_cast<int> (pairs.size ()))
-				search_range = pairs.size () - 1;
 
 			for (int j = *Jacobsthal_iterator - 1; j > prev_range; j--)
 				{
 					if (j >= static_cast<int> (pairs.size ()))
 						j = pairs.size () - 1;
-
 					std::list<pair_list>::iterator pairs_iterator
 						= pairs.begin ();
 					std::advance (pairs_iterator, j);
 					int item_to_insert = (*pairs_iterator).back ();
 					std::list<int>::iterator insert_position = binary_search (
-						item_to_insert, search_range + insertion_count,
-						temp_container);
+						item_to_insert, search_range, temp_container);
 					temp_container.insert (insert_position, item_to_insert);
 					insertion_count++;
+					if (temp_container.size () == pairs.size () * 2)
+						return;
 				}
 		}
 }
