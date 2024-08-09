@@ -3,7 +3,6 @@
 
 #include <cmath>
 #include <cstddef>
-#include <deque>
 #include <list>
 #include <sys/time.h>
 #include <vector>

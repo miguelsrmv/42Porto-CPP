@@ -367,7 +367,7 @@ Pmerge::insertion_sort_pairs (std::list<pair_list> &pairs,
 				= Jacobsthal.begin ();
 			std::advance (Prev_Jacobsthal_iterator, i - 1);
 
-			int search_range = *Jacobsthal_iterator + insertion_count;
+			size_t search_range = *Jacobsthal_iterator + insertion_count;
 			int prev_range = (i > 0) ? (*Prev_Jacobsthal_iterator) - 1 : -1;
 
 			for (int j = *Jacobsthal_iterator - 1; j > prev_range; j--)
@@ -394,12 +394,16 @@ Pmerge::binary_search (int item_to_insert, int search_range,
 {
 	std::list<int>::iterator left = temp_container.begin ();
 	std::list<int>::iterator right = temp_container.begin ();
+
+	if (static_cast<size_t> (search_range) > temp_container.size () - 1)
+		search_range = temp_container.size () - 1;
+
 	std::advance (right, search_range);
 
 	while (left != right)
 		{
 			std::list<int>::iterator mid = left;
-			std::advance (mid, std::distance (mid, right) / 2);
+			std::advance (mid, std::distance (left, right) / 2);
 
 			if (*mid < item_to_insert)
 				left = ++mid;

@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include <cstring>
 #include <iostream>
 #include <limits>
 #include <sstream>
@@ -7,15 +8,29 @@
 bool
 input_is_valid (const std::string &input)
 {
-	std::stringstream stream (input);
+	int begin = 0;
+	while (input[begin] == ' ')
+		begin++;
+
+	int end = input.size ();
+	while (input[end] == ' ')
+		end--;
+
+	std::string trimmed_input = input.substr (begin, end - begin + 1);
+
+	std::stringstream stream (trimmed_input);
 	std::string token;
 	long buffer;
+
+	if (stream.peek () == std::stringstream::traits_type::eof ())
+		return false;
 
 	while (stream >> token)
 		{
 			std::stringstream small_stream (token);
 			if (!(small_stream >> buffer) || buffer <= 0
-				|| buffer > std::numeric_limits<int>::max ())
+				|| static_cast<long> (buffer)
+					   > std::numeric_limits<int>::max ())
 				return false;
 		}
 
@@ -53,21 +68,11 @@ print_results (const char *input, const container &container_1, double time_1,
 	int container_size = container_1.size ();
 	// Prints time it took for container #1 to be sorted
 	std::cout << "Time to process a range of " << container_size
-			  << " elements with container #1 " << time_1 << std::endl;
+			  << " elements with std::vector " << time_1 << " us" << std::endl;
 
 	// Prints time it took container #2 to be sorted
 	std::cout << "Time to process a range of " << container_size
-			  << " elements with container #2 " << time_2 << std::endl;
-}
-
-template <typename container>
-void
-print_results2 (const container &container_temp)
-{
-	for (typename container::const_iterator it = container_temp.begin ();
-		 it != container_temp.end (); it++)
-		std::cout << *it << std::endl;
-	std::cout << std::endl;
+			  << " elements with std::list " << time_2 << " us" << std::endl;
 }
 
 int
@@ -80,7 +85,6 @@ main (int argc, char **argv)
 		}
 
 	std::vector<int> vector = fill_in_container (std::vector<int> (), argv[1]);
-	std::deque<int> deque = fill_in_container (std::deque<int> (), argv[1]);
 	std::list<int> list = fill_in_container (std::list<int> (), argv[1]);
 
 	if (Pmerge::there_are_duplicates (vector)
@@ -93,10 +97,7 @@ main (int argc, char **argv)
 	double time_1 = Pmerge::sort (vector);
 	double time_2 = Pmerge::sort (list);
 
-	print_results2 (vector);
-	print_results2 (list);
-	(void)time_1;
-	(void)time_2;
+	print_results (argv[1], vector, time_1, time_2);
 
 	return 0;
 }

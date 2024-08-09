@@ -196,11 +196,22 @@ BitcoinExchange::date_value_is_valid (const std::string &date)
 	std::tm tm = get_time_struct (date);
 
 	// Returns false if it's not a date
-	if (std::mktime (&tm) == -1)
+	tm.tm_mon -= 1;
+	tm.tm_year -= 1900;
+
+	std::tm normalized = tm;
+	if (std::mktime (&normalized) == -1)
+		return false;
+
+	if ((normalized.tm_year != tm.tm_year || normalized.tm_mon != tm.tm_mon
+		 || normalized.tm_mday != tm.tm_mday))
 		return false;
 
 	// Returns false if the date is earlier than the first database value
 	std::tm first_tm = get_time_struct (_database.begin ()->first);
+	first_tm.tm_mon -= 1;
+	first_tm.tm_year -= 1900;
+
 	if (std::mktime (&tm) < std::mktime (&first_tm))
 		return false;
 
@@ -245,6 +256,10 @@ BitcoinExchange::value_is_valid (const std::string &value,
 
 	size_t i = 0;
 
+	// Excludes negative numbers
+	if (value[i] == '-')
+		return error_log (ERROR_NEGATIVE_NUMBER);
+
 	// Tolerates one +
 	if (value[i] == '+')
 		i++;
@@ -272,8 +287,6 @@ BitcoinExchange::value_is_valid (const std::string &value,
 				|| value.find ('.') == value.length () - 1)
 				return error_log (std::string (ERROR_BAD_INPUT) + buffer);
 		}
-
-	std::cout << "Value find:" << value.find ('.');
 
 	// Checks that the number is, at most, 1000
 	std::string unit_part = value.substr (0, value.find ('.'));
